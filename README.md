@@ -1,31 +1,52 @@
-# **Desarrollo de Aplicaciones Web - Proyecto Integrador**
+# Desarrollo de Aplicaciones Web - Proyecto Integrador
 
-Repositorio del proyecto desarrollado para la asignatura Desarrollo de Aplicaciones Web de la Universidad Estatal Amazónica, carrera de Ingeniería en Tecnologías de la Información.
+Este repositorio contiene el proyecto desarrollado para la asignatura Desarrollo de Aplicaciones Web de la Universidad Estatal Amazónica, en la carrera de Ingeniería en Tecnologías de la Información.
 
-## **Descripción**
+## Descripción
 
-Este proyecto corresponde a la actividad práctica de la Semana 2, cuyo objetivo es familiarizarse con las herramientas básicas utilizadas en el desarrollo web.
-La actividad consistió en instalar y configurar Visual Studio Code, crear una página web básica utilizando HTML, visualizar su funcionamiento en un navegador web y publicar el archivo en un repositorio de GitHub.
-La página desarrollada presenta la información inicial de un sistema denominado AgroTech, una plataforma orientada a la gestión y control de actividades agrícolas. Para ello se utilizaron las etiquetas básicas de encabezado de HTML, permitiendo mostrar un título principal, un subtítulo descriptivo y el nombre del autor del proyecto.
+AgroTech es un proyecto académico que tiene como finalidad apoyar a los productores agrícolas mediante una plataforma digital sencilla y fácil de utilizar. El sistema está orientado al registro y control de actividades relacionadas con cultivos, cosechas y recursos utilizados en el campo.
 
-## **Actividades realizadas**
+A medida que avanza la asignatura, este proyecto irá incorporando nuevas funcionalidades y mejoras, aplicando los conocimientos adquiridos en cada semana de estudio.
 
-* Instalación y configuración de Visual Studio Code.
-* Creación de una carpeta para el proyecto.
-* Desarrollo del archivo index.html.
-* Implementación de la estructura básica de HTML.
-* Creación de encabezados utilizando las etiquetas h1, h2 y h3.
-* Visualización y comprobación del funcionamiento de la página en el navegador.
-* Creación de un repositorio en GitHub.
-* Publicación del archivo index.html en el repositorio.
+## Avances realizados
 
-## **Objetivos**
+### Semana 2
 
-* Comprender la estructura básica de una página web en HTML.
-* Utilizar Visual Studio Code como editor de código.
-* Aprender el proceso de creación y edición de archivos HTML.
-* Familiarizarse con GitHub para la publicación y gestión de proyectos.
-* Aplicar conceptos básicos del desarrollo web.
-  
-  ## **Autor**
-  **Jeison Teobaldo Garcia Arreaga**
+En esta semana se desarrolló la primera página web del proyecto utilizando HTML. Se realizó la instalación y configuración de Visual Studio Code, la creación del archivo `index.html` y la publicación del proyecto en GitHub.
+
+La página inicial incluyó:
+
+- Nombre del proyecto AgroTech.
+- Descripción general del sistema.
+- Nombre del estudiante responsable del desarrollo.
+
+### Semana 3
+
+En esta etapa se mejoró la página web incorporando una estructura completa de HTML5 y etiquetas semánticas para organizar mejor el contenido.
+
+Se agregaron los siguientes elementos:
+
+- Menú de navegación.
+- Sección de inicio.
+- Sección "Quiénes Somos".
+- Lista de servicios del sistema.
+- Información de contacto.
+- Imagen relacionada con la agricultura.
+- Video sobre agricultura inteligente.
+- Información complementaria.
+- Pie de página con los datos del estudiante.
+
+## Objetivos del proyecto
+
+- Aprender los fundamentos del desarrollo web.
+- Utilizar Visual Studio Code como herramienta de programación.
+- Aplicar correctamente la estructura HTML5.
+- Gestionar proyectos mediante Git y GitHub.
+- Desarrollar progresivamente una aplicación web relacionada con el sector agrícola.
+
+## Autor
+
+**Jeison Teobaldo García Arreaga**
+
+Estudiante de Ingeniería en Tecnologías de la Información  
+Universidad Estatal Amazónica
