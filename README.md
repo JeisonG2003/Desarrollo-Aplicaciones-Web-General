@@ -5,9 +5,7 @@ Repositorio del proyecto desarrollado para la asignatura Desarrollo de Aplicacio
 ## **Descripción**
 
 Este proyecto corresponde a la actividad práctica de la Semana 2, cuyo objetivo es familiarizarse con las herramientas básicas utilizadas en el desarrollo web.
-
 La actividad consistió en instalar y configurar Visual Studio Code, crear una página web básica utilizando HTML, visualizar su funcionamiento en un navegador web y publicar el archivo en un repositorio de GitHub.
-
 La página desarrollada presenta la información inicial de un sistema denominado AgroTech, una plataforma orientada a la gestión y control de actividades agrícolas. Para ello se utilizaron las etiquetas básicas de encabezado de HTML, permitiendo mostrar un título principal, un subtítulo descriptivo y el nombre del autor del proyecto.
 
 ## **Actividades realizadas**
