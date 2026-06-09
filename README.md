@@ -1,4 +1,4 @@
-# **Desarrollo Web Semana 2**
+# **Desarrollo de Aplicaciones Web - Proyecto Integrador**
 
 Repositorio del proyecto desarrollado para la asignatura Desarrollo de Aplicaciones Web de la Universidad Estatal Amazónica, carrera de Ingeniería en Tecnologías de la Información.
 
