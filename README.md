@@ -14,7 +14,7 @@ La página desarrollada presenta la información inicial de un sistema denominad
 * Creación de una carpeta para el proyecto.
 * Desarrollo del archivo index.html.
 * Implementación de la estructura básica de HTML.
-* Creación de encabezados utilizando las etiquetas <h1>, <h2> y <h3>.
+* Creación de encabezados utilizando las etiquetas h1, h2 y h3.
 * Visualización y comprobación del funcionamiento de la página en el navegador.
 * Creación de un repositorio en GitHub.
 * Publicación del archivo index.html en el repositorio.
