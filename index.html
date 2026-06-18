@@ -5,150 +5,486 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sistema AgroTech</title>
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        body {
+            background-color: #f4f7f4;
+            font-family: Arial, sans-serif;
+        }
+
+        header {
+            background-color: #2e7d32;
+            color: white;
+            padding: 30px;
+        }
+
+        .seccion {
+            padding: 30px;
+        }
+
+        p {
+            text-align: justify;
+        }
+
+        h2 {
+            text-align: center;
+        }
+
+        .card {
+            box-shadow: 0px 2px 8px rgba(0,0,0,0.2);
+            transition: 0.3s;
+        }
+
+        .card:hover {
+            transform: scale(1.03);
+        }
+
+        footer {
+            background-color: #2e7d32;
+            color: white;
+            padding: 15px;
+        }
+
+        aside {
+            background-color: #e8f5e9;
+            border-radius: 10px;
+        }
+
+        iframe {
+            max-width: 100%;
+        }
+
+        @media (max-width: 768px) {
+
+            h1 {
+                font-size: 28px;
+            }
+
+            h2 {
+                font-size: 22px;
+            }
+
+            iframe {
+                width: 100%;
+                height: auto;
+            }
+        }
+    </style>
 </head>
 
 <body>
 
-    <header style="text-align: center;">
-    <h1>Sistema AgroTech</h1>
-    <h2>Plataforma digital para la gestión y control de actividades agrícolas</h2>
-    <h3>Desarrollado por Jeison Teobaldo García Arreaga</h3>
-</header>
+    <!-- ENCABEZADO -->
+    <header class="text-center">
+        <h1>Sistema AgroTech</h1>
+        <h2>Plataforma digital para la gestión y control de actividades agrícolas</h2>
+        <h4>Desarrollado por Jeison Teobaldo García Arreaga</h4>
+    </header>
 
-    <nav>
-        <a href="#inicio">Inicio</a> |
-        <a href="#quienes-somos">Quiénes Somos</a> |
-        <a href="#servicios">Servicios</a> |
-        <a href="#contacto">Contacto</a>
-    </nav>
+    <!-- MENÚ -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
 
-    <main>
+            <a class="navbar-brand" href="#">AgroTech</a>
 
-        <section id="inicio">
-            <h2>Inicio</h2>
-            <p>
-                Bienvenido a AgroTech. Este sistema fue creado para ayudar a los
-                agricultores a organizar mejor sus actividades diarias, registrar
-                cultivos y llevar un control más eficiente de la producción agrícola.
-                Nuestro objetivo es facilitar la administración de la información
-                relacionada con cultivos, cosechas y recursos utilizados en el campo.
-            </p>
-        </section>
+            <button class="navbar-toggler" type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#menu">
+                <span class="navbar-toggler-icon"></span>
+            </button>
 
-        <section id="quienes-somos">
-            <h2>Quiénes Somos</h2>
+            <div class="collapse navbar-collapse" id="menu">
 
-            <article>
-                <p>
-                    AgroTech es un proyecto académico orientado al desarrollo de una
-                    plataforma digital para apoyar a los productores agrícolas en la
-                    gestión de sus actividades diarias. El objetivo principal del sistema
-                    es facilitar el registro de cultivos, el seguimiento de cosechas y la
-                    organización de los recursos utilizados en el campo. AgroTech busca
-                    brindar una herramienta sencilla, práctica y accesible para mejorar
-                    la administración de la información agrícola. Además, permite llevar
-                    un mejor control de las tareas realizadas, ayudando a optimizar el
-                    trabajo diario de los agricultores. Este proyecto representa una
-                    propuesta tecnológica que contribuye al crecimiento del sector
-                    agrícola mediante el uso de herramientas digitales fáciles de
-                    comprender y utilizar, promoviendo una agricultura más eficiente,
-                    organizada y sostenible.
-                </p>
-            </article>
-            
-            <div style="text-align: center;">
-                <img src="img/agrotech.jpg" alt="Actividad agrícola" width="600">
-            
-                <p>
-                    <strong>Imagen representativa del uso de tecnología en la agricultura moderna.</strong>
-                </p>
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#inicio">Inicio</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="#quienes-somos">Quiénes Somos</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="#servicios">Servicios</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="#contacto">Contacto</a>
+                    </li>
+                </ul>
+
             </div>
 
-           
+        </div>
+    </nav>
+
+    <main class="container">
+
+        <!-- INICIO -->
+        <section id="inicio" class="seccion">
+
+            <h2 class="text-center">Inicio</h2>
+
+            <p>
+                Bienvenido a AgroTech. Este sistema fue desarrollado para ayudar
+                a los agricultores a organizar mejor sus actividades diarias,
+                registrar cultivos y llevar un control más eficiente de la
+                producción agrícola. Nuestro objetivo es facilitar la gestión
+                de información relacionada con cultivos, cosechas y recursos
+                utilizados en el campo mediante herramientas tecnológicas.
+            </p>
+
+            <div class="text-center mt-3">
+                <a href="#servicios" class="btn btn-success">
+                Conocer Servicios
+                </a>
+            </div>
+            
         </section>
 
-        <section id="servicios">
-            <h2>Servicios</h2>
+        <!-- QUIÉNES SOMOS -->
+        <section id="quienes-somos" class="seccion">
 
-            <ul>
-                <li>Registro de cultivos.</li>
-                <li>Control de cosechas.</li>
-                <li>Gestión de recursos agrícolas.</li>
-                <li>Seguimiento de actividades agrícolas.</li>
-                <li>Generación de reportes básicos.</li>
-            </ul>
+            <h2 class="text-center mb-4">Quiénes Somos</h2>
+
+            <div class="row align-items-center">
+
+                <div class="col-md-6">
+
+                    <article>
+
+                        <p>
+                            AgroTech es un proyecto académico orientado al desarrollo
+                            de una plataforma digital para apoyar a los productores
+                            agrícolas en la gestión de sus actividades diarias. El
+                            objetivo principal del sistema es facilitar el registro
+                            de cultivos, el seguimiento de cosechas y la organización
+                            de los recursos utilizados en el campo. AgroTech busca
+                            brindar una herramienta sencilla, práctica y accesible
+                            para mejorar la administración de la información agrícola.
+                            Además, permite llevar un mejor control de las tareas
+                            realizadas, ayudando a optimizar el trabajo diario de los
+                            agricultores. Este proyecto representa una propuesta
+                            tecnológica que contribuye al crecimiento del sector
+                            agrícola mediante el uso de herramientas digitales fáciles
+                            de comprender y utilizar, promoviendo una agricultura más
+                            eficiente, organizada y sostenible.
+                        </p>
+
+                        <p>
+                            Además, AgroTech promueve el uso responsable de la tecnología dentro del
+                            sector agrícola, incentivando la innovación y el desarrollo sostenible.
+                            Mediante el uso de herramientas digitales, los productores pueden acceder
+                            a información organizada, optimizar el uso de recursos y mejorar la
+                            planificación de sus actividades. Este proyecto demuestra cómo la tecnología
+                            puede convertirse en una aliada importante para el crecimiento y
+                            modernización de la agricultura.
+                        </p>
+
+                    </article>
+
+                </div>
+
+                <div class="col-md-6 text-center">
+
+                    <img src="img/agrotech.jpg"
+                        alt="Actividad agrícola"
+                        class="img-fluid rounded">
+
+                    <p class="mt-3">
+                        <strong>
+                            Imagen representativa del uso de tecnología en la agricultura moderna.
+                        </strong>
+                    </p>
+
+                </div>
+
+            </div>
+
         </section>
 
-        <section id="contacto">
-            <h2>Contacto</h2>
+        <!-- SERVICIOS -->
+        <section id="servicios" class="seccion">
 
-            <p>Correo electrónico: garciaarreagaj@gmail.com</p>
-            <p>Teléfono: 0989229387</p>
-            <p>Dirección: Santa Lucía - Guayaquil - Guayas</p>
+            <h2 class="text-center mb-4">Servicios</h2>
 
-            <a href="https://www.facebook.com" target="_blank">Facebook</a><br>
-            <a href="https://www.instagram.com" target="_blank">Instagram</a>
+            <div class="row">
+
+                <div class="col-md-4 mb-3">
+
+                    <div class="card p-3">
+
+                        <h4>Registro de Cultivos</h4>
+
+                        <p>
+                            Permite almacenar información detallada sobre cada
+                            cultivo para una mejor organización agrícola.
+                        </p>
+
+                    </div>
+
+                </div>
+
+                <div class="col-md-4 mb-3">
+
+                    <div class="card p-3">
+
+                        <h4>Control de Cosechas</h4>
+
+                        <p>
+                            Facilita el seguimiento de la producción y la
+                            planificación de futuras cosechas.
+                        </p>
+
+                    </div>
+
+                </div>
+
+                <div class="col-md-4 mb-3">
+
+                    <div class="card p-3">
+
+                        <h4>Reportes Agrícolas</h4>
+
+                        <p>
+                            Generación de reportes básicos para apoyar la toma
+                            de decisiones dentro de la actividad agrícola.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
         </section>
 
-        <section>
-    <h2>Tecnología aplicada a la agricultura</h2>
+        <!-- VIDEO -->
 
-    <p>
-        La tecnología está transformando la manera en que se desarrollan las
-        actividades agrícolas en todo el mundo. El siguiente video presenta
-        algunos ejemplos de agricultura inteligente, mostrando cómo herramientas
-        como la inteligencia artificial, los drones, los sensores y el análisis
-        de datos ayudan a los productores a tomar mejores decisiones, optimizar
-        recursos y aumentar la productividad de los cultivos. Este contenido se
-        relaciona con el proyecto AgroTech, ya que demuestra la importancia de
-        implementar soluciones tecnológicas para mejorar la gestión agrícola y
-        contribuir al desarrollo sostenible del sector.
-    </p>
+        <section class="seccion">
 
-    <div style="text-align: center;">
-        <iframe width="560" height="315"
-            src="https://www.youtube.com/embed/d4pmpjDsuXU?si=nvEM0w70VgagFsY0&amp;start=28"
-            title="Agricultura Inteligente: El Futuro de la Tecnología en el Campo"
-            frameborder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            referrerpolicy="strict-origin-when-cross-origin"
-            allowfullscreen>
-        </iframe>
-    </div>
+        <h2>Tecnología aplicada a la agricultura</h2>
 
-</section>
-        
+        <p>
+            La agricultura moderna está experimentando una importante transformación
+            gracias al uso de nuevas tecnologías que permiten optimizar los procesos
+            de producción y mejorar el aprovechamiento de los recursos disponibles.
+            Actualmente, herramientas como la inteligencia artificial, los drones,
+            los sensores inteligentes y los sistemas de monitoreo digital ayudan a
+            los agricultores a tomar decisiones más precisas sobre el riego,
+            fertilización y control de plagas. Estas innovaciones permiten aumentar
+            la productividad de los cultivos, reducir costos y contribuir a una
+            agricultura más sostenible y amigable con el medio ambiente.
+        </p>
+
+        <p>
+            El proyecto AgroTech se inspira en estas tecnologías modernas, ya que
+            busca ofrecer una plataforma que facilite la gestión de la información
+            agrícola y el seguimiento de las actividades realizadas en el campo.
+            A través de herramientas digitales, los productores pueden llevar un
+            mejor control de sus cultivos, organizar sus recursos y optimizar sus
+            actividades diarias.
+        </p>
+
+        <div class="text-center my-4">
+            <iframe width="560" height="315"
+                src="https://www.youtube.com/embed/d4pmpjDsuXU?start=28"
+                title="Agricultura Inteligente"
+                allowfullscreen>
+            </iframe>
+        </div>
+
+        <h3 class="text-center">Importancia de la tecnología agrícola</h3>
+
+        <p>
+            La incorporación de tecnología en el sector agrícola representa una gran
+            oportunidad para mejorar la eficiencia de la producción y garantizar una
+            mejor administración de los recursos. Gracias a los avances tecnológicos,
+            los agricultores pueden monitorear sus cultivos en tiempo real, detectar
+            problemas antes de que afecten la producción y planificar de manera más
+            efectiva las actividades agrícolas.
+        </p>
+
+        <p>
+            Sistemas inteligentes como AgroTech permiten centralizar la información
+            de los cultivos, registrar actividades importantes y facilitar la toma
+            de decisiones. Estas herramientas ayudan a incrementar la productividad,
+            reducir pérdidas y promover prácticas agrícolas más sostenibles para el
+            beneficio de productores, consumidores y del medio ambiente.
+        </p>
+
+    </section>
+
+
+        <!-- BENEFICIOS -->
+        <section class="seccion">
+
+            <h2 class="text-center mb-4">Beneficios de AgroTech</h2>
+
+            <div class="row">
+
+                <div class="col-md-4">
+
+                    <div class="card p-3 mb-3">
+
+                        <h4>Mayor Organización</h4>
+
+                        <p>
+                            Permite registrar información importante sobre cultivos,
+                            cosechas y actividades agrícolas en un solo lugar.
+                        </p>
+
+                    </div>
+
+                </div>
+
+                <div class="col-md-4">
+
+                    <div class="card p-3 mb-3">
+
+                        <h4>Mejor Toma de Decisiones</h4>
+
+                        <p>
+                            Facilita el seguimiento de procesos agrícolas mediante
+                            reportes e información actualizada.
+                        </p>
+
+                    </div>
+
+                </div>
+
+                <div class="col-md-4">
+
+                    <div class="card p-3 mb-3">
+
+                        <h4>Uso de Tecnología</h4>
+
+                        <p>
+                            Promueve la implementación de herramientas digitales para
+                            mejorar la productividad y eficiencia en el campo.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <p class="text-center mt-3">
+                AgroTech busca convertirse en una herramienta de apoyo para agricultores
+                y productores que desean aprovechar los beneficios de la tecnología para
+                optimizar sus procesos y mejorar la gestión de sus actividades diarias.
+            </p>
+
+        </section>
+
+        <!-- CONTACTO -->
+        <section id="contacto" class="seccion">
+
+            <h2 class="text-center mb-4">Contacto</h2>
+
+            <div class="row">
+
+                <div class="col-md-6">
+
+                    <p><strong>Correo:</strong> garciaarreagaj@gmail.com</p>
+                    <p><strong>Teléfono:</strong> 0989229387</p>
+                    <p><strong>Dirección:</strong> Santa Lucía - Guayaquil - Guayas</p>
+
+                    <a href="mailto:garciaarreagaj@gmail.com"
+                        class="btn btn-primary m-1">
+                        Correo
+                    </a>
+
+                    <a href="https://www.facebook.com"
+                        target="_blank"
+                        class="btn btn-primary m-1">
+                        Facebook
+                    </a>
+
+                    <a href="https://www.instagram.com"
+                        target="_blank"
+                        class="btn btn-danger m-1">
+                        Instagram
+                    </a>
+
+                </div>
+
+                <div class="col-md-6">
+
+                    <form>
+
+                        <input type="text"
+                            class="form-control mb-3"
+                            placeholder="Nombre">
+
+                        <input type="email"
+                            class="form-control mb-3"
+                            placeholder="Correo electrónico">
+
+                        <input type="text"
+                            class="form-control mb-3"
+                            placeholder="Asunto">
+
+                        <textarea
+                            class="form-control mb-3"
+                            rows="4"
+                            placeholder="Mensaje"></textarea>
+
+                        <button class="btn btn-success">
+                            Enviar mensaje
+                        </button>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </section>
+
     </main>
 
+    <!-- ASIDE -->
+    <aside class="container text-center p-4 my-4">
 
-    <aside style="text-align: center; background-color: #f5f5f5; padding: 15px;">
-    <h2>Información adicional</h2>
+        <h2>Información adicional</h2>
 
-    <p>
-        AgroTech ofrece capacitación gratuita para nuevos usuarios interesados
-        en aprender sobre el manejo de herramientas tecnológicas aplicadas a la agricultura.
-    </p>
+        <p>
+            AgroTech ofrece capacitación gratuita para nuevos usuarios interesados
+            en aprender sobre herramientas tecnológicas aplicadas a la agricultura.
+        </p>
 
-    <p>
-        Asesoría básica para productores agrícolas que desean mejorar la gestión
-        de cultivos mediante soluciones digitales.
-    </p>
+        <p>
+            También brinda asesoría básica para productores agrícolas que desean
+            mejorar la gestión de cultivos mediante soluciones digitales.
+        </p>
 
-    <h3>Horario de Atención</h3>
+        <h4>Horario de Atención</h4>
 
-    <p>
-        Lunes a Viernes: 08:00 - 17:00
-    </p>
-</aside>
+        <p>
+            Lunes a Viernes: 08:00 - 17:00
+        </p>
 
-<footer style="text-align: center; background-color: #e8e8e8; padding: 10px;">
-    <p>
-        Elaborado por: Jeison Teobaldo García Arreaga |
-        Desarrollo de Aplicaciones Web |
-        2026
-    </p>
-</footer>
+    </aside>
+
+    <!-- FOOTER -->
+    <footer class="text-center">
+
+        <p>
+            Elaborado por: Jeison Teobaldo García Arreaga |
+            Desarrollo de Aplicaciones Web |
+            2026
+        </p>
+
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>
 
 </html>
+```
