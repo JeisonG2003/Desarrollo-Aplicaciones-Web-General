@@ -381,6 +381,80 @@
 
         </section>
 
+        <!-- REGISTRO DE CULTIVOS -->
+        <section id="registro-cultivos" class="seccion">
+
+            <h2 class="text-center mb-4">
+                Gestión de Cultivos AgroTech
+            </h2>
+
+            <p>
+                Esta sección permite registrar información básica sobre los cultivos
+                administrados dentro del sistema AgroTech. El usuario puede ingresar
+                el nombre del cultivo, una descripción y su categoría. Los registros
+                se mostrarán dinámicamente en pantalla sin necesidad de recargar la página.
+            </p>
+
+            <div class="row">
+
+                <div class="col-md-5">
+
+                    <form id="formCultivo">
+
+                        <input
+                            type="text"
+                            id="nombre"
+                            class="form-control mb-3"
+                            placeholder="Nombre del cultivo">
+
+                        <textarea
+                            id="descripcion"
+                            class="form-control mb-3"
+                            rows="4"
+                            placeholder="Descripción del cultivo"></textarea>
+
+                        <select
+                            id="categoria"
+                            class="form-control mb-3">
+
+                            <option value="">
+                                Seleccione una categoría
+                            </option>
+
+                            <option>Grano</option>
+                            <option>Fruta</option>
+                            <option>Hortaliza</option>
+                            <option>Leguminosa</option>
+
+                        </select>
+
+                        <button
+                            type="submit"
+                            class="btn btn-success">
+                            Registrar Cultivo
+                        </button>
+
+                    </form>
+
+                    <div id="mensaje" class="mt-3"></div>
+
+                </div>
+
+                <div class="col-md-7">
+
+                    <h4>
+                        Total de cultivos registrados:
+                        <span id="totalRegistros">0</span>
+                    </h4>
+
+                    <div id="listaCultivos"></div>
+
+                </div>
+
+            </div>
+
+        </section>
+
         <!-- CONTACTO -->
         <section id="contacto" class="seccion">
 
@@ -483,6 +557,8 @@
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script src="script.js"></script>
 
 </body>
 
