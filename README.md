@@ -36,6 +36,33 @@ Se agregaron los siguientes elementos:
 - Información complementaria.
 - Pie de página con los datos del estudiante.
 
+### Semana 4
+
+Durante esta semana se incorporaron estilos visuales utilizando CSS3 y Bootstrap para mejorar la presentación y experiencia de usuario.
+
+Se realizaron las siguientes mejoras:
+
+- Diseño responsivo adaptable a computadoras, tabletas y teléfonos móviles.
+- Uso de Bootstrap para la organización de componentes visuales.
+- Personalización de colores, tipografías y secciones del proyecto.
+- Mejor presentación de imágenes, tarjetas y formularios.
+- Optimización de la estructura visual de la página web.
+
+### Semana 5 
+
+En esta etapa se incorporó JavaScript para agregar interactividad y manipulación dinámica del DOM.
+
+Se desarrolló un módulo de gestión de cultivos que permite:
+
+- Registrar cultivos mediante un formulario.
+- Validar que los campos obligatorios no estén vacíos.
+- Mostrar mensajes dinámicos de éxito y validación.
+- Crear registros dinámicamente sin recargar la página.
+- Mostrar el total de cultivos registrados.
+- Eliminar registros mediante botones y eventos de JavaScript.
+- Aplicar manipulación del DOM utilizando createElement(), appendChild() y remove().
+- Gestionar eventos mediante addEventListener() y preventDefault().
+
 ## Objetivos del proyecto
 
 - Aprender los fundamentos del desarrollo web.
