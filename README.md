@@ -63,6 +63,23 @@ Se desarrolló un módulo de gestión de cultivos que permite:
 - Aplicar manipulación del DOM utilizando createElement(), appendChild() y remove().
 - Gestionar eventos mediante addEventListener() y preventDefault().
 
+### Semana 6
+
+Durante esta semana se mejoró el formulario de registro mediante validaciones dinámicas con JavaScript, permitiendo controlar la información antes de ser registrada.
+
+Las mejoras implementadas fueron:
+
+- Validación de campos obligatorios.
+- Validación de longitud mínima del nombre del cultivo.
+- Validación de longitud mínima de la descripción.
+- Validación de selección de la categoría.
+- Validaciones en tiempo real mediante los eventos `input`, `blur` y `change`.
+- Mensajes de error mostrados debajo de cada campo.
+- Aplicación de las clases `is-valid` e `is-invalid` de Bootstrap.
+- Uso de `alert-success`, `alert-danger` y `alert-warning` para informar al usuario.
+- Registro de cultivos únicamente cuando todas las validaciones son correctas.
+- Conservación de las funciones para registrar, mostrar, contar y eliminar cultivos dinámicamente sin recargar la página.
+
 ## Objetivos del proyecto
 
 - Aprender los fundamentos del desarrollo web.
