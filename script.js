@@ -11,18 +11,20 @@ const errorNombre = document.getElementById("errorNombre");
 const errorDescripcion = document.getElementById("errorDescripcion");
 const errorCategoria = document.getElementById("errorCategoria");
 
-let contador = 0;
+// Arreglo que almacenará los cultivos
+let cultivos = [];
 
-// VALIDAR NOMBRE
+// ===============================
+// VALIDACIONES
+// ===============================
 
 function validarNombre() {
 
     if (nombre.value.trim() === "") {
 
         errorNombre.textContent = "El nombre del cultivo es obligatorio.";
-
-        nombre.classList.remove("is-valid");
         nombre.classList.add("is-invalid");
+        nombre.classList.remove("is-valid");
 
         return false;
 
@@ -31,16 +33,14 @@ function validarNombre() {
     if (nombre.value.trim().length < 3) {
 
         errorNombre.textContent = "Debe contener al menos 3 caracteres.";
-
-        nombre.classList.remove("is-valid");
         nombre.classList.add("is-invalid");
+        nombre.classList.remove("is-valid");
 
         return false;
 
     }
 
     errorNombre.textContent = "";
-
     nombre.classList.remove("is-invalid");
     nombre.classList.add("is-valid");
 
@@ -48,16 +48,13 @@ function validarNombre() {
 
 }
 
-// VALIDAR DESCRIPCIÓN
-
 function validarDescripcion() {
 
     if (descripcion.value.trim() === "") {
 
         errorDescripcion.textContent = "La descripción es obligatoria.";
-
-        descripcion.classList.remove("is-valid");
         descripcion.classList.add("is-invalid");
+        descripcion.classList.remove("is-valid");
 
         return false;
 
@@ -66,16 +63,14 @@ function validarDescripcion() {
     if (descripcion.value.trim().length < 10) {
 
         errorDescripcion.textContent = "La descripción debe contener al menos 10 caracteres.";
-
-        descripcion.classList.remove("is-valid");
         descripcion.classList.add("is-invalid");
+        descripcion.classList.remove("is-valid");
 
         return false;
 
     }
 
     errorDescripcion.textContent = "";
-
     descripcion.classList.remove("is-invalid");
     descripcion.classList.add("is-valid");
 
@@ -83,23 +78,19 @@ function validarDescripcion() {
 
 }
 
-// VALIDAR CATEGORÍA
-
 function validarCategoria() {
 
     if (categoria.value === "") {
 
         errorCategoria.textContent = "Seleccione una categoría.";
-
-        categoria.classList.remove("is-valid");
         categoria.classList.add("is-invalid");
+        categoria.classList.remove("is-valid");
 
         return false;
 
     }
 
     errorCategoria.textContent = "";
-
     categoria.classList.remove("is-invalid");
     categoria.classList.add("is-valid");
 
@@ -107,7 +98,9 @@ function validarCategoria() {
 
 }
 
-// EVENTOS EN TIEMPO REAL
+// ===============================
+// EVENTOS
+// ===============================
 
 nombre.addEventListener("input", validarNombre);
 nombre.addEventListener("blur", validarNombre);
@@ -118,9 +111,79 @@ descripcion.addEventListener("blur", validarDescripcion);
 categoria.addEventListener("change", validarCategoria);
 categoria.addEventListener("blur", validarCategoria);
 
-// REGISTRAR CULTIVO
+// ===============================
+// RENDERIZAR CULTIVOS
+// ===============================
 
-formulario.addEventListener("submit", function (event) {
+function renderizarCultivos() {
+
+    listaCultivos.innerHTML = "";
+
+    if (cultivos.length === 0) {
+
+        listaCultivos.innerHTML = `
+            <div class="alert alert-info">
+                Todavía no existen cultivos registrados.
+            </div>
+        `;
+
+        totalRegistros.textContent = "0";
+
+        return;
+
+    }
+
+    cultivos.forEach(function(cultivo, indice) {
+
+        const tarjeta = document.createElement("div");
+
+        tarjeta.className = "card shadow p-3 mb-3";
+
+        tarjeta.innerHTML = `
+            <h5>${cultivo.nombre}</h5>
+
+            <p>
+                <strong>Categoría:</strong>
+                ${cultivo.categoria}
+            </p>
+
+            <p>${cultivo.descripcion}</p>
+        `;
+
+        const botonEliminar = document.createElement("button");
+
+        botonEliminar.textContent = "Eliminar registro";
+        botonEliminar.className = "btn btn-danger mt-2";
+
+        botonEliminar.addEventListener("click", function () {
+
+            cultivos.splice(indice, 1);
+
+            renderizarCultivos();
+
+            mensaje.innerHTML = `
+                <div class="alert alert-warning">
+                    Registro eliminado correctamente.
+                </div>
+            `;
+
+        });
+
+        tarjeta.appendChild(botonEliminar);
+
+        listaCultivos.appendChild(tarjeta);
+
+    });
+
+    totalRegistros.textContent = cultivos.length;
+
+}
+
+// ===============================
+// REGISTRAR CULTIVO
+// ===============================
+
+formulario.addEventListener("submit", function(event) {
 
     event.preventDefault();
 
@@ -132,7 +195,7 @@ formulario.addEventListener("submit", function (event) {
 
         mensaje.innerHTML = `
             <div class="alert alert-danger">
-                Corrija los campos marcados antes de registrar el cultivo.
+                Corrija los errores antes de registrar el cultivo.
             </div>
         `;
 
@@ -140,52 +203,21 @@ formulario.addEventListener("submit", function (event) {
 
     }
 
-    const cultivo = document.createElement("div");
+    const nuevoCultivo = {
 
-    cultivo.className = "card p-3 mb-3 shadow";
+        nombre: nombre.value.trim(),
+        descripcion: descripcion.value.trim(),
+        categoria: categoria.value
 
-    cultivo.innerHTML = `
-        <h5>${nombre.value}</h5>
+    };
 
-        <p>
-            <strong>Categoría:</strong> ${categoria.value}
-        </p>
+    cultivos.push(nuevoCultivo);
 
-        <p>${descripcion.value}</p>
-    `;
-
-    const botonEliminar = document.createElement("button");
-
-    botonEliminar.textContent = "Eliminar registro";
-    botonEliminar.className = "btn btn-danger mt-2";
-
-    botonEliminar.addEventListener("click", function () {
-
-        cultivo.remove();
-
-        contador--;
-
-        totalRegistros.textContent = contador;
-
-        mensaje.innerHTML = `
-            <div class="alert alert-warning">
-                El registro fue eliminado correctamente.
-            </div>
-        `;
-
-    });
-
-    cultivo.appendChild(botonEliminar);
-
-    listaCultivos.appendChild(cultivo);
-
-    contador++;
-
-    totalRegistros.textContent = contador;
+    renderizarCultivos();
 
     mensaje.innerHTML = `
         <div class="alert alert-success">
-            El cultivo fue registrado correctamente.
+            Cultivo registrado correctamente.
         </div>
     `;
 
@@ -200,3 +232,9 @@ formulario.addEventListener("submit", function (event) {
     errorCategoria.textContent = "";
 
 });
+
+// ===============================
+// CARGA INICIAL
+// ===============================
+
+renderizarCultivos();

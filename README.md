@@ -80,6 +80,22 @@ Las mejoras implementadas fueron:
 - Registro de cultivos únicamente cuando todas las validaciones son correctas.
 - Conservación de las funciones para registrar, mostrar, contar y eliminar cultivos dinámicamente sin recargar la página.
 
+### Semana 7
+
+En esta semana se reorganizó la estructura del proyecto con el propósito de prepararlo para una futura integración con Flask mediante el uso de plantillas reutilizables.
+
+Además, se mejoró la generación dinámica del contenido utilizando JavaScript para evitar la repetición de código y facilitar el mantenimiento de la aplicación. Las mejoras implementadas fueron:
+
+- Organización del proyecto utilizando comentarios que identifican las futuras plantillas del sistema.
+- Preparación de la estructura para una futura plantilla `base.html`.
+- Implementación de un arreglo para almacenar la información de los cultivos.
+- Renderizado dinámico de los registros mediante JavaScript.
+- Uso de estructuras repetitivas para mostrar automáticamente los cultivos registrados.
+- Implementación de una condición para mostrar un mensaje cuando no existen registros.
+- Conservación de las validaciones dinámicas desarrolladas en la Semana 6.
+- Mantenimiento de las funciones para registrar, visualizar, contar y eliminar cultivos sin recargar la página.
+- Organización del código para facilitar futuras mejoras e integración con Flask y bases de datos.
+
 ## Objetivos del proyecto
 
 - Aprender los fundamentos del desarrollo web.

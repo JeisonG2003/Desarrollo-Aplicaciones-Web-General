@@ -16,12 +16,16 @@
 
 <body>
 
+    <!-- FUTURA PLANTILLA BASE (base.html) -->
+
     <!-- ENCABEZADO -->
     <header class="text-center">
         <h1>Sistema AgroTech</h1>
         <h2>Plataforma digital para la gestión y control de actividades agrícolas</h2>
         <h4>Desarrollado por Jeison Teobaldo García Arreaga</h4>
     </header>
+
+     <!-- FUTURO MENÚ DE NAVEGACIÓN -->
 
     <!-- MENÚ -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -59,6 +63,8 @@
 
         </div>
     </nav>
+
+    <!-- FUTURO CONTENIDO DINÁMICO -->
 
     <main class="container">
 
@@ -257,7 +263,6 @@
 
     </section>
 
-
         <!-- BENEFICIOS -->
         <section class="seccion">
 
@@ -383,16 +388,29 @@
 
                     <div id="mensaje" class="mt-3"></div>
 
+                    <p class="text-muted mt-3">
+
+                    Los cultivos registrados se muestran dinámicamente mediante JavaScript.
+
+                    </p>
+
                 </div>
 
-                <div class="col-md-7">
+                <h4 class="mb-3">
 
-                    <h4>
-                        Total de cultivos registrados:
-                        <span id="totalRegistros">0</span>
-                    </h4>
+                Total de cultivos registrados:
 
-                    <div id="listaCultivos"></div>
+                <span id="totalRegistros">0</span>
+
+                </h4>
+
+                <div id="listaCultivos">
+
+                    <div class="alert alert-info">
+
+                        Todavía no existen cultivos registrados.
+
+                    </div>
 
                 </div>
 
@@ -467,6 +485,8 @@
 
     </main>
 
+    <!-- FUTURA BARRA LATERAL -->
+
     <!-- ASIDE -->
     <aside class="container text-center p-4 my-4">
 
@@ -489,6 +509,8 @@
         </p>
 
     </aside>
+
+    <!-- FUTURO PIE DE PÁGINA -->
 
     <!-- FOOTER -->
     <footer class="text-center">
