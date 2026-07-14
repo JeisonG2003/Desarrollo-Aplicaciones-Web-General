@@ -11,6 +11,12 @@ const errorNombre = document.getElementById("errorNombre");
 const errorDescripcion = document.getElementById("errorDescripcion");
 const errorCategoria = document.getElementById("errorCategoria");
 
+// Bootstrap
+const spinner = document.getElementById("spinner");
+const modalInformacion = new bootstrap.Modal(
+    document.getElementById("modalInformacion")
+);
+
 // Arreglo que almacenará los cultivos
 let cultivos = [];
 
@@ -203,23 +209,31 @@ formulario.addEventListener("submit", function(event) {
 
     }
 
-    const nuevoCultivo = {
+const nuevoCultivo = {
 
-        nombre: nombre.value.trim(),
-        descripcion: descripcion.value.trim(),
-        categoria: categoria.value
+    nombre: nombre.value.trim(),
+    descripcion: descripcion.value.trim(),
+    categoria: categoria.value
 
-    };
+};
+
+spinner.classList.remove("d-none");
+
+setTimeout(function () {
 
     cultivos.push(nuevoCultivo);
 
     renderizarCultivos();
+
+    spinner.classList.add("d-none");
 
     mensaje.innerHTML = `
         <div class="alert alert-success">
             Cultivo registrado correctamente.
         </div>
     `;
+
+    modalInformacion.show();
 
     formulario.reset();
 
@@ -230,6 +244,8 @@ formulario.addEventListener("submit", function(event) {
     errorNombre.textContent = "";
     errorDescripcion.textContent = "";
     errorCategoria.textContent = "";
+
+}, 1000);
 
 });
 

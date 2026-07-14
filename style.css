@@ -35,6 +35,7 @@ aside h4{
 .card{
     box-shadow:0px 2px 8px rgba(0,0,0,.2);
     transition:.3s;
+    border-radius:12px;
 }
 
 .card:hover{
@@ -87,4 +88,87 @@ iframe{
         height:auto;
     }
 
+}
+/* ===============================
+   SEMANA 8
+   Mejoras con Bootstrap
+================================= */
+
+.navbar{
+    box-shadow:0 2px 8px rgba(0,0,0,.2);
+}
+
+.navbar-brand{
+    font-size:24px;
+}
+
+.nav-link{
+    transition:.3s;
+}
+
+.nav-link:hover{
+    color:#8bc34a !important;
+}
+
+.form-label{
+    font-weight:bold;
+    color:#2e7d32;
+}
+
+.btn-success{
+    font-weight:bold;
+}
+
+.spinner-border{
+    width:3rem;
+    height:3rem;
+}
+
+#spinner{
+    display:block;
+    margin:auto;
+}
+
+.modal-header{
+    background:#2e7d32;
+    color:white;
+}
+
+.modal-title{
+    font-weight:bold;
+}
+
+.modal-content{
+    border-radius:15px;
+}
+
+.modal-footer{
+    justify-content:center;
+}
+
+.alert-primary{
+    font-size:18px;
+    font-weight:bold;
+}
+
+#totalRegistros{
+    font-size:22px;
+    color:#2e7d32;
+}
+
+.is-valid{
+    border:2px solid #2e7d32;
+}
+
+
+.is-invalid{
+    border:2px solid #dc3545;
+}
+
+img{
+    transition:.3s;
+}
+
+img:hover{
+    transform:scale(1.02);
 }
