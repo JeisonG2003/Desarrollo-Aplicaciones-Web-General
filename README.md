@@ -96,6 +96,24 @@ Además, se mejoró la generación dinámica del contenido utilizando JavaScript
 - Mantenimiento de las funciones para registrar, visualizar, contar y eliminar cultivos sin recargar la página.
 - Organización del código para facilitar futuras mejoras e integración con Flask y bases de datos.
 
+### Semana 8
+
+Durante esta semana se mejoró la interfaz visual del proyecto utilizando Bootstrap, logrando una aplicación web más moderna, organizada y adaptable a diferentes dispositivos, sin modificar la lógica desarrollada en las semanas anteriores.
+
+Las mejoras implementadas fueron:
+
+- Incorporación de Bootstrap mediante CDN.
+- Mejora del menú de navegación utilizando una Navbar responsiva.
+- Organización del contenido mediante el sistema de rejilla (Grid) de Bootstrap.
+- Optimización del formulario utilizando componentes como `form-label`, `form-control` y botones Bootstrap.
+- Presentación de los cultivos registrados mediante tarjetas (Cards) de Bootstrap.
+- Uso de alertas Bootstrap para informar mensajes de éxito, advertencia y error.
+- Implementación de un Spinner para simular el proceso de registro de información.
+- Incorporación de un Modal Bootstrap para confirmar el registro exitoso de un cultivo.
+- Conservación de las validaciones dinámicas implementadas en la Semana 6.
+- Conservación del renderizado dinámico de datos desarrollado en la Semana 7.
+- Adaptación de la interfaz para computadoras, tabletas y teléfonos móviles mediante diseño responsivo.
+
 ## Objetivos del proyecto
 
 - Aprender los fundamentos del desarrollo web.
