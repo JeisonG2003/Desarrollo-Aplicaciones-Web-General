@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+
+{% block title %}
+Facturación - AgroTech
+{% endblock %}
+
+{% block content %}
+
+<section class="seccion">
+
+    <h2 class="text-center mb-4">
+        Facturación
+    </h2>
+
+    <p>
+        Este módulo presenta información demostrativa de las
+        operaciones de facturación del sistema AgroTech.
+    </p>
+
+    <div class="table-responsive">
+
+        <table class="table table-bordered table-striped">
+
+            <thead class="table-success">
+
+                <tr>
+
+                    <th>Factura</th>
+                    <th>Cliente</th>
+                    <th>Producto</th>
+                    <th>Total</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                <tr>
+
+                    <td>001-001</td>
+                    <td>Juan Pérez</td>
+                    <td>Maíz</td>
+                    <td>$120.00</td>
+
+                </tr>
+
+                <tr>
+
+                    <td>001-002</td>
+                    <td>María González</td>
+                    <td>Banano</td>
+                    <td>$180.00</td>
+
+                </tr>
+
+                <tr>
+
+                    <td>001-003</td>
+                    <td>Juan Pérez</td>
+                    <td>Tomate</td>
+                    <td>$95.00</td>
+
+                </tr>
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</section>
+
+{% endblock %}
