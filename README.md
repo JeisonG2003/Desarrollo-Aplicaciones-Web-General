@@ -114,6 +114,35 @@ Las mejoras implementadas fueron:
 - Conservación del renderizado dinámico de datos desarrollado en la Semana 7.
 - Adaptación de la interfaz para computadoras, tabletas y teléfonos móviles mediante diseño responsivo.
 
+## Semana 9
+
+Durante esta semana se incorporó Flask al proyecto AgroTech, transformando progresivamente la página web en una aplicación organizada mediante rutas y plantillas utilizando Python.
+
+Las principales implementaciones realizadas fueron:
+
+* Creación del entorno virtual `venv`.
+* Instalación del framework Flask.
+* Creación del archivo `app.py`.
+* Organización del proyecto mediante las carpetas `templates` y `static`.
+* Creación de las carpetas `css`, `js` e `img` dentro de `static`.
+* Organización de los archivos HTML utilizando la carpeta `templates`.
+* Creación de la plantilla principal `base.html`.
+* Implementación de herencia de plantillas mediante Jinja2 con `{% extends "base.html" %}`.
+* Utilización de `{% block title %}` y `{% block content %}` para organizar el contenido de las páginas.
+* Uso de `url_for()` para generar los enlaces de navegación.
+* Uso de `url_for('static', filename='...')` para cargar los archivos CSS, JavaScript e imágenes.
+* Creación de los módulos Productos, Clientes, Proveedores y Facturación.
+* Implementación de las rutas `/`, `/productos`, `/clientes`, `/proveedores` y `/facturacion`.
+* Utilización de `render_template()` para mostrar las diferentes páginas.
+* Incorporación del archivo `requirements.txt` con las dependencias utilizadas por el proyecto.
+* Creación del archivo `.gitignore` para evitar subir archivos innecesarios, como el entorno virtual.
+* Prueba local de la aplicación mediante Flask en `http://127.0.0.1:5000`.
+* Verificación individual de las rutas principales del sistema.
+* Actualización del repositorio de GitHub con los cambios correspondientes a la Semana 9.
+
+En esta etapa no se utilizó una base de datos. Los módulos contienen información demostrativa para comprobar el funcionamiento de las rutas y las plantillas.
+
+
 ## Objetivos del proyecto
 
 - Aprender los fundamentos del desarrollo web.
