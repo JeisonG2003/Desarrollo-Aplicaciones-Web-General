@@ -142,6 +142,25 @@ Las principales implementaciones realizadas fueron:
 
 En esta etapa no se utilizó una base de datos. Los módulos contienen información demostrativa para comprobar el funcionamiento de las rutas y las plantillas.
 
+### Semana 10
+
+Durante esta semana se incorporó la generación de contenido dinámico mediante Flask y Jinja2, permitiendo enviar información desde app.py hacia las plantillas HTML.
+
+Las principales implementaciones fueron:
+
+- Uso de variables, listas y diccionarios en app.py.
+- Envío de datos mediante render_template().
+- Uso de variables dinámicas con {{ }}.
+- Implementación de ciclos {% for %} para mostrar productos automáticamente.
+- Uso de condiciones {% if %} y {% else %} para mostrar productos disponibles o agotados.
+- Utilización de filtros de Jinja2.
+- Reutilización de componentes mediante navbar.html y footer.html.
+- Mantenimiento de la herencia de plantillas con base.html.
+- Conservación de url_for() para las rutas y archivos estáticos.
+- Prueba local de las rutas y actualización del repositorio de GitHub.
+
+En esta etapa no se utilizó una base de datos; los datos fueron definidos temporalmente en app.py.
+
 
 ## Objetivos del proyecto
 
