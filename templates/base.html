@@ -40,123 +40,39 @@
 
     </header>
 
+    <!-- COMPONENTE NAVBAR -->
 
-    <!-- MENÚ -->
-
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-
-        <div class="container">
-
-            <a
-                class="navbar-brand fw-bold"
-                href="{{ url_for('inicio') }}">
-                🌱 AgroTech
-            </a>
-
-            <button
-                class="navbar-toggler"
-                type="button"
-                data-bs-toggle="collapse"
-                data-bs-target="#menu"
-                aria-controls="menu"
-                aria-expanded="false"
-                aria-label="Abrir menú">
-
-                <span class="navbar-toggler-icon"></span>
-
-            </button>
-
-            <div
-                class="collapse navbar-collapse"
-                id="menu">
-
-                <ul class="navbar-nav ms-auto">
-
-                    <li class="nav-item">
-                        <a
-                            class="nav-link"
-                            href="{{ url_for('inicio') }}">
-                            Inicio
-                        </a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a
-                            class="nav-link"
-                            href="{{ url_for('productos') }}">
-                            Productos
-                        </a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a
-                            class="nav-link"
-                            href="{{ url_for('clientes') }}">
-                            Clientes
-                        </a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a
-                            class="nav-link"
-                            href="{{ url_for('proveedores') }}">
-                            Proveedores
-                        </a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a
-                            class="nav-link"
-                            href="{{ url_for('facturacion') }}">
-                            Facturación
-                        </a>
-                    </li>
-
-                </ul>
-
-            </div>
-
-        </div>
-
-    </nav>
+        {% include "components/navbar.html" %}
 
 
-    <!-- CONTENIDO -->
+        <!-- CONTENIDO -->
 
-    <main class="container">
+        <main class="container">
 
-        {% block content %}
-        {% endblock %}
+            {% block content %}
+            {% endblock %}
 
-    </main>
-
-
-    <!-- PIE DE PÁGINA -->
-
-    <footer class="text-center">
-
-        <p>
-            Elaborado por: Jeison Teobaldo García Arreaga |
-            Desarrollo de Aplicaciones Web |
-            2026
-        </p>
-
-    </footer>
+        </main>
 
 
-    <!-- Bootstrap JS -->
+        <!-- COMPONENTE FOOTER -->
 
-    <script
-        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js">
-    </script>
+        {% include "components/footer.html" %}
 
 
-    <!-- JavaScript personalizado -->
+        <!-- Bootstrap JS -->
 
-    <script
-        src="{{ url_for('static', filename='js/script.js') }}">
-    </script>
+        <script
+            src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js">
+        </script>
 
-</body>
 
-</html>
+        <!-- JavaScript personalizado -->
+
+        <script
+            src="{{ url_for('static', filename='js/script.js') }}">
+        </script>
+
+    </body>
+
+    </html>

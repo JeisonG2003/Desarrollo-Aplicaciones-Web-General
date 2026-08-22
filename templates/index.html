@@ -9,7 +9,13 @@ Inicio - AgroTech
         <!-- INICIO -->
         <section id="inicio" class="seccion">
 
-            <h2 class="text-center">Inicio</h2>
+            <h2 class="text-center">
+                Bienvenido a {{ proyecto.nombre }}
+            </h2>
+
+            <p>
+                {{ proyecto.descripcion }}
+            </p>
 
             <p>
                 Bienvenido a AgroTech. Este sistema fue desarrollado para ayudar
@@ -20,12 +26,17 @@ Inicio - AgroTech
                 utilizados en el campo mediante herramientas tecnológicas.
             </p>
 
+            <p class="text-center">
+                Proyecto desarrollado por:
+                <strong>{{ proyecto.autor }}</strong>
+            </p>
+
             <div class="text-center mt-3">
                 <a href="#servicios" class="btn btn-success btn-lg shadow">
                     🌾 Conocer Servicios
                 </a>
             </div>
-            
+
         </section>
 
         <!-- QUIÉNES SOMOS -->

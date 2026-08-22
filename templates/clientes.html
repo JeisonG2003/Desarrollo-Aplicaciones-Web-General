@@ -13,51 +13,43 @@ Clientes - AgroTech
     </h2>
 
     <p>
-        Este módulo permite visualizar información demostrativa
-        de los clientes registrados en el sistema AgroTech.
+        Información demostrativa de los clientes registrados
+        en el sistema AgroTech.
     </p>
 
     <div class="row">
 
-        <div class="col-md-6 mb-3">
+        {% for cliente in clientes %}
 
-            <div class="card shadow p-3">
+        <div class="col-md-4 mb-4">
 
-                <h4>Juan Pérez</h4>
+            <div class="card shadow h-100 p-3">
+
+                <h4>
+                    {{ cliente.nombre|upper }}
+                </h4>
 
                 <p>
                     <strong>Actividad:</strong>
-                    Productor agrícola
+                    {{ cliente.actividad }}
                 </p>
 
                 <p>
                     <strong>Ubicación:</strong>
-                    Guayas
+                    {{ cliente.ubicacion }}
                 </p>
 
             </div>
 
         </div>
 
-        <div class="col-md-6 mb-3">
+        {% else %}
 
-            <div class="card shadow p-3">
-
-                <h4>María González</h4>
-
-                <p>
-                    <strong>Actividad:</strong>
-                    Productora agrícola
-                </p>
-
-                <p>
-                    <strong>Ubicación:</strong>
-                    Los Ríos
-                </p>
-
-            </div>
-
+        <div class="alert alert-warning">
+            No existen clientes registrados.
         </div>
+
+        {% endfor %}
 
     </div>
 

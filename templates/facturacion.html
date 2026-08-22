@@ -13,8 +13,8 @@ Facturación - AgroTech
     </h2>
 
     <p>
-        Este módulo presenta información demostrativa de las
-        operaciones de facturación del sistema AgroTech.
+        Información demostrativa de las operaciones de
+        facturación del sistema AgroTech.
     </p>
 
     <div class="table-responsive">
@@ -36,32 +36,39 @@ Facturación - AgroTech
 
             <tbody>
 
-                <tr>
-
-                    <td>001-001</td>
-                    <td>Juan Pérez</td>
-                    <td>Maíz</td>
-                    <td>$120.00</td>
-
-                </tr>
+                {% for factura in facturas %}
 
                 <tr>
 
-                    <td>001-002</td>
-                    <td>María González</td>
-                    <td>Banano</td>
-                    <td>$180.00</td>
+                    <td>
+                        {{ factura.numero }}
+                    </td>
+
+                    <td>
+                        {{ factura.cliente }}
+                    </td>
+
+                    <td>
+                        {{ factura.producto }}
+                    </td>
+
+                    <td>
+                        ${{ factura.total }}
+                    </td>
 
                 </tr>
+
+                {% else %}
 
                 <tr>
 
-                    <td>001-003</td>
-                    <td>Juan Pérez</td>
-                    <td>Tomate</td>
-                    <td>$95.00</td>
+                    <td colspan="4" class="text-center">
+                        No existen facturas registradas.
+                    </td>
 
                 </tr>
+
+                {% endfor %}
 
             </tbody>
 

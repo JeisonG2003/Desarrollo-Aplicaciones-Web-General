@@ -8,59 +8,72 @@ Productos - AgroTech
 
 <section class="seccion">
 
-    <h2>Productos Agrícolas</h2>
+    <h2 class="text-center mb-4">
+        Productos Agrícolas
+    </h2>
 
     <p>
-        En este módulo se presentan productos relacionados
-        con la actividad agrícola.
+        Los siguientes productos son generados dinámicamente
+        mediante Jinja2 a partir de información enviada desde Flask.
     </p>
+
 
     <div class="row">
 
-        <div class="col-md-4 mb-3">
+        {% for producto in productos %}
 
-            <div class="card p-3 h-100">
+        <div class="col-md-4 mb-4">
 
-                <h4>Semillas</h4>
+            <div class="card shadow h-100 p-3">
+
+                <h4>
+                    {{ producto.nombre }}
+                </h4>
 
                 <p>
-                    Productos utilizados para la siembra
-                    y producción agrícola.
+                    <strong>Categoría:</strong>
+                    {{ producto.categoria }}
                 </p>
+
+                <p>
+                    <strong>Precio:</strong>
+                    ${{ producto.precio }}
+                </p>
+
+
+             {% if producto.stock > 0 %}
+
+                    <span class="badge bg-success">
+                        Disponible
+                    </span>
+
+                    <p>
+                        Stock disponible: {{ producto.stock }}
+                    </p>
+
+                {% else %}
+
+                    <span class="badge bg-danger">
+                        Agotado
+                    </span>
+
+                    <p>
+                        Stock disponible: {{ producto.stock }}
+                    </p>
+
+                {% endif %}
 
             </div>
 
         </div>
 
-        <div class="col-md-4 mb-3">
+        {% else %}
 
-            <div class="card p-3 h-100">
-
-                <h4>Fertilizantes</h4>
-
-                <p>
-                    Productos utilizados para mejorar
-                    el desarrollo de los cultivos.
-                </p>
-
-            </div>
-
+        <div class="alert alert-warning">
+            No existen productos registrados.
         </div>
 
-        <div class="col-md-4 mb-3">
-
-            <div class="card p-3 h-100">
-
-                <h4>Herramientas</h4>
-
-                <p>
-                    Herramientas utilizadas para facilitar
-                    las actividades agrícolas.
-                </p>
-
-            </div>
-
-        </div>
+        {% endfor %}
 
     </div>
 
