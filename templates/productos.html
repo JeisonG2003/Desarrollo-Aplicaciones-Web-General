@@ -6,17 +6,32 @@ Productos - AgroTech
 
 {% block content %}
 
+<!-- TÍTULO Y BOTÓN -->
 <section class="seccion">
 
     <h2 class="text-center mb-4">
         Productos Agrícolas
     </h2>
 
-    <p>
+    <p class="text-center">
         Los siguientes productos son generados dinámicamente
         mediante Jinja2 a partir de información enviada desde Flask.
     </p>
 
+    <div class="text-center mb-4">
+
+        <a
+            href="{{ url_for('nuevo_producto') }}"
+            class="btn btn-success shadow">
+
+            Registrar Producto
+
+        </a>
+
+    </div>
+
+
+    <!-- LISTA DE PRODUCTOS -->
 
     <div class="row">
 
@@ -41,13 +56,13 @@ Productos - AgroTech
                 </p>
 
 
-             {% if producto.stock > 0 %}
+                {% if producto.stock > 0 %}
 
                     <span class="badge bg-success">
                         Disponible
                     </span>
 
-                    <p>
+                    <p class="mt-2">
                         Stock disponible: {{ producto.stock }}
                     </p>
 
@@ -57,7 +72,7 @@ Productos - AgroTech
                         Agotado
                     </span>
 
-                    <p>
+                    <p class="mt-2">
                         Stock disponible: {{ producto.stock }}
                     </p>
 

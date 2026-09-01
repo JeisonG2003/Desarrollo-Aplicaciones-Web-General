@@ -1,0 +1,130 @@
+{% extends "base.html" %}
+
+{% block title %}
+Registrar Factura - AgroTech
+{% endblock %}
+
+{% block content %}
+
+<section class="seccion">
+
+    <h2 class="text-center mb-4">
+        Registrar Factura
+    </h2>
+
+    <div class="card shadow p-4">
+
+        <form method="POST">
+
+            <!-- PROTECCIÓN CSRF -->
+            {{ form.hidden_tag() }}
+
+
+            <!-- NÚMERO -->
+            <div class="mb-3">
+
+                {{ form.numero.label(class="form-label") }}
+
+                {{ form.numero(
+                    class="form-control",
+                    placeholder="Ejemplo: 001-004"
+                ) }}
+
+                {% for error in form.numero.errors %}
+
+                    <div class="text-danger mt-1">
+                        {{ error }}
+                    </div>
+
+                {% endfor %}
+
+            </div>
+
+
+            <!-- CLIENTE -->
+            <div class="mb-3">
+
+                {{ form.cliente.label(class="form-label") }}
+
+                {{ form.cliente(
+                    class="form-control",
+                    placeholder="Ingrese el nombre del cliente"
+                ) }}
+
+                {% for error in form.cliente.errors %}
+
+                    <div class="text-danger mt-1">
+                        {{ error }}
+                    </div>
+
+                {% endfor %}
+
+            </div>
+
+
+            <!-- PRODUCTO -->
+            <div class="mb-3">
+
+                {{ form.producto.label(class="form-label") }}
+
+                {{ form.producto(
+                    class="form-control",
+                    placeholder="Ingrese el producto"
+                ) }}
+
+                {% for error in form.producto.errors %}
+
+                    <div class="text-danger mt-1">
+                        {{ error }}
+                    </div>
+
+                {% endfor %}
+
+            </div>
+
+
+            <!-- TOTAL -->
+            <div class="mb-3">
+
+                {{ form.total.label(class="form-label") }}
+
+                {{ form.total(
+                    class="form-control",
+                    placeholder="Ingrese el total"
+                ) }}
+
+                {% for error in form.total.errors %}
+
+                    <div class="text-danger mt-1">
+                        {{ error }}
+                    </div>
+
+                {% endfor %}
+
+            </div>
+
+
+            <!-- BOTONES -->
+            <div class="text-center">
+
+                {{ form.enviar(
+                    class="btn btn-success px-4"
+                ) }}
+
+                <a
+                    href="{{ url_for('facturacion') }}"
+                    class="btn btn-secondary px-4">
+
+                    Cancelar
+
+                </a>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</section>
+
+{% endblock %}

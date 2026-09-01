@@ -1,0 +1,106 @@
+{% extends "base.html" %}
+
+{% block title %}
+Registrar Proveedor - AgroTech
+{% endblock %}
+
+{% block content %}
+
+<section class="seccion">
+
+    <h2 class="text-center mb-4">
+        Registrar Proveedor
+    </h2>
+
+    <div class="card shadow p-4">
+
+        <form method="POST">
+
+            <!-- PROTECCIÓN CSRF -->
+            {{ form.hidden_tag() }}
+
+
+            <!-- NOMBRE -->
+            <div class="mb-3">
+
+                {{ form.nombre.label(class="form-label") }}
+
+                {{ form.nombre(
+                    class="form-control",
+                    placeholder="Ingrese el nombre del proveedor"
+                ) }}
+
+                {% for error in form.nombre.errors %}
+
+                    <div class="text-danger mt-1">
+                        {{ error }}
+                    </div>
+
+                {% endfor %}
+
+            </div>
+
+
+            <!-- DESCRIPCIÓN -->
+            <div class="mb-3">
+
+                {{ form.descripcion.label(class="form-label") }}
+
+                {{ form.descripcion(
+                    class="form-control",
+                    placeholder="Ingrese la descripción del proveedor"
+                ) }}
+
+                {% for error in form.descripcion.errors %}
+
+                    <div class="text-danger mt-1">
+                        {{ error }}
+                    </div>
+
+                {% endfor %}
+
+            </div>
+
+
+            <!-- ESTADO -->
+            <div class="mb-3">
+
+                {{ form.estado.label(class="form-label") }}
+
+                {{ form.estado(class="form-control") }}
+
+                {% for error in form.estado.errors %}
+
+                    <div class="text-danger mt-1">
+                        {{ error }}
+                    </div>
+
+                {% endfor %}
+
+            </div>
+
+
+            <!-- BOTONES -->
+            <div class="text-center">
+
+                {{ form.enviar(
+                    class="btn btn-success px-4"
+                ) }}
+
+                <a
+                    href="{{ url_for('proveedores') }}"
+                    class="btn btn-secondary px-4">
+
+                    Cancelar
+
+                </a>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</section>
+
+{% endblock %}

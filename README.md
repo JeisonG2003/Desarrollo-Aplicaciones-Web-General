@@ -161,6 +161,27 @@ Las principales implementaciones fueron:
 
 En esta etapa no se utilizó una base de datos; los datos fueron definidos temporalmente en app.py.
 
+### Semana 11
+
+Durante esta semana se incorporó Flask-WTF y WTForms al proyecto AgroTech para implementar formularios web con validación del lado del servidor y protección contra ataques CSRF. Las principales implementaciones fueron:
+
+- Instalación de Flask-WTF y WTForms.
+- Creación de la carpeta `forms` para organizar los formularios del proyecto.
+- Creación del archivo `__init__.py` dentro de la carpeta `forms`.
+- Creación de formularios independientes para Productos, Clientes, Proveedores y Facturación.
+- Implementación de clases que heredan de `FlaskForm`.
+- Uso de validadores como `DataRequired()`, `Length()` y `NumberRange()`.
+- Implementación de rutas mediante los métodos `GET` y `POST`.
+- Uso de `form.validate_on_submit()` para validar la información antes de procesarla.
+- Configuración de `SECRET_KEY` para habilitar la protección CSRF.
+- Incorporación de `form.hidden_tag()` en los formularios.
+- Implementación de mensajes de validación para informar al usuario cuando existen datos incorrectos.
+- Uso de mensajes `flash()` para confirmar el registro correcto de información.
+- Creación de plantillas independientes para los formularios de cada módulo.
+- Actualización de `requirements.txt` con las dependencias utilizadas.
+- Realización de pruebas con datos vacíos, incorrectos y correctos.
+
+En esta etapa no se utilizó una base de datos. Los datos continúan manejándose temporalmente mediante estructuras de Python, dejando preparada la aplicación para incorporar persistencia mediante MySQL o PostgreSQL en futuros avances.
 
 ## Objetivos del proyecto
 

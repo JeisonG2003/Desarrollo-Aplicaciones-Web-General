@@ -1,0 +1,109 @@
+{% extends "base.html" %}
+
+{% block title %}
+Registrar Cliente - AgroTech
+{% endblock %}
+
+{% block content %}
+
+<section class="seccion">
+
+    <h2 class="text-center mb-4">
+        Registrar Cliente
+    </h2>
+
+    <div class="card shadow p-4">
+
+        <form method="POST">
+
+            <!-- PROTECCIÓN CSRF -->
+            {{ form.hidden_tag() }}
+
+
+            <!-- NOMBRE -->
+            <div class="mb-3">
+
+                {{ form.nombre.label(class="form-label") }}
+
+                {{ form.nombre(
+                    class="form-control",
+                    placeholder="Ingrese el nombre del cliente"
+                ) }}
+
+                {% for error in form.nombre.errors %}
+
+                    <div class="text-danger mt-1">
+                        {{ error }}
+                    </div>
+
+                {% endfor %}
+
+            </div>
+
+
+            <!-- ACTIVIDAD -->
+            <div class="mb-3">
+
+                {{ form.actividad.label(class="form-label") }}
+
+                {{ form.actividad(
+                    class="form-control",
+                    placeholder="Ingrese la actividad del cliente"
+                ) }}
+
+                {% for error in form.actividad.errors %}
+
+                    <div class="text-danger mt-1">
+                        {{ error }}
+                    </div>
+
+                {% endfor %}
+
+            </div>
+
+
+            <!-- UBICACIÓN -->
+            <div class="mb-3">
+
+                {{ form.ubicacion.label(class="form-label") }}
+
+                {{ form.ubicacion(
+                    class="form-control",
+                    placeholder="Ingrese la ubicación"
+                ) }}
+
+                {% for error in form.ubicacion.errors %}
+
+                    <div class="text-danger mt-1">
+                        {{ error }}
+                    </div>
+
+                {% endfor %}
+
+            </div>
+
+
+            <!-- BOTONES -->
+            <div class="text-center">
+
+                {{ form.enviar(
+                    class="btn btn-success px-4"
+                ) }}
+
+                <a
+                    href="{{ url_for('clientes') }}"
+                    class="btn btn-secondary px-4">
+
+                    Cancelar
+
+                </a>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</section>
+
+{% endblock %}

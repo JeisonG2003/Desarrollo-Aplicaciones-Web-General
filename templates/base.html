@@ -49,10 +49,39 @@
 
         <main class="container">
 
-            {% block content %}
-            {% endblock %}
+    <!-- MENSAJES DE FLASK -->
+    {% with mensajes = get_flashed_messages(with_categories=true) %}
 
-        </main>
+        {% if mensajes %}
+
+            {% for categoria, mensaje in mensajes %}
+
+                <div
+                    class="alert alert-{{ categoria }} alert-dismissible fade show mt-3"
+                    role="alert">
+
+                    {{ mensaje }}
+
+                    <button
+                        type="button"
+                        class="btn-close"
+                        data-bs-dismiss="alert"
+                        aria-label="Cerrar">
+                    </button>
+
+                </div>
+
+            {% endfor %}
+
+        {% endif %}
+
+    {% endwith %}
+
+
+    {% block content %}
+    {% endblock %}
+
+</main>
 
 
         <!-- COMPONENTE FOOTER -->

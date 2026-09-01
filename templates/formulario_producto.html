@@ -1,0 +1,128 @@
+{% extends "base.html" %}
+
+{% block title %}
+Registrar Producto - AgroTech
+{% endblock %}
+
+{% block content %}
+
+
+<section class="seccion">
+
+    <h2 class="text-center mb-4">
+        Registrar Producto Agrícola
+    </h2>
+
+    <div class="card shadow p-4">
+
+        <form method="POST">
+
+            <!-- PROTECCIÓN CSRF -->
+            {{ form.hidden_tag() }}
+
+
+            <!-- NOMBRE -->
+            <div class="mb-3">
+
+                {{ form.nombre.label(class="form-label") }}
+
+                {{ form.nombre(
+                    class="form-control",
+                    placeholder="Ingrese el nombre del producto"
+                ) }}
+
+                {% for error in form.nombre.errors %}
+
+                    <div class="text-danger mt-1">
+                        {{ error }}
+                    </div>
+
+                {% endfor %}
+
+            </div>
+
+
+            <!-- CATEGORÍA -->
+            <div class="mb-3">
+
+                {{ form.categoria.label(class="form-label") }}
+
+                {{ form.categoria(class="form-control") }}
+
+                {% for error in form.categoria.errors %}
+
+                    <div class="text-danger mt-1">
+                        {{ error }}
+                    </div>
+
+                {% endfor %}
+
+            </div>
+
+
+            <!-- PRECIO -->
+            <div class="mb-3">
+
+                {{ form.precio.label(class="form-label") }}
+
+                {{ form.precio(
+                    class="form-control",
+                    placeholder="Ingrese el precio"
+                ) }}
+
+                {% for error in form.precio.errors %}
+
+                    <div class="text-danger mt-1">
+                        {{ error }}
+                    </div>
+
+                {% endfor %}
+
+            </div>
+
+
+            <!-- STOCK -->
+            <div class="mb-3">
+
+                {{ form.stock.label(class="form-label") }}
+
+                {{ form.stock(
+                    class="form-control",
+                    placeholder="Ingrese el stock"
+                ) }}
+
+                {% for error in form.stock.errors %}
+
+                    <div class="text-danger mt-1">
+                        {{ error }}
+                    </div>
+
+                {% endfor %}
+
+            </div>
+
+
+            <!-- BOTONES -->
+            <div class="text-center">
+
+                {{ form.enviar(
+                    class="btn btn-success px-4"
+                ) }}
+
+                <a
+                    href="{{ url_for('productos') }}"
+                    class="btn btn-secondary px-4">
+
+                    Cancelar
+
+                </a>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</section>
+
+{% endblock %}
