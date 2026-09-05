@@ -142,7 +142,7 @@ Las principales implementaciones realizadas fueron:
 
 En esta etapa no se utilizó una base de datos. Los módulos contienen información demostrativa para comprobar el funcionamiento de las rutas y las plantillas.
 
-### Semana 10
+## Semana 10
 
 Durante esta semana se incorporó la generación de contenido dinámico mediante Flask y Jinja2, permitiendo enviar información desde app.py hacia las plantillas HTML.
 
@@ -161,7 +161,7 @@ Las principales implementaciones fueron:
 
 En esta etapa no se utilizó una base de datos; los datos fueron definidos temporalmente en app.py.
 
-### Semana 11
+## Semana 11
 
 Durante esta semana se incorporó Flask-WTF y WTForms al proyecto AgroTech para implementar formularios web con validación del lado del servidor y protección contra ataques CSRF. Las principales implementaciones fueron:
 
@@ -182,6 +182,34 @@ Durante esta semana se incorporó Flask-WTF y WTForms al proyecto AgroTech para 
 - Realización de pruebas con datos vacíos, incorrectos y correctos.
 
 En esta etapa no se utilizó una base de datos. Los datos continúan manejándose temporalmente mediante estructuras de Python, dejando preparada la aplicación para incorporar persistencia mediante MySQL o PostgreSQL en futuros avances.
+
+## Semana 12
+
+Durante esta semana se incorporó la persistencia de datos mediante SQLite al proyecto AgroTech, tomando como base los formularios y validaciones desarrollados en la Semana 11. La implementación se realizó principalmente en el módulo de Productos, permitiendo que la información registrada mediante el formulario se almacene en una base de datos local y permanezca disponible después de cerrar y volver a ejecutar la aplicación.
+
+Las principales implementaciones fueron:
+
+- Creación de la carpeta data para almacenar la base de datos local.
+- Creación de la base de datos SQLite ferreteria.db.
+- Utilización del módulo sqlite3 de Python para trabajar con la base de datos.
+- Creación de la tabla productos con una clave primaria y los campos correspondientes al formulario.
+- Implementación de CREATE TABLE IF NOT EXISTS para crear la tabla sin generar errores al iniciar nuevamente la aplicación.
+- Conexión del formulario de Productos desarrollado en la Semana 11 con SQLite.
+- Validación de los datos mediante form.validate_on_submit() antes de almacenarlos.
+- Implementación de consultas INSERT para guardar los productos registrados.
+- Uso de consultas SQL parametrizadas mediante ?.
+- Utilización de conn.commit() para confirmar el almacenamiento de los datos.
+- Cierre de las conexiones mediante conn.close().
+- Implementación de consultas SELECT para recuperar los productos almacenados.
+- Uso de fetchall() para obtener los registros desde SQLite.
+- Envío de los datos recuperados hacia la plantilla mediante render_template().
+- Actualización de productos.html para mostrar la información almacenada en una tabla HTML con Bootstrap.
+- Uso de un ciclo {% for %} de Jinja2 para mostrar dinámicamente los productos.
+- Conservación del formulario Flask-WTF, las validaciones, la protección CSRF y los mensajes flash() implementados en la Semana 11.
+- Comprobación de la persistencia de los productos después de cerrar y volver a ejecutar la aplicación Flask.
+
+En esta etapa se incorporó SQLite como mecanismo de persistencia local para el módulo de Productos. Los demás módulos se mantienen preparados para incorporar persistencia progresivamente en los siguientes avances.
+
 
 ## Objetivos del proyecto
 

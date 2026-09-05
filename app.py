@@ -1,4 +1,5 @@
 from flask import Flask, render_template, redirect, url_for, flash
+import sqlite3
 
 from forms.producto_form import ProductoForm
 from forms.cliente_form import ClienteForm
@@ -9,6 +10,31 @@ app = Flask(__name__)
 
 # Clave secreta para Flask-WTF y protección CSRF
 app.config["SECRET_KEY"] = "agrotech-clave-secreta-2026"
+
+# Conexión con la base de datos SQLite
+def obtener_conexion():
+    conn = sqlite3.connect("data/ferreteria.db")
+    conn.row_factory = sqlite3.Row
+    return conn
+
+# Crear la tabla productos si no existe
+def crear_tabla_productos():
+
+    conn = obtener_conexion()
+
+    conn.execute("""
+        CREATE TABLE IF NOT EXISTS productos (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            nombre TEXT NOT NULL,
+            categoria TEXT NOT NULL,
+            precio REAL NOT NULL,
+            stock INTEGER NOT NULL
+        )
+    """)
+
+    conn.commit()
+    conn.close()
+
 
 # Página principal
 @app.route("/")
@@ -27,29 +53,16 @@ def inicio():
 
 
 # Módulo Productos
-@app.route("/productos")
+@app.route("/productos", methods=["GET", "POST"])
 def productos():
 
-    productos = [
-        {
-            "nombre": "Semillas de Maíz",
-            "categoria": "Semillas",
-            "precio": 12.50,
-            "stock": 15
-        },
-        {
-            "nombre": "Fertilizante Orgánico",
-            "categoria": "Fertilizantes",
-            "precio": 25.00,
-            "stock": 8
-        },
-        {
-            "nombre": "Herramientas Agrícolas",
-            "categoria": "Herramientas",
-            "precio": 35.00,
-            "stock": 0
-        }
-    ]
+    conn = obtener_conexion()
+
+    productos = conn.execute(
+        "SELECT * FROM productos"
+    ).fetchall()
+
+    conn.close()
 
     return render_template(
         "productos.html",
@@ -65,6 +78,22 @@ def nuevo_producto():
 
     if form.validate_on_submit():
 
+        conn = obtener_conexion()
+
+        conn.execute("""
+            INSERT INTO productos
+            (nombre, categoria, precio, stock)
+            VALUES (?, ?, ?, ?)
+        """, (
+            form.nombre.data,
+            form.categoria.data,
+            form.precio.data,
+            form.stock.data
+        ))
+
+        conn.commit()
+        conn.close()
+
         flash(
             f"Producto '{form.nombre.data}' registrado correctamente.",
             "success"
@@ -76,6 +105,7 @@ def nuevo_producto():
         "formulario_producto.html",
         form=form
     )
+
 
 # Módulo Clientes
 @app.route("/clientes")
@@ -125,6 +155,7 @@ def nuevo_cliente():
         form=form
     )
 
+
 # Módulo Proveedores
 @app.route("/proveedores")
 def proveedores():
@@ -152,6 +183,7 @@ def proveedores():
         proveedores=proveedores
     )
 
+
 # Formulario para registrar proveedores
 @app.route("/proveedores/nuevo", methods=["GET", "POST"])
 def nuevo_proveedor():
@@ -171,6 +203,7 @@ def nuevo_proveedor():
         "formulario_proveedor.html",
         form=form
     )
+
 
 # Módulo Facturación
 @app.route("/facturacion")
@@ -202,6 +235,7 @@ def facturacion():
         facturas=facturas
     )
 
+
 # Formulario para registrar facturas
 @app.route("/facturacion/nuevo", methods=["GET", "POST"])
 def nueva_factura():
@@ -224,4 +258,5 @@ def nueva_factura():
 
 
 if __name__ == "__main__":
+    crear_tabla_productos()
     app.run(debug=True)

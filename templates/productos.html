@@ -6,7 +6,6 @@ Productos - AgroTech
 
 {% block content %}
 
-<!-- TÍTULO Y BOTÓN -->
 <section class="seccion">
 
     <h2 class="text-center mb-4">
@@ -14,82 +13,52 @@ Productos - AgroTech
     </h2>
 
     <p class="text-center">
-        Los siguientes productos son generados dinámicamente
-        mediante Jinja2 a partir de información enviada desde Flask.
+        Los siguientes productos son consultados directamente desde la base de datos SQLite y renderizados mediante Jinja2.
     </p>
 
     <div class="text-center mb-4">
-
-        <a
-            href="{{ url_for('nuevo_producto') }}"
-            class="btn btn-success shadow">
-
+        <a href="{{ url_for('nuevo_producto') }}" class="btn btn-success shadow">
             Registrar Producto
-
         </a>
-
     </div>
 
-
-    <!-- LISTA DE PRODUCTOS -->
-
-    <div class="row">
-
-        {% for producto in productos %}
-
-        <div class="col-md-4 mb-4">
-
-            <div class="card shadow h-100 p-3">
-
-                <h4>
-                    {{ producto.nombre }}
-                </h4>
-
-                <p>
-                    <strong>Categoría:</strong>
-                    {{ producto.categoria }}
-                </p>
-
-                <p>
-                    <strong>Precio:</strong>
-                    ${{ producto.precio }}
-                </p>
-
-
-                {% if producto.stock > 0 %}
-
-                    <span class="badge bg-success">
-                        Disponible
-                    </span>
-
-                    <p class="mt-2">
-                        Stock disponible: {{ producto.stock }}
-                    </p>
-
+    <div class="table-responsive">
+        <table class="table table-bordered table-striped table-hover shadow-sm">
+            <thead class="table-success">
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Categoría</th>
+                    <th>Precio</th>
+                    <th>Stock</th>
+                    <th>Estado</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for producto in productos %}
+                <tr>
+                    <td>{{ producto.id }}</td>
+                    <td>{{ producto.nombre }}</td>
+                    <td>{{ producto.categoria }}</td>
+                    <td>${{ "%.2f"|format(producto.precio) }}</td>
+                    <td>{{ producto.stock }}</td>
+                    <td>
+                        {% if producto.stock > 0 %}
+                            <span class="badge bg-success">Disponible</span>
+                        {% else %}
+                            <span class="badge bg-danger">Agotado</span>
+                        {% endif %}
+                    </td>
+                </tr>
                 {% else %}
-
-                    <span class="badge bg-danger">
-                        Agotado
-                    </span>
-
-                    <p class="mt-2">
-                        Stock disponible: {{ producto.stock }}
-                    </p>
-
-                {% endif %}
-
-            </div>
-
-        </div>
-
-        {% else %}
-
-        <div class="alert alert-warning">
-            No existen productos registrados.
-        </div>
-
-        {% endfor %}
-
+                <tr>
+                    <td colspan="6" class="text-center">
+                        No existen productos registrados.
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
     </div>
 
 </section>
