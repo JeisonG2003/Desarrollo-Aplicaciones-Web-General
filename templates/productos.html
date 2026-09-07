@@ -13,7 +13,7 @@ Productos - AgroTech
     </h2>
 
     <p class="text-center">
-        Los siguientes productos son consultados directamente desde la base de datos SQLite y renderizados mediante Jinja2.
+        Los siguientes productos son consultados directamente desde la base de datos MySQL y renderizados mediante Jinja2.
     </p>
 
     <div class="text-center mb-4">
@@ -23,7 +23,7 @@ Productos - AgroTech
     </div>
 
     <div class="table-responsive">
-        <table class="table table-bordered table-striped table-hover shadow-sm">
+        <table class="table table-bordered table-striped table-hover shadow-sm align-middle">
             <thead class="table-success">
                 <tr>
                     <th>ID</th>
@@ -31,17 +31,20 @@ Productos - AgroTech
                     <th>Categoría</th>
                     <th>Precio</th>
                     <th>Stock</th>
+                    <th>Proveedor</th> <!-- Nueva Columna -->
                     <th>Estado</th>
+                    <th>Acciones</th>
                 </tr>
             </thead>
             <tbody>
                 {% for producto in productos %}
                 <tr>
-                    <td>{{ producto.id }}</td>
+                    <td>{{ producto.id_producto }}</td>
                     <td>{{ producto.nombre }}</td>
                     <td>{{ producto.categoria }}</td>
                     <td>${{ "%.2f"|format(producto.precio) }}</td>
                     <td>{{ producto.stock }}</td>
+                    <td>{{ producto.proveedor if producto.proveedor else 'Sin asignar' }}</td> <!-- Muestra el proveedor o 'Sin asignar' -->
                     <td>
                         {% if producto.stock > 0 %}
                             <span class="badge bg-success">Disponible</span>
@@ -49,11 +52,21 @@ Productos - AgroTech
                             <span class="badge bg-danger">Agotado</span>
                         {% endif %}
                     </td>
+                    <td>
+                        <a href="{{ url_for('editar_producto', id_producto=producto.id_producto) }}" class="btn btn-sm btn-primary">
+                            Editar
+                        </a>
+                        <form action="{{ url_for('eliminar_producto', id_producto=producto.id_producto) }}" method="POST" class="d-inline" onsubmit="return confirm('¿Seguro que deseas eliminar este producto?');">
+                            <button type="submit" class="btn btn-sm btn-danger">
+                                Eliminar
+                            </button>
+                        </form>
+                    </td>
                 </tr>
                 {% else %}
                 <tr>
-                    <td colspan="6" class="text-center">
-                        No existen productos registrados.
+                    <td colspan="8" class="text-center">
+                        No existen productos registrados en MySQL.
                     </td>
                 </tr>
                 {% endfor %}
