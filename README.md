@@ -114,7 +114,7 @@ Las mejoras implementadas fueron:
 - Conservación del renderizado dinámico de datos desarrollado en la Semana 7.
 - Adaptación de la interfaz para computadoras, tabletas y teléfonos móviles mediante diseño responsivo.
 
-## Semana 9
+### Semana 9
 
 Durante esta semana se incorporó Flask al proyecto AgroTech, transformando progresivamente la página web en una aplicación organizada mediante rutas y plantillas utilizando Python.
 
@@ -142,7 +142,7 @@ Las principales implementaciones realizadas fueron:
 
 En esta etapa no se utilizó una base de datos. Los módulos contienen información demostrativa para comprobar el funcionamiento de las rutas y las plantillas.
 
-## Semana 10
+### Semana 10
 
 Durante esta semana se incorporó la generación de contenido dinámico mediante Flask y Jinja2, permitiendo enviar información desde app.py hacia las plantillas HTML.
 
@@ -161,7 +161,7 @@ Las principales implementaciones fueron:
 
 En esta etapa no se utilizó una base de datos; los datos fueron definidos temporalmente en app.py.
 
-## Semana 11
+### Semana 11
 
 Durante esta semana se incorporó Flask-WTF y WTForms al proyecto AgroTech para implementar formularios web con validación del lado del servidor y protección contra ataques CSRF. Las principales implementaciones fueron:
 
@@ -183,7 +183,7 @@ Durante esta semana se incorporó Flask-WTF y WTForms al proyecto AgroTech para 
 
 En esta etapa no se utilizó una base de datos. Los datos continúan manejándose temporalmente mediante estructuras de Python, dejando preparada la aplicación para incorporar persistencia mediante MySQL o PostgreSQL en futuros avances.
 
-## Semana 12
+### Semana 12
 
 Durante esta semana se incorporó la persistencia de datos mediante SQLite al proyecto AgroTech, tomando como base los formularios y validaciones desarrollados en la Semana 11. La implementación se realizó principalmente en el módulo de Productos, permitiendo que la información registrada mediante el formulario se almacene en una base de datos local y permanezca disponible después de cerrar y volver a ejecutar la aplicación.
 
@@ -210,8 +210,28 @@ Las principales implementaciones fueron:
 
 En esta etapa se incorporó SQLite como mecanismo de persistencia local para el módulo de Productos. Los demás módulos se mantienen preparados para incorporar persistencia progresivamente en los siguientes avances.
 
+### Semana 13
 
-## Objetivos del proyecto
+Durante esta semana se realizó la migración del módulo de Productos de SQLite a MySQL, mejorando la persistencia y organización de los datos del proyecto AgroTech.
+
+- Instalación de mysql-connector-python y actualización de requirements.txt.
+- Creación de la base de datos agrotech en MySQL.
+- Creación de las carpetas conexion y sql para organizar la conexión y estructura de la base de datos.
+- Implementación de conexion.py para conectar Flask con MySQL.
+- Creación de esquema.sql con las tablas productos, proveedores, clientes y facturas.
+- Uso de claves primarias y foráneas para establecer relaciones entre las tablas.
+- Migración del módulo de Productos desde SQLite hacia MySQL.
+- Implementación de consultas SELECT, INSERT, UPDATE y DELETE.
+- Uso de consultas SQL parametrizadas mediante %s y conn.commit() para confirmar cambios.
+- Integración de las operaciones de MySQL con las rutas de Flask.
+- Mantenimiento de Flask-WTF, WTForms, validaciones y protección CSRF.
+- Actualización de productos.html para consultar, registrar, editar y eliminar productos.
+- Uso de Jinja2 y Bootstrap para mostrar dinámicamente la información y mejorar la interfaz.
+- Realización de pruebas para verificar el funcionamiento y la persistencia de los datos en MySQL Workbench.
+
+En esta etapa se reemplazó SQLite por MySQL como sistema de gestión de base de datos para el módulo de Productos. La aplicación ahora cuenta con una estructura relacional preparada para continuar integrando los demás módulos del sistema de manera progresiva.
+
+### Objetivos del proyecto
 
 - Aprender los fundamentos del desarrollo web.
 - Utilizar Visual Studio Code como herramienta de programación.
@@ -219,7 +239,7 @@ En esta etapa se incorporó SQLite como mecanismo de persistencia local para el 
 - Gestionar proyectos mediante Git y GitHub.
 - Desarrollar progresivamente una aplicación web relacionada con el sector agrícola.
 
-## Autor
+### Autor
 
 **Jeison Teobaldo García Arreaga**
 
