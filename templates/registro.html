@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+
+{% block title %}
+Registro de usuario - AgroTech
+{% endblock %}
+
+{% block content %}
+
+<section class="seccion">
+
+    <div class="row justify-content-center">
+
+        <div class="col-md-6 col-lg-5">
+
+            <div class="card shadow">
+
+                <div class="card-body p-4">
+
+                    <h2 class="text-center mb-4">
+                        Crear cuenta
+                    </h2>
+
+                    <p class="text-center text-muted">
+                        Regístrate para acceder al sistema AgroTech
+                    </p>
+
+                    <form method="POST">
+
+                        {{ form.hidden_tag() }}
+
+                        <div class="mb-3">
+                            {{ form.usuario.label(class="form-label") }}
+                            {{ form.usuario(class="form-control") }}
+
+                            {% for error in form.usuario.errors %}
+                                <div class="text-danger small">
+                                    {{ error }}
+                                </div>
+                            {% endfor %}
+                        </div>
+
+                        <div class="mb-3">
+                            {{ form.password.label(class="form-label") }}
+                            {{ form.password(class="form-control") }}
+
+                            {% for error in form.password.errors %}
+                                <div class="text-danger small">
+                                    {{ error }}
+                                </div>
+                            {% endfor %}
+                        </div>
+
+                        <div class="mb-3">
+                            {{ form.confirmar_password.label(class="form-label") }}
+                            {{ form.confirmar_password(class="form-control") }}
+
+                            {% for error in form.confirmar_password.errors %}
+                                <div class="text-danger small">
+                                    {{ error }}
+                                </div>
+                            {% endfor %}
+                        </div>
+
+                        {{ form.enviar(class="btn btn-success w-100") }}
+
+                    </form>
+
+                    <div class="text-center mt-3">
+
+                        <p>
+                            ¿Ya tienes una cuenta?
+                            <a href="{{ url_for('login') }}">
+                                Iniciar sesión
+                            </a>
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

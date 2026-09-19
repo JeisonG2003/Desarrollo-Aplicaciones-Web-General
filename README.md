@@ -231,6 +231,23 @@ Durante esta semana se realizó la migración del módulo de Productos de SQLite
 
 En esta etapa se reemplazó SQLite por MySQL como sistema de gestión de base de datos para el módulo de Productos. La aplicación ahora cuenta con una estructura relacional preparada para continuar integrando los demás módulos del sistema de manera progresiva.
 
+### Semana 14
+
+Durante esta semana se incorporó un sistema de autenticación de usuarios utilizando Flask-Login, Flask-WTF y Werkzeug, permitiendo proteger los módulos internos del proyecto AgroTech.
+Las principales implementaciones fueron:
+
+- Creación de la tabla `usuarios` en MySQL.
+- Implementación de registro e inicio de sesión.
+- Uso de `generate_password_hash()` y `check_password_hash()` para proteger las contraseñas.
+- Configuración de `LoginManager`, `UserMixin`, `login_user()` y `logout_user()`.
+- Implementación de `@login_required` para proteger Productos, Clientes, Proveedores y Facturación.
+- Creación del panel de control (`dashboard`) y visualización del usuario autenticado mediante `current_user`.
+- Actualización del menú de navegación según el estado de la sesión.
+- Realización de pruebas para verificar el registro, login, protección de rutas y cierre de sesión.
+
+En esta etapa AgroTech cuenta con un sistema básico de autenticación y control de acceso conectado a MySQL.
+
+
 ### Objetivos del proyecto
 
 - Aprender los fundamentos del desarrollo web.

@@ -1,12 +1,19 @@
 from flask import Flask, render_template, redirect, url_for, flash, request
 from dotenv import load_dotenv
 import os
+
+from flask_login import LoginManager, login_user, login_required, logout_user
+from werkzeug.security import generate_password_hash, check_password_hash
+
 from conexion.conexion import get_db_connection
+from models import Usuario
 
 from forms.producto_form import ProductoForm
 from forms.cliente_form import ClienteForm
 from forms.proveedor_form import ProveedorForm
 from forms.facturacion_form import FacturacionForm
+from forms.usuario_form import UsuarioForm
+from forms.login_form import LoginForm
 
 # Cargar las variables del archivo .env al inicio
 load_dotenv()
@@ -16,12 +23,175 @@ app = Flask(__name__)
 # Clave secreta para Flask-WTF y protección CSRF
 app.config["SECRET_KEY"] = "agrotech-clave-secreta-2026"
 
-# Configuración de la base de datos MySQL
+# Configuración de Flask-Login
+login_manager = LoginManager()
+login_manager.init_app(app)
+login_manager.login_view = "login"
+login_manager.login_message = "Debes iniciar sesión para acceder a esta página."
+
 # Configuración de la base de datos MySQL
 app.config["MYSQL_HOST"] = os.getenv("MYSQL_HOST")
 app.config["MYSQL_USER"] = os.getenv("MYSQL_USER")
 app.config["MYSQL_PASSWORD"] = os.getenv("MYSQL_PASSWORD")
 app.config["MYSQL_DATABASE"] = os.getenv("MYSQL_DATABASE")
+
+# Cargar usuario desde MySQL
+@login_manager.user_loader
+def load_user(user_id):
+
+    conn = get_db_connection()
+    cursor = conn.cursor(dictionary=True)
+
+    cursor.execute("""
+        SELECT id, usuario, password
+        FROM usuarios
+        WHERE id = %s
+    """, (user_id,))
+
+    usuario = cursor.fetchone()
+
+    cursor.close()
+    conn.close()
+
+    if usuario:
+        return Usuario(
+            usuario["id"],
+            usuario["usuario"],
+            usuario["password"]
+        )
+
+    return None
+
+@app.route("/registro", methods=["GET", "POST"])
+def registro():
+
+    form = UsuarioForm()
+
+    if form.validate_on_submit():
+
+        conn = get_db_connection()
+        cursor = conn.cursor(dictionary=True)
+
+        # Comprobar si el usuario ya existe
+        cursor.execute("""
+            SELECT id
+            FROM usuarios
+            WHERE usuario = %s
+        """, (form.usuario.data,))
+
+        usuario_existente = cursor.fetchone()
+
+        if usuario_existente:
+            cursor.close()
+            conn.close()
+
+            flash(
+                "El nombre de usuario ya está registrado.",
+                "danger"
+            )
+
+            return render_template(
+                "registro.html",
+                form=form
+            )
+
+        # Generar hash de la contraseña
+        password_hash = generate_password_hash(
+            form.password.data
+        )
+
+        # Registrar el usuario
+        cursor.execute("""
+            INSERT INTO usuarios
+            (usuario, password)
+            VALUES (%s, %s)
+        """, (
+            form.usuario.data,
+            password_hash
+        ))
+
+        conn.commit()
+        cursor.close()
+        conn.close()
+
+        flash(
+            "Usuario registrado correctamente. Ahora puedes iniciar sesión.",
+            "success"
+        )
+
+        return redirect(url_for("login"))
+    
+    return render_template("registro.html", form=form)
+
+
+@app.route("/login", methods=["GET", "POST"])
+def login():
+
+    form = LoginForm()
+
+    if form.validate_on_submit():
+
+        conn = get_db_connection()
+        cursor = conn.cursor(dictionary=True)
+
+        # Buscar el usuario en MySQL
+        cursor.execute("""
+            SELECT id, usuario, password
+            FROM usuarios
+            WHERE usuario = %s
+        """, (form.usuario.data,))
+
+        usuario = cursor.fetchone()
+
+        cursor.close()
+        conn.close()
+
+        # Comprobar usuario y contraseña
+        if usuario and check_password_hash(
+            usuario["password"],
+            form.password.data
+        ):
+
+            usuario_obj = Usuario(
+                usuario["id"],
+                usuario["usuario"],
+                usuario["password"]
+            )
+
+            login_user(usuario_obj)
+
+            flash(
+                "Inicio de sesión correcto.",
+                "success"
+            )
+
+            return redirect(url_for("dashboard"))
+
+        flash(
+            "Usuario o contraseña incorrectos.",
+            "danger"
+        )
+
+    return render_template(
+        "login.html",
+        form=form
+    )
+
+@app.route("/dashboard")
+@login_required
+def dashboard():
+    return render_template("dashboard.html")
+
+@app.route("/logout")
+@login_required
+def logout():
+
+    logout_user()
+
+    flash("Has cerrado sesión correctamente.", "success")
+
+    return redirect(url_for("login"))
+
 # Página principal
 @app.route("/")
 def inicio():
@@ -40,6 +210,7 @@ def inicio():
 
 # Módulo Productos
 @app.route("/productos")
+@login_required
 def productos():
 
     conn = get_db_connection()
@@ -72,6 +243,7 @@ def productos():
 
 # Formulario para registrar productos
 @app.route("/productos/nuevo", methods=["GET", "POST"])
+@login_required
 def nuevo_producto():
 
     form = ProductoForm()
@@ -111,6 +283,7 @@ def nuevo_producto():
 
 # Editar producto
 @app.route("/productos/editar/<int:id_producto>", methods=["GET", "POST"])
+@login_required
 def editar_producto(id_producto):
 
     conn = get_db_connection()
@@ -181,6 +354,7 @@ def editar_producto(id_producto):
 
 # Eliminar producto
 @app.route("/productos/eliminar/<int:id_producto>", methods=["POST"])
+@login_required
 def eliminar_producto(id_producto):
 
     conn = get_db_connection()
@@ -205,6 +379,7 @@ def eliminar_producto(id_producto):
 
 # Módulo Clientes
 @app.route("/clientes")
+@login_required
 def clientes():
 
     clientes = [
@@ -233,6 +408,7 @@ def clientes():
 
 # Formulario para registrar clientes
 @app.route("/clientes/nuevo", methods=["GET", "POST"])
+@login_required
 def nuevo_cliente():
 
     form = ClienteForm()
@@ -254,6 +430,7 @@ def nuevo_cliente():
 
 # Módulo Proveedores
 @app.route("/proveedores")
+@login_required
 def proveedores():
 
     proveedores = [
@@ -282,6 +459,7 @@ def proveedores():
 
 # Formulario para registrar proveedores
 @app.route("/proveedores/nuevo", methods=["GET", "POST"])
+@login_required
 def nuevo_proveedor():
 
     form = ProveedorForm()
@@ -303,6 +481,7 @@ def nuevo_proveedor():
 
 # Módulo Facturación
 @app.route("/facturacion")
+@login_required
 def facturacion():
 
     facturas = [
@@ -334,6 +513,7 @@ def facturacion():
 
 # Formulario para registrar facturas
 @app.route("/facturacion/nuevo", methods=["GET", "POST"])
+@login_required
 def nueva_factura():
 
     form = FacturacionForm()

@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+
+{% block title %}
+Panel de control - AgroTech
+{% endblock %}
+
+{% block content %}
+
+<section class="seccion">
+
+    <div class="text-center">
+
+        <h2 class="mb-3">
+            Panel de control
+        </h2>
+
+        <p class="lead">
+            Bienvenido, <strong>{{ current_user.usuario }}</strong>
+        </p>
+
+        <p>
+            Has iniciado sesión correctamente en AgroTech.
+        </p>
+
+    </div>
+
+    <div class="row mt-4">
+
+        <div class="col-md-3 mb-3">
+            <a href="{{ url_for('productos') }}"
+               class="btn btn-success w-100">
+                Productos
+            </a>
+        </div>
+
+        <div class="col-md-3 mb-3">
+            <a href="{{ url_for('clientes') }}"
+               class="btn btn-primary w-100">
+                Clientes
+            </a>
+        </div>
+
+        <div class="col-md-3 mb-3">
+            <a href="{{ url_for('proveedores') }}"
+               class="btn btn-warning w-100">
+                Proveedores
+            </a>
+        </div>
+
+        <div class="col-md-3 mb-3">
+            <a href="{{ url_for('facturacion') }}"
+               class="btn btn-dark w-100">
+                Facturación
+            </a>
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

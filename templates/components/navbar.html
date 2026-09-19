@@ -25,8 +25,9 @@
             class="collapse navbar-collapse"
             id="menu">
 
-            <ul class="navbar-nav ms-auto">
+            <ul class="navbar-nav ms-auto align-items-center">
 
+                <!-- Página pública -->
                 <li class="nav-item">
                     <a
                         class="nav-link"
@@ -35,37 +36,95 @@
                     </a>
                 </li>
 
-                <li class="nav-item">
-                    <a
-                        class="nav-link"
-                        href="{{ url_for('productos') }}">
-                        Productos
-                    </a>
-                </li>
 
-                <li class="nav-item">
-                    <a
-                        class="nav-link"
-                        href="{{ url_for('clientes') }}">
-                        Clientes
-                    </a>
-                </li>
+                {% if current_user.is_authenticated %}
 
-                <li class="nav-item">
-                    <a
-                        class="nav-link"
-                        href="{{ url_for('proveedores') }}">
-                        Proveedores
-                    </a>
-                </li>
+                    <!-- Módulos protegidos -->
 
-                <li class="nav-item">
-                    <a
-                        class="nav-link"
-                        href="{{ url_for('facturacion') }}">
-                        Facturación
-                    </a>
-                </li>
+                    <li class="nav-item">
+                        <a
+                            class="nav-link"
+                            href="{{ url_for('productos') }}">
+                            Productos
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a
+                            class="nav-link"
+                            href="{{ url_for('clientes') }}">
+                            Clientes
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a
+                            class="nav-link"
+                            href="{{ url_for('proveedores') }}">
+                            Proveedores
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a
+                            class="nav-link"
+                            href="{{ url_for('facturacion') }}">
+                            Facturación
+                        </a>
+                    </li>
+
+
+                    <!-- Dashboard -->
+
+                    <li class="nav-item ms-lg-2">
+                        <a
+                            class="nav-link fw-bold text-warning"
+                            href="{{ url_for('dashboard') }}">
+                            Dashboard
+                        </a>
+                    </li>
+
+
+                    <!-- Usuario actual -->
+
+                    <li class="nav-item ms-lg-2">
+                        <span class="nav-link text-light fw-semibold">
+                            👤 {{ current_user.usuario }}
+                        </span>
+                    </li>
+
+
+                    <!-- Cerrar sesión -->
+
+                    <li class="nav-item ms-lg-2">
+                        <a
+                            class="btn btn-outline-danger btn-sm"
+                            href="{{ url_for('logout') }}">
+                            Cerrar sesión
+                        </a>
+                    </li>
+
+                {% else %}
+
+                    <!-- Opciones para usuarios no autenticados -->
+
+                    <li class="nav-item ms-lg-2">
+                        <a
+                            class="btn btn-outline-light btn-sm me-2"
+                            href="{{ url_for('login') }}">
+                            Iniciar sesión
+                        </a>
+                    </li>
+
+                    <li class="nav-item ms-lg-1">
+                        <a
+                            class="btn btn-success btn-sm"
+                            href="{{ url_for('registro') }}">
+                            Registrarse
+                        </a>
+                    </li>
+
+                {% endif %}
 
             </ul>
 
