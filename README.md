@@ -247,6 +247,30 @@ Las principales implementaciones fueron:
 
 En esta etapa AgroTech cuenta con un sistema básico de autenticación y control de acceso conectado a MySQL.
 
+### Semana 15
+
+Durante esta semana se realizó la migración de la aplicación desde MySQL hacia PostgreSQL, además de continuar con la integración de los módulos y las relaciones de la base de datos. Las principales implementaciones fueron:
+
+- Creación de la base de datos agrotech en PostgreSQL.
+- Migración del esquema de la base de datos hacia PostgreSQL.
+- Creación de las tablas usuarios, proveedores, clientes, productos y facturas.
+- Uso de claves primarias y claves foráneas para establecer relaciones entre las tablas.
+- Implementación de la conexión entre Flask y PostgreSQL mediante psycopg2.
+- Configuración de las credenciales mediante variables de entorno en .env.
+- Protección del archivo .env mediante .gitignore.
+- Actualización de requirements.txt para utilizar psycopg2-binary.
+- Adaptación de los cursores de MySQL a PostgreSQL mediante RealDictCursor.
+- Conservación de las consultas SQL parametrizadas.
+- Mantenimiento del sistema de autenticación con Flask-Login.
+- Registro de usuarios utilizando PostgreSQL.
+- Mantenimiento de las rutas protegidas mediante @login_required.
+- Integración de relaciones entre proveedores y productos.
+- Integración de relaciones entre clientes, productos y facturas.
+- Uso de consultas JOIN para mostrar información relacionada.
+- Preparación de la aplicación para su posterior despliegue utilizando PostgreSQL.
+
+En esta etapa PostgreSQL se establece como el sistema de gestión de base de datos utilizado por la aplicación AgroTech.
+
 
 ### Objetivos del proyecto
 
