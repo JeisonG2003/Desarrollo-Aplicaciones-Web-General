@@ -60,6 +60,18 @@ class ProductoForm(FlaskForm):
         ]
     )
 
+    # --- CAMPO AÑADIDO PARA PROVEEDOR ---
+    id_proveedor = SelectField(
+        "Proveedor",
+        choices=[],
+        coerce=int,
+        validators=[
+            DataRequired(
+                message="Debe seleccionar un proveedor."
+            )
+        ]
+    )
+
     enviar = SubmitField(
         "Registrar producto"
     )

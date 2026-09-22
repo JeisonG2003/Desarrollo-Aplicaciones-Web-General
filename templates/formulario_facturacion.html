@@ -44,14 +44,11 @@ Registrar Factura - AgroTech
             <!-- CLIENTE -->
             <div class="mb-3">
 
-                {{ form.cliente.label(class="form-label") }}
+                {{ form.id_cliente.label(class="form-label") }}
 
-                {{ form.cliente(
-                    class="form-control",
-                    placeholder="Ingrese el nombre del cliente"
-                ) }}
+                {{ form.id_cliente(class="form-select") }}
 
-                {% for error in form.cliente.errors %}
+                {% for error in form.id_cliente.errors %}
 
                     <div class="text-danger mt-1">
                         {{ error }}
@@ -65,14 +62,11 @@ Registrar Factura - AgroTech
             <!-- PRODUCTO -->
             <div class="mb-3">
 
-                {{ form.producto.label(class="form-label") }}
+                {{ form.id_producto.label(class="form-label") }}
 
-                {{ form.producto(
-                    class="form-control",
-                    placeholder="Ingrese el producto"
-                ) }}
+                {{ form.id_producto(class="form-select") }}
 
-                {% for error in form.producto.errors %}
+                {% for error in form.id_producto.errors %}
 
                     <div class="text-danger mt-1">
                         {{ error }}

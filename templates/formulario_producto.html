@@ -6,7 +6,6 @@ Registrar Producto - AgroTech
 
 {% block content %}
 
-
 <section class="seccion">
 
     <h2 class="text-center mb-4">
@@ -47,7 +46,7 @@ Registrar Producto - AgroTech
 
                 {{ form.categoria.label(class="form-label") }}
 
-                {{ form.categoria(class="form-control") }}
+                {{ form.categoria(class="form-select") }}
 
                 {% for error in form.categoria.errors %}
 
@@ -92,6 +91,24 @@ Registrar Producto - AgroTech
                 ) }}
 
                 {% for error in form.stock.errors %}
+
+                    <div class="text-danger mt-1">
+                        {{ error }}
+                    </div>
+
+                {% endfor %}
+
+            </div>
+
+
+            <!-- PROVEEDOR (BLOQUE AÑADIDO) -->
+            <div class="mb-3">
+
+                {{ form.id_proveedor.label(class="form-label") }}
+
+                {{ form.id_proveedor(class="form-select") }}
+
+                {% for error in form.id_proveedor.errors %}
 
                     <div class="text-danger mt-1">
                         {{ error }}

@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, FloatField, SubmitField
+from wtforms import StringField, SelectField, FloatField, SubmitField
 from wtforms.validators import DataRequired, Length, NumberRange
 
 
@@ -19,30 +19,24 @@ class FacturacionForm(FlaskForm):
         ]
     )
 
-    cliente = StringField(
+    id_cliente = SelectField(
         "Cliente",
+        choices=[],
+        coerce=int,
         validators=[
             DataRequired(
-                message="El cliente es obligatorio."
-            ),
-            Length(
-                min=3,
-                max=100,
-                message="El nombre del cliente debe tener entre 3 y 100 caracteres."
+                message="Debe seleccionar un cliente."
             )
         ]
     )
 
-    producto = StringField(
+    id_producto = SelectField(
         "Producto",
+        choices=[],
+        coerce=int,
         validators=[
             DataRequired(
-                message="El producto es obligatorio."
-            ),
-            Length(
-                min=2,
-                max=100,
-                message="El producto debe tener entre 2 y 100 caracteres."
+                message="Debe seleccionar un producto."
             )
         ]
     )

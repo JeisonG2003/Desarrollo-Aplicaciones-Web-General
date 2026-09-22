@@ -11,21 +11,22 @@ Facturación - AgroTech
     <h2 class="text-center mb-4">
         Facturación
     </h2>
+
     <div class="text-center mb-4">
 
-    <a
-        href="{{ url_for('nueva_factura') }}"
-        class="btn btn-success">
+        <a
+            href="{{ url_for('nueva_factura') }}"
+            class="btn btn-success">
 
-        Registrar Factura
+            Registrar Factura
 
-    </a>
+        </a>
 
-</div>
+    </div>
 
     <p>
-        Información demostrativa de las operaciones de
-        facturación del sistema AgroTech.
+        Información de las facturas registradas
+        en el sistema AgroTech.
     </p>
 
     <div class="table-responsive">
@@ -39,7 +40,9 @@ Facturación - AgroTech
                     <th>Factura</th>
                     <th>Cliente</th>
                     <th>Producto</th>
+                    <th>Fecha</th>
                     <th>Total</th>
+                    <th>Acciones</th>
 
                 </tr>
 
@@ -64,7 +67,39 @@ Facturación - AgroTech
                     </td>
 
                     <td>
+                        {{ factura.fecha }}
+                    </td>
+
+                    <td>
                         ${{ factura.total }}
+                    </td>
+
+                    <td>
+
+                        <a
+                            href="{{ url_for('editar_factura', id_factura=factura.id_factura) }}"
+                            class="btn btn-warning btn-sm">
+
+                            Editar
+
+                        </a>
+
+                        <form
+                            action="{{ url_for('eliminar_factura', id_factura=factura.id_factura) }}"
+                            method="POST"
+                            class="d-inline">
+
+                            <button
+                                type="submit"
+                                class="btn btn-danger btn-sm"
+                                onclick="return confirm('¿Está seguro de eliminar esta factura?');">
+
+                                Eliminar
+
+                            </button>
+
+                        </form>
+
                     </td>
 
                 </tr>
@@ -73,7 +108,7 @@ Facturación - AgroTech
 
                 <tr>
 
-                    <td colspan="4" class="text-center">
+                    <td colspan="6" class="text-center">
                         No existen facturas registradas.
                     </td>
 

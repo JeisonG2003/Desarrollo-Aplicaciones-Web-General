@@ -11,21 +11,22 @@ Proveedores - AgroTech
     <h2 class="text-center mb-4">
         Proveedores
     </h2>
+
     <div class="text-center mb-4">
 
-    <a
-        href="{{ url_for('nuevo_proveedor') }}"
-        class="btn btn-success">
+        <a
+            href="{{ url_for('nuevo_proveedor') }}"
+            class="btn btn-success">
 
-        Registrar Proveedor
+            Registrar Proveedor
 
-    </a>
+        </a>
 
-</div>
+    </div>
 
     <p>
-        Información demostrativa de los proveedores relacionados
-        con las actividades agrícolas.
+        Información de los proveedores registrados
+        en el sistema AgroTech.
     </p>
 
     <div class="row">
@@ -44,20 +45,49 @@ Proveedores - AgroTech
                     {{ proveedor.descripcion }}
                 </p>
 
-
                 {% if proveedor.estado == "Activo" %}
 
-                    <span class="badge bg-success">
+                    <span class="badge bg-success mb-3">
                         {{ proveedor.estado }}
                     </span>
 
                 {% else %}
 
-                    <span class="badge bg-danger">
+                    <span class="badge bg-danger mb-3">
                         {{ proveedor.estado }}
                     </span>
 
                 {% endif %}
+
+                <!-- BOTONES -->
+
+                <div class="mt-auto">
+
+                    <a
+                        href="{{ url_for('editar_proveedor', id_proveedor=proveedor.id_proveedor) }}"
+                        class="btn btn-warning btn-sm">
+
+                        Editar
+
+                    </a>
+
+                    <form
+                        action="{{ url_for('eliminar_proveedor', id_proveedor=proveedor.id_proveedor) }}"
+                        method="POST"
+                        class="d-inline">
+
+                        <button
+                            type="submit"
+                            class="btn btn-danger btn-sm"
+                            onclick="return confirm('¿Está seguro de eliminar este proveedor?');">
+
+                            Eliminar
+
+                        </button>
+
+                    </form>
+
+                </div>
 
             </div>
 
