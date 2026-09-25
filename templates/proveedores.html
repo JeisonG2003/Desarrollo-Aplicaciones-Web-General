@@ -29,77 +29,99 @@ Proveedores - AgroTech
         en el sistema AgroTech.
     </p>
 
-    <div class="row">
+    <div class="table-responsive shadow rounded">
 
-        {% for proveedor in proveedores %}
+        <table class="table table-hover align-middle mb-0 bg-white">
 
-        <div class="col-md-4 mb-4">
+            <thead class="table-success">
 
-            <div class="card shadow h-100 p-3">
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Descripción</th>
+                    <th>Estado</th>
+                    <th class="text-center">Acciones</th>
+                </tr>
 
-                <h4>
-                    {{ proveedor.nombre }}
-                </h4>
+            </thead>
 
-                <p>
-                    {{ proveedor.descripcion }}
-                </p>
+            <tbody>
 
-                {% if proveedor.estado == "Activo" %}
+                {% for proveedor in proveedores %}
 
-                    <span class="badge bg-success mb-3">
-                        {{ proveedor.estado }}
-                    </span>
+                <tr>
+
+                    <td>{{ proveedor.id_proveedor }}</td>
+
+                    <td>
+                        <strong>{{ proveedor.nombre }}</strong>
+                    </td>
+
+                    <td>{{ proveedor.descripcion }}</td>
+
+                    <td>
+
+                        {% if proveedor.estado == "Activo" %}
+
+                            <span class="badge bg-success">
+                                {{ proveedor.estado }}
+                            </span>
+
+                        {% else %}
+
+                            <span class="badge bg-danger">
+                                {{ proveedor.estado }}
+                            </span>
+
+                        {% endif %}
+
+                    </td>
+
+                    <td class="text-center">
+
+                        <a
+                            href="{{ url_for('editar_proveedor', id_proveedor=proveedor.id_proveedor) }}"
+                            class="btn btn-warning btn-sm">
+
+                            Editar
+
+                        </a>
+
+                        <form
+                            action="{{ url_for('eliminar_proveedor', id_proveedor=proveedor.id_proveedor) }}"
+                            method="POST"
+                            class="d-inline">
+
+                            <button
+                                type="submit"
+                                class="btn btn-danger btn-sm"
+                                onclick="return confirm('¿Está seguro de eliminar este proveedor?');">
+
+                                Eliminar
+
+                            </button>
+
+                        </form>
+
+                    </td>
+
+                </tr>
 
                 {% else %}
 
-                    <span class="badge bg-danger mb-3">
-                        {{ proveedor.estado }}
-                    </span>
+                <tr>
+                    <td colspan="5" class="text-center">
+                        <div class="alert alert-warning mb-0">
+                            No existen proveedores registrados.
+                        </div>
+                    </td>
+                </tr>
 
-                {% endif %}
+                {% endfor %}
 
-                <!-- BOTONES -->
+            </tbody>
 
-                <div class="mt-auto">
-
-                    <a
-                        href="{{ url_for('editar_proveedor', id_proveedor=proveedor.id_proveedor) }}"
-                        class="btn btn-warning btn-sm">
-
-                        Editar
-
-                    </a>
-
-                    <form
-                        action="{{ url_for('eliminar_proveedor', id_proveedor=proveedor.id_proveedor) }}"
-                        method="POST"
-                        class="d-inline">
-
-                        <button
-                            type="submit"
-                            class="btn btn-danger btn-sm"
-                            onclick="return confirm('¿Está seguro de eliminar este proveedor?');">
-
-                            Eliminar
-
-                        </button>
-
-                    </form>
-
-                </div>
-
-            </div>
-
-        </div>
-
-        {% else %}
-
-        <div class="alert alert-warning">
-            No existen proveedores registrados.
-        </div>
-
-        {% endfor %}
+        </table>
 
     </div>
 
