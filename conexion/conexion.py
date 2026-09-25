@@ -9,5 +9,6 @@ def get_db_connection():
         port=current_app.config["POSTGRES_PORT"],
         dbname=current_app.config["POSTGRES_DB"],
         user=current_app.config["POSTGRES_USER"],
-        password=current_app.config["POSTGRES_PASSWORD"]
+        password=current_app.config["POSTGRES_PASSWORD"],
+        sslmode="require"
     )
