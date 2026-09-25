@@ -1,6 +1,7 @@
 from flask import Flask, render_template, redirect, url_for, flash, request
 from dotenv import load_dotenv
 import os
+import json
 
 from psycopg2.extras import RealDictCursor
 
@@ -786,10 +787,10 @@ def nueva_factura():
 
     form = FacturacionForm()
 
-    # Obtener clientes desde PostgreSQL
     conn = get_db_connection()
     cursor = conn.cursor(cursor_factory=RealDictCursor)
 
+    # Obtener clientes desde PostgreSQL
     cursor.execute("""
         SELECT id_cliente, nombre
         FROM clientes
@@ -798,14 +799,19 @@ def nueva_factura():
 
     clientes = cursor.fetchall()
 
-    # Obtener productos desde PostgreSQL
+    # Obtener productos con su precio desde PostgreSQL
     cursor.execute("""
-        SELECT id_producto, nombre
+        SELECT id_producto, nombre, precio
         FROM productos
         ORDER BY nombre ASC
     """)
 
     productos = cursor.fetchall()
+
+    # Autogenerar el número de factura correlativo
+    cursor.execute("SELECT COUNT(*) AS total_facturas FROM facturas")
+    conteo = cursor.fetchone()["total_facturas"]
+    numero_siguiente = f"FACT-{(conteo + 1):04d}"
 
     cursor.close()
     conn.close()
@@ -816,11 +822,18 @@ def nueva_factura():
         for cliente in clientes
     ]
 
-    # Cargar productos en el SelectField
+    # Cargar productos en el SelectField (mostrando el precio)
     form.id_producto.choices = [
-        (producto["id_producto"], producto["nombre"])
+        (producto["id_producto"], f"{producto['nombre']} (${producto['precio']:.2f})")
         for producto in productos
     ]
+
+    # Diccionario de precios para el cálculo automático con JavaScript
+    precios_dict = {p["id_producto"]: float(p["precio"]) for p in productos}
+
+    # Asignar número automático al cargar la página
+    if request.method == "GET" and not form.numero.data:
+        form.numero.data = numero_siguiente
 
     # Registrar factura
     if form.validate_on_submit():
@@ -853,8 +866,10 @@ def nueva_factura():
 
     return render_template(
         "formulario_facturacion.html",
-        form=form
+        form=form,
+        precios_json=json.dumps(precios_dict)
     )
+
 
 # Editar factura
 @app.route("/facturacion/editar/<int:id_factura>", methods=["GET", "POST"])
@@ -890,9 +905,9 @@ def editar_factura(id_factura):
 
     clientes = cursor.fetchall()
 
-    # 3. Obtener productos
+    # 3. Obtener productos con precio
     cursor.execute("""
-        SELECT id_producto, nombre
+        SELECT id_producto, nombre, precio
         FROM productos
         ORDER BY nombre ASC
     """)
@@ -902,18 +917,20 @@ def editar_factura(id_factura):
     cursor.close()
     conn.close()
 
-    # 4. Cargar opciones en los SelectField
     form = FacturacionForm()
 
+    # 4. Cargar opciones en los SelectField
     form.id_cliente.choices = [
         (cliente["id_cliente"], cliente["nombre"])
         for cliente in clientes
     ]
 
     form.id_producto.choices = [
-        (producto["id_producto"], producto["nombre"])
+        (producto["id_producto"], f"{producto['nombre']} (${producto['precio']:.2f})")
         for producto in productos
     ]
+
+    precios_dict = {p["id_producto"]: float(p["precio"]) for p in productos}
 
     # 5. Cargar datos actuales cuando se abre el formulario
     if request.method == "GET":
@@ -958,8 +975,10 @@ def editar_factura(id_factura):
 
     return render_template(
         "formulario_facturacion.html",
-        form=form
+        form=form,
+        precios_json=json.dumps(precios_dict)
     )
+
 
 # Eliminar factura
 @app.route("/facturacion/eliminar/<int:id_factura>", methods=["POST"])

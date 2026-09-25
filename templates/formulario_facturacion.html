@@ -26,8 +26,8 @@ Registrar Factura - AgroTech
                 {{ form.numero.label(class="form-label") }}
 
                 {{ form.numero(
-                    class="form-control",
-                    placeholder="Ejemplo: 001-004"
+                    class="form-control bg-light",
+                    placeholder="Ejemplo: FACT-0001"
                 ) }}
 
                 {% for error in form.numero.errors %}
@@ -64,7 +64,7 @@ Registrar Factura - AgroTech
 
                 {{ form.id_producto.label(class="form-label") }}
 
-                {{ form.id_producto(class="form-select") }}
+                {{ form.id_producto(class="form-select", id="select_producto") }}
 
                 {% for error in form.id_producto.errors %}
 
@@ -77,14 +77,22 @@ Registrar Factura - AgroTech
             </div>
 
 
+            <!-- CANTIDAD -->
+            <div class="mb-3">
+                <label class="form-label" for="input_cantidad">Cantidad</label>
+                <input type="number" id="input_cantidad" class="form-control" value="1" min="1">
+            </div>
+
+
             <!-- TOTAL -->
             <div class="mb-3">
 
                 {{ form.total.label(class="form-label") }}
 
                 {{ form.total(
-                    class="form-control",
-                    placeholder="Ingrese el total"
+                    class="form-control bg-light",
+                    placeholder="0.00",
+                    id="input_total"
                 ) }}
 
                 {% for error in form.total.errors %}
@@ -120,5 +128,33 @@ Registrar Factura - AgroTech
     </div>
 
 </section>
+
+<!-- CÁLCULO AUTOMÁTICO DE PRECIOS -->
+<script>
+    const precios = {{ precios_json | safe if precios_json else '{}' }};
+    const selectProducto = document.getElementById('select_producto');
+    const inputCantidad = document.getElementById('input_cantidad');
+    const inputTotal = document.getElementById('input_total');
+
+    function calcularTotal() {
+        const idProd = selectProducto.value;
+        const cantidad = parseInt(inputCantidad.value) || 1;
+
+        if (idProd && precios[idProd] !== undefined) {
+            const precioUnitario = precios[idProd];
+            const calculo = precioUnitario * cantidad;
+            inputTotal.value = calculo.toFixed(2);
+        }
+    }
+
+    if (selectProducto && inputCantidad && inputTotal) {
+        selectProducto.addEventListener('change', calcularTotal);
+        inputCantidad.addEventListener('input', calcularTotal);
+
+        if (!inputTotal.value || inputTotal.value === "0.0") {
+            calcularTotal();
+        }
+    }
+</script>
 
 {% endblock %}
