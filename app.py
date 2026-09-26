@@ -524,13 +524,12 @@ def editar_cliente(id_cliente):
     form = ClienteForm()
 
     if request.method == "GET":
-
-        form.nombre.data = cliente["nombre"]
-        form.actividad.data = cliente["actividad"]
-        form.ubicacion.data = cliente["ubicacion"]
-        form.cedula.data = cliente["cedula"]
-        form.telefono.data = cliente["telefono"]
-        form.correo.data = cliente["correo"]
+        form.nombre.data = cliente.get("nombre") or ""
+        form.actividad.data = cliente.get("actividad") or ""
+        form.ubicacion.data = cliente.get("ubicacion") or ""
+        form.cedula.data = cliente.get("cedula") or ""
+        form.telefono.data = cliente.get("telefono") or ""
+        form.correo.data = cliente.get("correo") or ""
 
     if form.validate_on_submit():
 
@@ -643,12 +642,14 @@ def nuevo_proveedor():
 
         cursor.execute("""
             INSERT INTO proveedores
-            (nombre, descripcion, estado)
-            VALUES (%s, %s, %s)
+            (nombre, descripcion, estado, telefono, correo)
+            VALUES (%s, %s, %s, %s, %s)
         """, (
             form.nombre.data,
             form.descripcion.data,
-            form.estado.data
+            form.estado.data,
+            form.telefono.data,
+            form.correo.data
         ))
 
         conn.commit()
@@ -667,6 +668,7 @@ def nuevo_proveedor():
         "formulario_proveedor.html",
         form=form
     )
+
 # Editar proveedor
 @app.route("/proveedores/editar/<int:id_proveedor>", methods=["GET", "POST"])
 @login_required
@@ -693,10 +695,11 @@ def editar_proveedor(id_proveedor):
     form = ProveedorForm()
 
     if request.method == "GET":
-
-        form.nombre.data = proveedor["nombre"]
-        form.descripcion.data = proveedor["descripcion"]
-        form.estado.data = proveedor["estado"]
+        form.nombre.data = proveedor.get("nombre") or ""
+        form.descripcion.data = proveedor.get("descripcion") or ""
+        form.estado.data = proveedor.get("estado") or ""
+        form.telefono.data = proveedor.get("telefono") or ""
+        form.correo.data = proveedor.get("correo") or ""
 
     if form.validate_on_submit():
 
@@ -707,12 +710,16 @@ def editar_proveedor(id_proveedor):
             UPDATE proveedores
             SET nombre = %s,
                 descripcion = %s,
-                estado = %s
+                estado = %s,
+                telefono = %s,
+                correo = %s
             WHERE id_proveedor = %s
         """, (
             form.nombre.data,
             form.descripcion.data,
             form.estado.data,
+            form.telefono.data,
+            form.correo.data,
             id_proveedor
         ))
 
@@ -732,6 +739,7 @@ def editar_proveedor(id_proveedor):
         "formulario_proveedor.html",
         form=form
     )
+
 # Eliminar proveedor
 @app.route("/proveedores/eliminar/<int:id_proveedor>", methods=["POST"])
 @login_required
