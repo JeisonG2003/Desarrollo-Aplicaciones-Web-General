@@ -203,9 +203,9 @@ def inicio():
     proyecto = {
         "nombre": "AgroTech",
         "descripcion": "Plataforma digital para la gestión y control de actividades agrícolas",
-        "autor": "Jeison Teobaldo García Arreaga"
+        "autor": "Cornejo Olaya Lissi Antonella & Jeison Teobaldo García Arreaga"
     }
-
+    
     return render_template(
         "index.html",
         proyecto=proyecto

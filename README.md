@@ -283,6 +283,7 @@ En esta etapa PostgreSQL se establece como el sistema de gestión de base de dat
 ### Autor
 
 **Jeison Teobaldo García Arreaga**
+**Cornejo Olaya Lissi Antonella**
 
-Estudiante de Ingeniería en Tecnologías de la Información  
+Estudiantes de Ingeniería en Tecnologías de la Información  
 Universidad Estatal Amazónica
