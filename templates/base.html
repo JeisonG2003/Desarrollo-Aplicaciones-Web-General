@@ -18,30 +18,29 @@
 </head>
 
 <body class="d-flex flex-column min-vh-100">
+        <!-- ENCABEZADO -->
+        <header class="text-center py-4 bg-success text-white">
 
-    <!-- ENCABEZADO -->
-    <header class="text-center py-3 bg-success text-white">
+            <h1 class="fw-bold mb-2">
+                Sistema AgroTech
+            </h1>
 
-        <h1 class="fw-bold">Sistema AgroTech</h1>
+            <h2 class="fs-4 fw-semibold text-center mb-2">
+                Plataforma digital para la gestión y control de actividades agrícolas
+            </h2>
 
-        <h2 class="fs-5 fw-normal mb-1">
-            Plataforma digital para la gestión y control de actividades agrícolas
-        </h2>
+            <p class="fs-6 fw-bold text-uppercase mb-0">
+                Proyecto Integrador - Desarrollo de Aplicaciones Web
+            </p>
 
-        <small class="d-block text-white-50">
-            Proyecto Integrador - Desarrollo de Aplicaciones Web
-        </small>
+        </header>
 
-    </header>
-
-    <!-- COMPONENTE NAVBAR -->
+    <!-- NAVBAR -->
     {% include "components/navbar.html" %}
-
 
     <!-- CONTENIDO -->
     <main class="container py-4 flex-grow-1">
 
-        <!-- MENSAJES DE FLASK -->
         {% with mensajes = get_flashed_messages(with_categories=true) %}
 
             {% if mensajes %}
@@ -52,7 +51,11 @@
 
                         {{ mensaje }}
 
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Cerrar">
+                        <button
+                            type="button"
+                            class="btn-close"
+                            data-bs-dismiss="alert"
+                            aria-label="Cerrar">
                         </button>
 
                     </div>
@@ -63,20 +66,16 @@
 
         {% endwith %}
 
-
         {% block content %}
         {% endblock %}
 
     </main>
 
-
-    <!-- COMPONENTE FOOTER -->
+    <!-- FOOTER -->
     {% include "components/footer.html" %}
 
-
-    <!-- Bootstrap JS oficial -->
+    <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-
 
     <!-- JavaScript personalizado -->
     <script src="{{ url_for('static', filename='js/script.js') }}"></script>

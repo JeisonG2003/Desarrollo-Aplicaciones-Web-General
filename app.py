@@ -204,6 +204,7 @@ def inicio():
         "nombre": "AgroTech",
         "descripcion": "Plataforma digital para la gestión y control de actividades agrícolas",
         "materia": "Proyecto Integrador - Desarrollo de Aplicaciones Web",
+        "autor": "Cornejo Olaya Lissi Antonella y Jeison Teobaldo García Arreaga"
     }
 
     return render_template(

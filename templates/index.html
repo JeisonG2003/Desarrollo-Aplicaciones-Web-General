@@ -13,7 +13,7 @@ Inicio - AgroTech
                 Bienvenido a {{ proyecto.nombre }}
             </h2>
 
-            <p class="fw-bold">
+            <p class="fw-bold text-center">
                 {{ proyecto.descripcion }}
             </p>
 
@@ -26,9 +26,10 @@ Inicio - AgroTech
                 utilizados en el campo mediante herramientas tecnológicas.
             </p>
 
-            <p class="text-center">
-                Proyecto desarrollado por:
-                <strong>{{ proyecto.autor }}</strong>
+            <!-- NOMBRES BIEN UBICADOS Y RESALTADOS -->
+            <p class="text-center mt-4">
+                <span class="text-muted d-block mb-1">Proyecto desarrollado por:</span>
+                <strong class="fs-5 text-dark">{{ proyecto.autor }}</strong>
             </p>
 
             <div class="text-center mt-3">

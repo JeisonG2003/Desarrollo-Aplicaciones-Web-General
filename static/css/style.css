@@ -172,3 +172,12 @@ img{
 img:hover{
     transform:scale(1.02);
 }
+
+header,
+header h1,
+header h2,
+header p,
+footer,
+footer p{
+    text-align:center !important;
+}
