@@ -9,7 +9,7 @@ Registrar Proveedor - AgroTech
 <section class="seccion">
 
     <h2 class="text-center mb-4">
-        Registrar Proveedor
+        Registrar / Editar Proveedor
     </h2>
 
     <div class="card shadow p-4">
@@ -62,12 +62,54 @@ Registrar Proveedor - AgroTech
             </div>
 
 
+            <!-- TELÉFONO -->
+            <div class="mb-3">
+
+                {{ form.telefono.label(class="form-label") }}
+
+                {{ form.telefono(
+                    class="form-control",
+                    placeholder="Ingrese el número de teléfono"
+                ) }}
+
+                {% for error in form.telefono.errors %}
+
+                    <div class="text-danger mt-1">
+                        {{ error }}
+                    </div>
+
+                {% endfor %}
+
+            </div>
+
+
+            <!-- CORREO -->
+            <div class="mb-3">
+
+                {{ form.correo.label(class="form-label") }}
+
+                {{ form.correo(
+                    class="form-control",
+                    placeholder="Ingrese el correo electrónico"
+                ) }}
+
+                {% for error in form.correo.errors %}
+
+                    <div class="text-danger mt-1">
+                        {{ error }}
+                    </div>
+
+                {% endfor %}
+
+            </div>
+
+
             <!-- ESTADO -->
             <div class="mb-3">
 
                 {{ form.estado.label(class="form-label") }}
 
-                {{ form.estado(class="form-control") }}
+                {{ form.estado(class="form-select") }}
 
                 {% for error in form.estado.errors %}
 

@@ -9,7 +9,7 @@ Registrar Cliente - AgroTech
 <section class="seccion">
 
     <h2 class="text-center mb-4">
-        Registrar Cliente
+        Registrar / Editar Cliente
     </h2>
 
     <div class="card shadow p-4">
@@ -20,84 +20,72 @@ Registrar Cliente - AgroTech
             {{ form.hidden_tag() }}
 
 
+            <!-- CÉDULA -->
+            <div class="mb-3">
+                {{ form.cedula.label(class="form-label") }}
+                {{ form.cedula(class="form-control", placeholder="Ingrese la cédula del cliente") }}
+                {% for error in form.cedula.errors %}
+                    <div class="text-danger mt-1">{{ error }}</div>
+                {% endfor %}
+            </div>
+
+
             <!-- NOMBRE -->
             <div class="mb-3">
-
                 {{ form.nombre.label(class="form-label") }}
-
-                {{ form.nombre(
-                    class="form-control",
-                    placeholder="Ingrese el nombre del cliente"
-                ) }}
-
+                {{ form.nombre(class="form-control", placeholder="Ingrese el nombre del cliente") }}
                 {% for error in form.nombre.errors %}
-
-                    <div class="text-danger mt-1">
-                        {{ error }}
-                    </div>
-
+                    <div class="text-danger mt-1">{{ error }}</div>
                 {% endfor %}
-
             </div>
 
 
             <!-- ACTIVIDAD -->
             <div class="mb-3">
-
                 {{ form.actividad.label(class="form-label") }}
-
-                {{ form.actividad(
-                    class="form-control",
-                    placeholder="Ingrese la actividad del cliente"
-                ) }}
-
+                {{ form.actividad(class="form-control", placeholder="Ingrese la actividad del cliente") }}
                 {% for error in form.actividad.errors %}
-
-                    <div class="text-danger mt-1">
-                        {{ error }}
-                    </div>
-
+                    <div class="text-danger mt-1">{{ error }}</div>
                 {% endfor %}
-
             </div>
 
 
             <!-- UBICACIÓN -->
             <div class="mb-3">
-
                 {{ form.ubicacion.label(class="form-label") }}
-
-                {{ form.ubicacion(
-                    class="form-control",
-                    placeholder="Ingrese la ubicación"
-                ) }}
-
+                {{ form.ubicacion(class="form-control", placeholder="Ingrese la ubicación") }}
                 {% for error in form.ubicacion.errors %}
-
-                    <div class="text-danger mt-1">
-                        {{ error }}
-                    </div>
-
+                    <div class="text-danger mt-1">{{ error }}</div>
                 {% endfor %}
+            </div>
 
+
+            <!-- TELÉFONO -->
+            <div class="mb-3">
+                {{ form.telefono.label(class="form-label") }}
+                {{ form.telefono(class="form-control", placeholder="Ingrese el número de teléfono") }}
+                {% for error in form.telefono.errors %}
+                    <div class="text-danger mt-1">{{ error }}</div>
+                {% endfor %}
+            </div>
+
+
+            <!-- CORREO -->
+            <div class="mb-3">
+                {{ form.correo.label(class="form-label") }}
+                {{ form.correo(class="form-control", placeholder="Ingrese el correo electrónico") }}
+                {% for error in form.correo.errors %}
+                    <div class="text-danger mt-1">{{ error }}</div>
+                {% endfor %}
             </div>
 
 
             <!-- BOTONES -->
             <div class="text-center">
-
-                {{ form.enviar(
-                    class="btn btn-success px-4"
-                ) }}
-
-                <a
-                    href="{{ url_for('clientes') }}"
-                    class="btn btn-secondary px-4">
-
+                {{ form.enviar(class="btn btn-success px-4") }}
+                <a href="{{ url_for('clientes') }}" class="btn btn-secondary px-4">
                     Cancelar
-
                 </a>
-
             </div>
 
         </form>

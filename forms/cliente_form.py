@@ -1,9 +1,21 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField
-from wtforms.validators import DataRequired, Length
+from wtforms.validators import DataRequired, Length, Email, Optional
 
 
 class ClienteForm(FlaskForm):
+
+    cedula = StringField(
+        "Cédula",
+        validators=[
+            Optional(),
+            Length(
+                min=10,
+                max=20,
+                message="La cédula debe tener entre 10 y 20 caracteres."
+            )
+        ]
+    )
 
     nombre = StringField(
         "Nombre del cliente",
@@ -47,4 +59,30 @@ class ClienteForm(FlaskForm):
         ]
     )
 
-    enviar = SubmitField("Registrar cliente")
+    telefono = StringField(
+        "Teléfono",
+        validators=[
+            Optional(),
+            Length(
+                min=7,
+                max=20,
+                message="El teléfono debe tener entre 7 y 20 caracteres."
+            )
+        ]
+    )
+
+    correo = StringField(
+        "Correo electrónico",
+        validators=[
+            Optional(),
+            Email(
+                message="Ingrese un correo electrónico válido."
+            ),
+            Length(
+                max=100,
+                message="El correo no puede superar los 100 caracteres."
+            )
+        ]
+    )
+
+    enviar = SubmitField("Guardar cliente")

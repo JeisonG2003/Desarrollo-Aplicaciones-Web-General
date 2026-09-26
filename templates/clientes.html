@@ -13,100 +13,65 @@ Clientes - AgroTech
     </h2>
 
     <div class="text-center mb-4">
-
-        <a
-            href="{{ url_for('nuevo_cliente') }}"
-            class="btn btn-success">
-
+        <a href="{{ url_for('nuevo_cliente') }}" class="btn btn-success">
             Registrar Cliente
-
         </a>
-
     </div>
 
     <p>
-        Información de los clientes registrados
-        en el sistema AgroTech.
+        Información de los clientes registrados en el sistema AgroTech.
     </p>
 
     <div class="table-responsive shadow rounded">
-
         <table class="table table-hover align-middle mb-0 bg-white">
-
             <thead class="table-success">
-
                 <tr>
                     <th>ID</th>
+                    <th>Cédula</th>
                     <th>Nombre</th>
                     <th>Actividad</th>
                     <th>Ubicación</th>
+                    <th>Teléfono</th>
+                    <th>Correo</th>
                     <th class="text-center">Acciones</th>
                 </tr>
-
             </thead>
-
             <tbody>
-
                 {% for cliente in clientes %}
-
                 <tr>
-
                     <td>{{ cliente.id_cliente }}</td>
-
+                    <td>{{ cliente.cedula if cliente.cedula else '-' }}</td>
                     <td>
                         <strong>{{ cliente.nombre|upper }}</strong>
                     </td>
-
                     <td>{{ cliente.actividad }}</td>
-
                     <td>{{ cliente.ubicacion }}</td>
+                    <td>{{ cliente.telefono if cliente.telefono else '-' }}</td>
+                    <td>{{ cliente.correo if cliente.correo else '-' }}</td>
 
                     <td class="text-center">
-
-                        <a
-                            href="{{ url_for('editar_cliente', id_cliente=cliente.id_cliente) }}"
-                            class="btn btn-warning btn-sm">
-
+                        <a href="{{ url_for('editar_cliente', id_cliente=cliente.id_cliente) }}" class="btn btn-warning btn-sm">
                             Editar
-
                         </a>
 
-                        <form
-                            action="{{ url_for('eliminar_cliente', id_cliente=cliente.id_cliente) }}"
-                            method="POST"
-                            class="d-inline">
-
-                            <button
-                                type="submit"
-                                class="btn btn-danger btn-sm"
-                                onclick="return confirm('¿Está seguro de eliminar este cliente?');">
-
+                        <form action="{{ url_for('eliminar_cliente', id_cliente=cliente.id_cliente) }}" method="POST" class="d-inline">
+                            <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('¿Está seguro de eliminar este cliente?');">
                                 Eliminar
-
                             </button>
-
                         </form>
-
                     </td>
-
                 </tr>
-
                 {% else %}
-
                 <tr>
-                    <td colspan="5" class="text-center">
+                    <td colspan="8" class="text-center">
                         <div class="alert alert-warning mb-0">
                             No existen clientes registrados.
                         </div>
                     </td>
                 </tr>
-
                 {% endfor %}
-
             </tbody>
-
         </table>
-
     </div>
 
 </section>

@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, SelectField, SubmitField
-from wtforms.validators import DataRequired, Length
+from wtforms.validators import DataRequired, Length, Email, Optional
 
 
 class ProveedorForm(FlaskForm):
@@ -47,4 +47,30 @@ class ProveedorForm(FlaskForm):
         ]
     )
 
-    enviar = SubmitField("Registrar proveedor")
+    telefono = StringField(
+        "Teléfono",
+        validators=[
+            Optional(),
+            Length(
+                min=7,
+                max=20,
+                message="El teléfono debe tener entre 7 y 20 caracteres."
+            )
+        ]
+    )
+
+    correo = StringField(
+        "Correo electrónico",
+        validators=[
+            Optional(),
+            Email(
+                message="Ingrese un correo electrónico válido."
+            ),
+            Length(
+                max=100,
+                message="El correo no puede superar los 100 caracteres."
+            )
+        ]
+    )
+
+    enviar = SubmitField("Guardar proveedor")

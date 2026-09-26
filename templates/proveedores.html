@@ -39,6 +39,8 @@ Proveedores - AgroTech
                     <th>ID</th>
                     <th>Nombre</th>
                     <th>Descripción</th>
+                    <th>Teléfono</th>
+                    <th>Correo</th>
                     <th>Estado</th>
                     <th class="text-center">Acciones</th>
                 </tr>
@@ -58,6 +60,10 @@ Proveedores - AgroTech
                     </td>
 
                     <td>{{ proveedor.descripcion }}</td>
+
+                    <td>{{ proveedor.telefono if proveedor.telefono else '-' }}</td>
+
+                    <td>{{ proveedor.correo if proveedor.correo else '-' }}</td>
 
                     <td>
 
@@ -110,7 +116,7 @@ Proveedores - AgroTech
                 {% else %}
 
                 <tr>
-                    <td colspan="5" class="text-center">
+                    <td colspan="7" class="text-center">
                         <div class="alert alert-warning mb-0">
                             No existen proveedores registrados.
                         </div>

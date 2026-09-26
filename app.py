@@ -470,12 +470,15 @@ def nuevo_cliente():
 
         cursor.execute("""
             INSERT INTO clientes
-            (nombre, actividad, ubicacion)
-            VALUES (%s, %s, %s)
+            (nombre, actividad, ubicacion, cedula, telefono, correo)
+            VALUES (%s, %s, %s, %s, %s, %s)
         """, (
             form.nombre.data,
             form.actividad.data,
-            form.ubicacion.data
+            form.ubicacion.data,
+            form.cedula.data,
+            form.telefono.data,
+            form.correo.data
         ))
 
         conn.commit()
@@ -525,6 +528,9 @@ def editar_cliente(id_cliente):
         form.nombre.data = cliente["nombre"]
         form.actividad.data = cliente["actividad"]
         form.ubicacion.data = cliente["ubicacion"]
+        form.cedula.data = cliente["cedula"]
+        form.telefono.data = cliente["telefono"]
+        form.correo.data = cliente["correo"]
 
     if form.validate_on_submit():
 
@@ -535,12 +541,18 @@ def editar_cliente(id_cliente):
             UPDATE clientes
             SET nombre = %s,
                 actividad = %s,
-                ubicacion = %s
+                ubicacion = %s,
+                cedula = %s,
+                telefono = %s,
+                correo = %s
             WHERE id_cliente = %s
         """, (
             form.nombre.data,
             form.actividad.data,
             form.ubicacion.data,
+            form.cedula.data,
+            form.telefono.data,
+            form.correo.data,
             id_cliente
         ))
 
