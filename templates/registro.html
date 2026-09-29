@@ -20,7 +20,7 @@ Registro de usuario - AgroTech
                         Crear cuenta
                     </h2>
 
-                    <p class="text-center text-muted">
+                    <p class="text-center text-muted mb-4">
                         Regístrate para acceder al sistema AgroTech
                     </p>
 
@@ -28,37 +28,70 @@ Registro de usuario - AgroTech
 
                         {{ form.hidden_tag() }}
 
+                        <!-- Usuario -->
                         <div class="mb-3">
+
                             {{ form.usuario.label(class="form-label") }}
-                            {{ form.usuario(class="form-control") }}
+
+                            {{ form.usuario(
+                                class="form-control",
+                                placeholder="Ej.: lissi.olaya"
+                            ) }}
+
+                            <div class="form-text">
+                                Elige un nombre de usuario fácil de recordar.
+                            </div>
 
                             {% for error in form.usuario.errors %}
                                 <div class="text-danger small">
                                     {{ error }}
                                 </div>
                             {% endfor %}
+
                         </div>
 
+                        <!-- Contraseña -->
                         <div class="mb-3">
+
                             {{ form.password.label(class="form-label") }}
-                            {{ form.password(class="form-control") }}
+
+                            {{ form.password(
+                                class="form-control",
+                                placeholder="Ingresa tu contraseña"
+                            ) }}
+
+                            <div class="form-text">
+                                Utiliza una contraseña segura que puedas recordar.
+                            </div>
 
                             {% for error in form.password.errors %}
                                 <div class="text-danger small">
                                     {{ error }}
                                 </div>
                             {% endfor %}
+
                         </div>
 
+                        <!-- Confirmar contraseña -->
                         <div class="mb-3">
+
                             {{ form.confirmar_password.label(class="form-label") }}
-                            {{ form.confirmar_password(class="form-control") }}
+
+                            {{ form.confirmar_password(
+                                class="form-control",
+                                placeholder="Repite tu contraseña"
+                            ) }}
+
+                            <div class="form-text">
+                                Debe coincidir con la contraseña ingresada anteriormente.
+                            </div>
 
                             {% for error in form.confirmar_password.errors %}
                                 <div class="text-danger small">
                                     {{ error }}
                                 </div>
                             {% endfor %}
+
                         </div>
 
                         {{ form.enviar(class="btn btn-success w-100") }}
