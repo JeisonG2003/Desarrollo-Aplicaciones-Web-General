@@ -1,142 +1,373 @@
 {% extends "base.html" %}
 
+{% set es_edicion = request.endpoint == 'editar_producto' %}
+
 {% block title %}
+{% if es_edicion %}
+Editar Producto - AgroTech
+{% else %}
 Registrar Producto - AgroTech
+{% endif %}
 {% endblock %}
 
 {% block content %}
 
-<section class="seccion">
+<section class="form-page">
 
-    <h2 class="text-center mb-4">
-        Registrar Producto Agrícola
-    </h2>
+    <div class="container">
 
-    <div class="card shadow p-4">
-
-        <form method="POST">
-
-            <!-- PROTECCIÓN CSRF -->
-            {{ form.hidden_tag() }}
+        <div class="form-page-wrapper">
 
 
-            <!-- NOMBRE -->
-            <div class="mb-3">
+            <!-- ==================================================
+                 ENCABEZADO
+            =================================================== -->
 
-                {{ form.nombre.label(class="form-label") }}
-
-                {{ form.nombre(
-                    class="form-control",
-                    placeholder="Ingrese el nombre del producto"
-                ) }}
-
-                {% for error in form.nombre.errors %}
-
-                    <div class="text-danger mt-1">
-                        {{ error }}
-                    </div>
-
-                {% endfor %}
-
-            </div>
-
-
-            <!-- CATEGORÍA -->
-            <div class="mb-3">
-
-                {{ form.categoria.label(class="form-label") }}
-
-                {{ form.categoria(class="form-select") }}
-
-                {% for error in form.categoria.errors %}
-
-                    <div class="text-danger mt-1">
-                        {{ error }}
-                    </div>
-
-                {% endfor %}
-
-            </div>
-
-
-            <!-- PRECIO -->
-            <div class="mb-3">
-
-                {{ form.precio.label(class="form-label") }}
-
-                {{ form.precio(
-                    class="form-control",
-                    placeholder="Ingrese el precio"
-                ) }}
-
-                {% for error in form.precio.errors %}
-
-                    <div class="text-danger mt-1">
-                        {{ error }}
-                    </div>
-
-                {% endfor %}
-
-            </div>
-
-
-            <!-- STOCK -->
-            <div class="mb-3">
-
-                {{ form.stock.label(class="form-label") }}
-
-                {{ form.stock(
-                    class="form-control",
-                    placeholder="Ingrese el stock"
-                ) }}
-
-                {% for error in form.stock.errors %}
-
-                    <div class="text-danger mt-1">
-                        {{ error }}
-                    </div>
-
-                {% endfor %}
-
-            </div>
-
-
-            <!-- PROVEEDOR (BLOQUE AÑADIDO) -->
-            <div class="mb-3">
-
-                {{ form.id_proveedor.label(class="form-label") }}
-
-                {{ form.id_proveedor(class="form-select") }}
-
-                {% for error in form.id_proveedor.errors %}
-
-                    <div class="text-danger mt-1">
-                        {{ error }}
-                    </div>
-
-                {% endfor %}
-
-            </div>
-
-
-            <!-- BOTONES -->
-            <div class="text-center">
-
-                {{ form.enviar(
-                    class="btn btn-success px-4"
-                ) }}
+            <div class="form-page-header">
 
                 <a
                     href="{{ url_for('productos') }}"
-                    class="btn btn-secondary px-4">
+                    class="form-back-link">
 
-                    Cancelar
+                    <i class="bi bi-arrow-left"></i>
+
+                    Volver a productos
 
                 </a>
 
+
+                <span class="section-eyebrow form-eyebrow">
+
+                    {% if es_edicion %}
+                        Actualización de producto
+                    {% else %}
+                        Nuevo registro
+                    {% endif %}
+
+                </span>
+
+
+                <h1>
+
+                    {% if es_edicion %}
+                        Editar producto
+                    {% else %}
+                        Registrar producto agrícola
+                    {% endif %}
+
+                </h1>
+
+
+                <p>
+
+                    {% if es_edicion %}
+
+                        Modifica la información necesaria y guarda
+                        los cambios del producto seleccionado.
+
+                    {% else %}
+
+                        Completa los datos para incorporar un nuevo
+                        producto al sistema AgroTech.
+
+                    {% endif %}
+
+                </p>
+
             </div>
 
-        </form>
+
+
+            <!-- ==================================================
+                 TARJETA DEL FORMULARIO
+            =================================================== -->
+
+            <div class="agro-form-card">
+
+
+                <!-- CABECERA INTERNA -->
+
+                <div class="agro-form-card-header">
+
+                    <div class="agro-form-card-icon">
+
+                        <i class="bi bi-box-seam"></i>
+
+                    </div>
+
+
+                    <div>
+
+                        <h2>
+                            Información del producto
+                        </h2>
+
+                        <p>
+                            Los campos deben contener información válida
+                            antes de guardar.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- FORMULARIO -->
+
+                <form method="POST" class="agro-form">
+
+                    {{ form.hidden_tag() }}
+
+
+
+                    <!-- NOMBRE -->
+
+                    <div class="agro-form-group">
+
+                        {{ form.nombre.label(class="form-label") }}
+
+                        <div class="agro-input-wrapper">
+
+                            <span class="agro-input-icon">
+                                <i class="bi bi-box"></i>
+                            </span>
+
+                            {{ form.nombre(
+                                class="form-control agro-form-control",
+                                placeholder="Ej.: Semillas de maíz"
+                            ) }}
+
+                        </div>
+
+
+                        <div class="agro-form-help">
+                            Ingresa un nombre que permita identificar fácilmente el producto.
+                        </div>
+
+
+                        {% for error in form.nombre.errors %}
+
+                            <div class="agro-form-error">
+
+                                <i class="bi bi-exclamation-circle"></i>
+
+                                {{ error }}
+
+                            </div>
+
+                        {% endfor %}
+
+                    </div>
+
+
+
+                    <!-- CATEGORÍA -->
+
+                    <div class="agro-form-group">
+
+                        {{ form.categoria.label(class="form-label") }}
+
+                        <div class="agro-select-wrapper">
+
+                            <span class="agro-input-icon">
+                                <i class="bi bi-tags"></i>
+                            </span>
+
+                            {{ form.categoria(
+                                class="form-select agro-form-control"
+                            ) }}
+
+                        </div>
+
+
+                        <div class="agro-form-help">
+                            Selecciona la categoría que corresponde al producto.
+                        </div>
+
+
+                        {% for error in form.categoria.errors %}
+
+                            <div class="agro-form-error">
+
+                                <i class="bi bi-exclamation-circle"></i>
+
+                                {{ error }}
+
+                            </div>
+
+                        {% endfor %}
+
+                    </div>
+
+
+
+                    <!-- PRECIO Y STOCK -->
+
+                    <div class="row g-3">
+
+
+                        <!-- PRECIO -->
+
+                        <div class="col-md-6">
+
+                            <div class="agro-form-group">
+
+                                {{ form.precio.label(class="form-label") }}
+
+                                <div class="agro-input-wrapper">
+
+                                    <span class="agro-input-icon">
+                                        <i class="bi bi-currency-dollar"></i>
+                                    </span>
+
+                                    {{ form.precio(
+                                        class="form-control agro-form-control",
+                                        placeholder="Ej.: 12.50",
+                                        inputmode="decimal"
+                                    ) }}
+
+                                </div>
+
+
+                                <div class="agro-form-help">
+                                    Ejemplo: 12.50
+                                </div>
+
+
+                                {% for error in form.precio.errors %}
+
+                                    <div class="agro-form-error">
+
+                                        <i class="bi bi-exclamation-circle"></i>
+
+                                        {{ error }}
+
+                                    </div>
+
+                                {% endfor %}
+
+                            </div>
+
+                        </div>
+
+
+
+                        <!-- STOCK -->
+
+                        <div class="col-md-6">
+
+                            <div class="agro-form-group">
+
+                                {{ form.stock.label(class="form-label") }}
+
+                                <div class="agro-input-wrapper">
+
+                                    <span class="agro-input-icon">
+                                        <i class="bi bi-boxes"></i>
+                                    </span>
+
+                                    {{ form.stock(
+                                        class="form-control agro-form-control",
+                                        placeholder="Ej.: 25",
+                                        inputmode="numeric"
+                                    ) }}
+
+                                </div>
+
+
+                                <div class="agro-form-help">
+                                    Cantidad actualmente disponible.
+                                </div>
+
+
+                                {% for error in form.stock.errors %}
+
+                                    <div class="agro-form-error">
+
+                                        <i class="bi bi-exclamation-circle"></i>
+
+                                        {{ error }}
+
+                                    </div>
+
+                                {% endfor %}
+
+                            </div>
+
+                        </div>
+
+
+                    </div>
+
+
+
+                    <!-- PROVEEDOR -->
+
+                    <div class="agro-form-group">
+
+                        {{ form.id_proveedor.label(class="form-label") }}
+
+                        <div class="agro-select-wrapper">
+
+                            <span class="agro-input-icon">
+                                <i class="bi bi-truck"></i>
+                            </span>
+
+                            {{ form.id_proveedor(
+                                class="form-select agro-form-control"
+                            ) }}
+
+                        </div>
+
+
+                        <div class="agro-form-help">
+                            Selecciona el proveedor asociado a este producto.
+                        </div>
+
+
+                        {% for error in form.id_proveedor.errors %}
+
+                            <div class="agro-form-error">
+
+                                <i class="bi bi-exclamation-circle"></i>
+
+                                {{ error }}
+
+                            </div>
+
+                        {% endfor %}
+
+                    </div>
+
+
+
+                    <!-- BOTONES -->
+
+                    <div class="agro-form-actions">
+
+                        <a
+                            href="{{ url_for('productos') }}"
+                            class="agro-button-cancel">
+
+                            Cancelar
+
+                        </a>
+
+
+                        {{ form.enviar(
+                            class="agro-button-submit"
+                        ) }}
+
+                    </div>
+
+
+                </form>
+
+            </div>
+
+
+        </div>
 
     </div>
 

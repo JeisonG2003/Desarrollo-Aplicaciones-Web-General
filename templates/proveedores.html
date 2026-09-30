@@ -6,128 +6,401 @@ Proveedores - AgroTech
 
 {% block content %}
 
-<section class="seccion">
+<section class="crud-page">
 
-    <h2 class="text-center mb-4">
-        Proveedores
-    </h2>
+    <div class="container">
 
-    <div class="text-center mb-4">
 
-        <a
-            href="{{ url_for('nuevo_proveedor') }}"
-            class="btn btn-success">
+        <!-- =====================================================
+             ENCABEZADO
+        ====================================================== -->
 
-            Registrar Proveedor
+        <div class="crud-header">
 
-        </a>
+            <div class="crud-header-text">
 
-    </div>
+                <span class="section-eyebrow crud-eyebrow">
+                    Gestión de proveedores
+                </span>
 
-    <p>
-        Información de los proveedores registrados
-        en el sistema AgroTech.
-    </p>
+                <h1>
+                    Proveedores
+                </h1>
 
-    <div class="table-responsive shadow rounded">
+                <p>
+                    Consulta y administra la información de los proveedores
+                    registrados dentro del sistema AgroTech.
+                </p>
 
-        <table class="table table-hover align-middle mb-0 bg-white">
+            </div>
 
-            <thead class="table-success">
 
-                <tr>
-                    <th>ID</th>
-                    <th>Nombre</th>
-                    <th>Descripción</th>
-                    <th>Teléfono</th>
-                    <th>Correo</th>
-                    <th>Estado</th>
-                    <th class="text-center">Acciones</th>
-                </tr>
+            <div class="crud-header-action">
 
-            </thead>
+                <a
+                    href="{{ url_for('nuevo_proveedor') }}"
+                    class="crud-primary-button">
 
-            <tbody>
+                    <i class="bi bi-truck"></i>
 
-                {% for proveedor in proveedores %}
+                    Registrar proveedor
 
-                <tr>
+                </a>
 
-                    <td>{{ proveedor.id_proveedor }}</td>
+            </div>
 
-                    <td>
-                        <strong>{{ proveedor.nombre }}</strong>
-                    </td>
+        </div>
 
-                    <td>{{ proveedor.descripcion }}</td>
 
-                    <td>{{ proveedor.telefono if proveedor.telefono else '-' }}</td>
 
-                    <td>{{ proveedor.correo if proveedor.correo else '-' }}</td>
+        <!-- =====================================================
+             RESUMEN
+        ====================================================== -->
 
-                    <td>
+        <div class="crud-summary">
 
-                        {% if proveedor.estado == "Activo" %}
+            <div class="crud-summary-icon">
 
-                            <span class="badge bg-success">
-                                {{ proveedor.estado }}
-                            </span>
+                <i class="bi bi-building"></i>
+
+            </div>
+
+
+            <div>
+
+                <span>
+                    Proveedores registrados
+                </span>
+
+                <strong>
+                    {{ proveedores|length }}
+                </strong>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- =====================================================
+             TABLA
+        ====================================================== -->
+
+        <div class="crud-table-card">
+
+            <div class="crud-table-heading">
+
+                <div>
+
+                    <h2>
+                        Listado de proveedores
+                    </h2>
+
+                    <p>
+                        Información almacenada en PostgreSQL.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="table-responsive">
+
+                <table class="table crud-table align-middle">
+
+                    <thead>
+
+                        <tr>
+
+                            <th>
+                                ID
+                            </th>
+
+                            <th>
+                                Proveedor
+                            </th>
+
+                            <th>
+                                Descripción
+                            </th>
+
+                            <th>
+                                Teléfono
+                            </th>
+
+                            <th>
+                                Correo
+                            </th>
+
+                            <th>
+                                Estado
+                            </th>
+
+                            <th class="text-end">
+                                Acciones
+                            </th>
+
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody>
+
+                        {% for proveedor in proveedores %}
+
+                        <tr>
+
+
+                            <!-- ID -->
+
+                            <td>
+
+                                <span class="crud-id">
+
+                                    #{{ proveedor.id_proveedor }}
+
+                                </span>
+
+                            </td>
+
+
+
+                            <!-- NOMBRE -->
+
+                            <td>
+
+                                <div class="crud-main-data">
+
+                                    <span class="crud-data-icon">
+
+                                        <i class="bi bi-building"></i>
+
+                                    </span>
+
+
+                                    <strong>
+
+                                        {{ proveedor.nombre }}
+
+                                    </strong>
+
+                                </div>
+
+                            </td>
+
+
+
+                            <!-- DESCRIPCIÓN -->
+
+                            <td>
+
+                                {% if proveedor.descripcion %}
+
+                                    {{ proveedor.descripcion }}
+
+                                {% else %}
+
+                                    <span class="crud-muted">
+                                        Sin descripción
+                                    </span>
+
+                                {% endif %}
+
+                            </td>
+
+
+
+                            <!-- TELÉFONO -->
+
+                            <td>
+
+                                {% if proveedor.telefono %}
+
+                                    <i class="bi bi-telephone me-1"></i>
+
+                                    {{ proveedor.telefono }}
+
+                                {% else %}
+
+                                    <span class="crud-muted">
+                                        Sin registrar
+                                    </span>
+
+                                {% endif %}
+
+                            </td>
+
+
+
+                            <!-- CORREO -->
+
+                            <td>
+
+                                {% if proveedor.correo %}
+
+                                    <i class="bi bi-envelope me-1"></i>
+
+                                    {{ proveedor.correo }}
+
+                                {% else %}
+
+                                    <span class="crud-muted">
+                                        Sin registrar
+                                    </span>
+
+                                {% endif %}
+
+                            </td>
+
+
+
+                            <!-- ESTADO -->
+
+                            <td>
+
+                                {% if proveedor.estado == "Activo" %}
+
+                                    <span class="crud-status crud-status-success">
+
+                                        <span></span>
+
+                                        Activo
+
+                                    </span>
+
+                                {% else %}
+
+                                    <span class="crud-status crud-status-danger">
+
+                                        <span></span>
+
+                                        {{ proveedor.estado }}
+
+                                    </span>
+
+                                {% endif %}
+
+                            </td>
+
+
+
+                            <!-- ACCIONES -->
+
+                            <td>
+
+                                <div class="crud-actions">
+
+
+                                    <a
+                                        href="{{ url_for(
+                                            'editar_proveedor',
+                                            id_proveedor=proveedor.id_proveedor
+                                        ) }}"
+                                        class="crud-action-button crud-edit"
+                                        aria-label="Editar {{ proveedor.nombre }}">
+
+                                        <i class="bi bi-pencil"></i>
+
+                                        Editar
+
+                                    </a>
+
+
+
+                                    <form
+                                        action="{{ url_for(
+                                            'eliminar_proveedor',
+                                            id_proveedor=proveedor.id_proveedor
+                                        ) }}"
+                                        method="POST"
+                                        class="crud-delete-form"
+                                        onsubmit="return confirm(
+                                            '¿Está seguro de eliminar este proveedor?'
+                                        );">
+
+
+                                        <button
+                                            type="submit"
+                                            class="crud-action-button crud-delete"
+                                            aria-label="Eliminar {{ proveedor.nombre }}">
+
+                                            <i class="bi bi-trash"></i>
+
+                                            Eliminar
+
+                                        </button>
+
+                                    </form>
+
+
+                                </div>
+
+                            </td>
+
+
+                        </tr>
+
 
                         {% else %}
 
-                            <span class="badge bg-danger">
-                                {{ proveedor.estado }}
-                            </span>
 
-                        {% endif %}
+                        <!-- SIN REGISTROS -->
 
-                    </td>
+                        <tr>
 
-                    <td class="text-center">
+                            <td
+                                colspan="7"
+                                class="crud-empty-cell">
 
-                        <a
-                            href="{{ url_for('editar_proveedor', id_proveedor=proveedor.id_proveedor) }}"
-                            class="btn btn-warning btn-sm">
+                                <div class="crud-empty-state">
 
-                            Editar
+                                    <div class="crud-empty-icon">
 
-                        </a>
+                                        <i class="bi bi-building"></i>
 
-                        <form
-                            action="{{ url_for('eliminar_proveedor', id_proveedor=proveedor.id_proveedor) }}"
-                            method="POST"
-                            class="d-inline">
+                                    </div>
 
-                            <button
-                                type="submit"
-                                class="btn btn-danger btn-sm"
-                                onclick="return confirm('¿Está seguro de eliminar este proveedor?');">
 
-                                Eliminar
+                                    <h3>
+                                        No hay proveedores registrados
+                                    </h3>
 
-                            </button>
 
-                        </form>
+                                    <p>
+                                        Cuando registres un proveedor,
+                                        aparecerá en este listado.
+                                    </p>
 
-                    </td>
 
-                </tr>
+                                    <a
+                                        href="{{ url_for('nuevo_proveedor') }}"
+                                        class="crud-primary-button">
 
-                {% else %}
+                                        <i class="bi bi-truck"></i>
 
-                <tr>
-                    <td colspan="7" class="text-center">
-                        <div class="alert alert-warning mb-0">
-                            No existen proveedores registrados.
-                        </div>
-                    </td>
-                </tr>
+                                        Registrar primer proveedor
 
-                {% endfor %}
+                                    </a>
 
-            </tbody>
+                                </div>
 
-        </table>
+                            </td>
+
+                        </tr>
+
+
+                        {% endfor %}
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
 
     </div>
 

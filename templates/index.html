@@ -6,260 +6,460 @@ Inicio - AgroTech
 
 {% block content %}
 
-        <!-- INICIO -->
-        <section id="inicio" class="seccion">
 
-            <h2 class="text-center">
-                Bienvenido a {{ proyecto.nombre }}
-            </h2>
+<!-- =====================================================
+     HERO
+===================================================== -->
 
-            <p class="fw-bold text-center">
-                {{ proyecto.descripcion }}
-            </p>
+<section id="inicio" class="agro-hero">
 
-            <p>
-                Bienvenido a AgroTech. Este sistema fue desarrollado para ayudar
-                a los agricultores a organizar mejor sus actividades diarias,
-                registrar cultivos y llevar un control más eficiente de la
-                producción agrícola. Nuestro objetivo es facilitar la gestión
-                de información relacionada con cultivos, cosechas y recursos
-                utilizados en el campo mediante herramientas tecnológicas.
-            </p>
+    <div class="agro-hero-overlay">
 
-            <!-- NOMBRES BIEN UBICADOS Y RESALTADOS -->
-            <p class="text-center mt-4">
-                <span class="text-muted d-block mb-1">Proyecto desarrollado por:</span>
-                <strong class="fs-5 text-dark">{{ proyecto.autor }}</strong>
-            </p>
+        <div class="container agro-hero-grid">
 
-            <div class="text-center mt-3">
-                <a href="#servicios" class="btn btn-success btn-lg shadow">
-                    🌾 Conocer Servicios
-                </a>
-            </div>
+            <!-- Espacio reservado para la mujer -->
+            <div class="agro-hero-photo-space"></div>
 
-        </section>
 
-        <!-- QUIÉNES SOMOS -->
-        <section id="quienes-somos" class="seccion">
+            <div class="agro-hero-content">
 
-            <h2 class="text-center mb-4">Quiénes Somos</h2>
+                <p class="agro-kicker">
+                    Plataforma de gestión agrícola
+                </p>
 
-            <div class="row align-items-center">
 
-                <div class="col-md-6">
+                <h1>
+                    Tecnología para
+                    <span>gestionar mejor.</span>
+                </h1>
 
-                    <article>
 
-                        <p>
-                            AgroTech es un proyecto académico orientado al desarrollo
-                            de una plataforma digital para apoyar a los productores
-                            agrícolas en la gestión de sus actividades diarias. El
-                            objetivo principal del sistema es facilitar el registro
-                            de cultivos, el seguimiento de cosechas y la organización
-                            de los recursos utilizados en el campo. AgroTech busca
-                            brindar una herramienta sencilla, práctica y accesible
-                            para mejorar la administración de la información agrícola.
-                            Además, permite llevar un mejor control de las tareas
-                            realizadas, ayudando a optimizar el trabajo diario de los
-                            agricultores. Este proyecto representa una propuesta
-                            tecnológica que contribuye al crecimiento del sector
-                            agrícola mediante el uso de herramientas digitales fáciles
-                            de comprender y utilizar, promoviendo una agricultura más
-                            eficiente, organizada y sostenible.
-                        </p>
+                <p class="agro-hero-text">
+                    AgroTech permite organizar productos, clientes,
+                    proveedores, facturación y actividades agrícolas
+                    desde una misma plataforma.
+                </p>
 
-                        <p>
-                            Además, AgroTech promueve el uso responsable de la tecnología dentro del
-                            sector agrícola, incentivando la innovación y el desarrollo sostenible.
-                            Mediante el uso de herramientas digitales, los productores pueden acceder
-                            a información organizada, optimizar el uso de recursos y mejorar la
-                            planificación de sus actividades. Este proyecto demuestra cómo la tecnología
-                            puede convertirse en una aliada importante para el crecimiento y
-                            modernización de la agricultura.
-                        </p>
 
-                    </article>
+                <div class="agro-hero-buttons">
 
-                </div>
+                    {% if current_user.is_authenticated %}
 
-                <div class="col-md-6 text-center">
+                        <a
+                            href="{{ url_for('dashboard') }}"
+                            class="agro-button-primary">
 
-                    <img src="{{ url_for('static', filename='img/agrotech.jpg') }}"
-                        alt="Actividad agrícola"
-                        class="img-fluid rounded">
+                            Ir al panel
 
-                    <p class="mt-3">
-                        <strong>
-                            Imagen representativa del uso de tecnología en la agricultura moderna.
-                        </strong>
-                    </p>
+                            <i class="bi bi-arrow-right"></i>
+
+                        </a>
+
+                    {% else %}
+
+                        <a
+                            href="{{ url_for('login') }}"
+                            class="agro-button-primary">
+
+                            Acceder al sistema
+
+                            <i class="bi bi-arrow-right"></i>
+
+                        </a>
+
+                    {% endif %}
+
+
+                    <a
+                        href="#servicios"
+                        class="agro-button-secondary">
+
+                        Conocer AgroTech
+
+                    </a>
 
                 </div>
 
             </div>
 
-        </section>
-
-        <!-- SERVICIOS -->
-        <section id="servicios" class="seccion">
-
-            <h2 class="text-center mb-4">Servicios</h2>
-
-            <div class="row">
-
-                <div class="col-md-4 mb-3">
-
-                    <div class="card shadow h-100 border-0 p-3">
-
-                        <h4>Registro de Cultivos</h4>
-
-                        <p>
-                            Permite almacenar información detallada sobre cada
-                            cultivo para una mejor organización agrícola.
-                        </p>
-
-                    </div>
-
-                </div>
-
-                <div class="col-md-4 mb-3">
-
-                    <div class="card shadow h-100 border-0 p-3">
-
-                        <h4>Control de Cosechas</h4>
-
-                        <p>
-                            Facilita el seguimiento de la producción y la
-                            planificación de futuras cosechas.
-                        </p>
-
-                    </div>
-
-                </div>
-
-                <div class="col-md-4 mb-3">
-
-                    <div class="card shadow h-100 border-0 p-3">
-
-                        <h4>Reportes Agrícolas</h4>
-
-                        <p>
-                            Generación de reportes básicos para apoyar la toma
-                            de decisiones dentro de la actividad agrícola.
-                        </p>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-        </section>
-
-        <!-- VIDEO -->
-
-        <section class="seccion">
-
-        <h2>Tecnología aplicada a la agricultura</h2>
-
-        <p>
-            La agricultura moderna está experimentando una importante transformación
-            gracias al uso de nuevas tecnologías que permiten optimizar los procesos
-            de producción y mejorar el aprovechamiento de los recursos disponibles.
-            Actualmente, herramientas como la inteligencia artificial, los drones,
-            los sensores inteligentes y los sistemas de monitoreo digital ayudan a
-            los agricultores a tomar decisiones más precisas sobre el riego,
-            fertilización y control de plagas. Estas innovaciones permiten aumentar
-            la productividad de los cultivos, reducir costos y contribuir a una
-            agricultura más sostenible y amigable con el medio ambiente.
-        </p>
-
-        <p>
-            El proyecto AgroTech se inspira en estas tecnologías modernas, ya que
-            busca ofrecer una plataforma que facilite la gestión de la información
-            agrícola y el seguimiento de las actividades realizadas en el campo.
-            A través de herramientas digitales, los productores pueden llevar un
-            mejor control de sus cultivos, organizar sus recursos y optimizar sus
-            actividades diarias.
-        </p>
-
-        <div class="text-center my-4">
-            <iframe width="560" height="315"
-                src="https://www.youtube.com/embed/d4pmpjDsuXU?start=28"
-                title="Agricultura Inteligente"
-                allowfullscreen>
-            </iframe>
         </div>
 
-        <h3 class="text-center">Importancia de la tecnología agrícola</h3>
+    </div>
 
-        <p>
-            La incorporación de tecnología en el sector agrícola representa una gran
-            oportunidad para mejorar la eficiencia de la producción y garantizar una
-            mejor administración de los recursos. Gracias a los avances tecnológicos,
-            los agricultores pueden monitorear sus cultivos en tiempo real, detectar
-            problemas antes de que afecten la producción y planificar de manera más
-            efectiva las actividades agrícolas.
-        </p>
+</section>
 
-        <p>
-            Sistemas inteligentes como AgroTech permiten centralizar la información
-            de los cultivos, registrar actividades importantes y facilitar la toma
-            de decisiones. Estas herramientas ayudan a incrementar la productividad,
-            reducir pérdidas y promover prácticas agrícolas más sostenibles para el
-            beneficio de productores, consumidores y del medio ambiente.
-        </p>
 
-    </section>
 
-        <!-- BENEFICIOS -->
-        <section class="seccion">
+<!-- =====================================================
+     PRESENTACIÓN
+===================================================== -->
 
-            <h2 class="text-center mb-4">Beneficios de AgroTech</h2>
+<section class="agro-intro">
 
-            <div class="row">
+    <div class="container">
 
-                <div class="col-md-4">
+        <div class="row align-items-center g-4">
 
-                    <div class="card shadow h-100 border-0 p-3 mb-3">
+            <div class="col-lg-7">
 
-                        <h4>Mayor Organización</h4>
+                <span class="agro-label">
+                    Gestión agrícola inteligente
+                </span>
 
-                        <p>
-                            Permite registrar información importante sobre cultivos,
-                            cosechas y actividades agrícolas en un solo lugar.
-                        </p>
+                <h2 class="agro-big-title">
+                    Información más clara,
+                    organizada y accesible.
+                </h2>
+
+            </div>
+
+
+            <div class="col-lg-5">
+
+                <p class="agro-large-text mb-0">
+                    AgroTech reúne herramientas de gestión y una
+                    demostración interactiva para facilitar el registro
+                    y consulta de información agrícola.
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     SERVICIOS ORIGINALES
+===================================================== -->
+
+<section id="servicios" class="agro-section agro-services">
+
+    <div class="container">
+
+        <div class="agro-section-heading text-center">
+
+            <span class="agro-label">
+                Servicios
+            </span>
+
+            <h2>
+                Herramientas para apoyar
+                la gestión agrícola.
+            </h2>
+
+            <p>
+                AgroTech conserva las funciones planteadas durante
+                el desarrollo académico del proyecto.
+            </p>
+
+        </div>
+
+
+        <div class="row g-4 mt-4">
+
+
+            <div class="col-md-4">
+
+                <article class="service-card">
+
+                    <div class="service-icon">
+                        <i class="bi bi-flower1"></i>
+                    </div>
+
+                    <h3>
+                        Registro de cultivos
+                    </h3>
+
+                    <p>
+                        Permite registrar información básica
+                        de cada cultivo para mantener
+                        una mejor organización.
+                    </p>
+
+                    <a href="#registro-cultivos">
+                        Ver registro
+                        <i class="bi bi-arrow-right"></i>
+                    </a>
+
+                </article>
+
+            </div>
+
+
+            <div class="col-md-4">
+
+                <article class="service-card">
+
+                    <div class="service-icon">
+                        <i class="bi bi-calendar-check"></i>
+                    </div>
+
+                    <h3>
+                        Control de cosechas
+                    </h3>
+
+                    <p>
+                        Apoya el seguimiento de la producción
+                        y la planificación de las actividades agrícolas.
+                    </p>
+
+                </article>
+
+            </div>
+
+
+            <div class="col-md-4">
+
+                <article class="service-card">
+
+                    <div class="service-icon">
+                        <i class="bi bi-bar-chart-line"></i>
+                    </div>
+
+                    <h3>
+                        Reportes agrícolas
+                    </h3>
+
+                    <p>
+                        La organización de registros facilita
+                        la consulta de información para apoyar decisiones.
+                    </p>
+
+                </article>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     MÓDULOS DEL SISTEMA
+===================================================== -->
+
+<section class="agro-section modules-area">
+
+    <div class="container">
+
+        <div class="agro-section-heading text-center">
+
+            <span class="agro-label">
+                Sistema AgroTech
+            </span>
+
+            <h2>
+                Módulos principales.
+            </h2>
+
+            <p>
+                Los módulos del sistema permiten administrar
+                los registros almacenados en la base de datos.
+            </p>
+
+        </div>
+
+
+        <div class="row g-4 mt-4">
+
+
+            <!-- PRODUCTOS -->
+            <div class="col-md-6 col-xl-3">
+
+                <article class="system-card">
+
+                    <div class="system-card-image">
+
+                        <img
+                            src="{{ url_for('static', filename='img/productos.png') }}"
+                            alt="Productos agrícolas">
 
                     </div>
 
-                </div>
+                    <div class="system-card-body">
 
-                <div class="col-md-4">
-
-                    <div class="card p-3 mb-3">
-
-                        <h4>Mejor Toma de Decisiones</h4>
+                        <h3>Productos</h3>
 
                         <p>
-                            Facilita el seguimiento de procesos agrícolas mediante
-                            reportes e información actualizada.
+                            Productos, categorías,
+                            precios, stock y proveedor.
                         </p>
+
+                        {% if current_user.is_authenticated %}
+
+                            <a href="{{ url_for('productos') }}">
+                                Gestionar
+                                <i class="bi bi-arrow-right"></i>
+                            </a>
+
+                        {% endif %}
 
                     </div>
 
-                </div>
+                </article>
 
-                <div class="col-md-4">
+            </div>
 
-                    <div class="card p-3 mb-3">
 
-                        <h4>Uso de Tecnología</h4>
+            <!-- CLIENTES -->
+            <div class="col-md-6 col-xl-3">
+
+                <article class="system-card">
+
+                    <div class="system-card-image">
+
+                        <img
+                            src="{{ url_for('static', filename='img/clientes.png') }}"
+                            alt="Clientes">
+
+                    </div>
+
+                    <div class="system-card-body">
+
+                        <h3>Clientes</h3>
 
                         <p>
-                            Promueve la implementación de herramientas digitales para
-                            mejorar la productividad y eficiencia en el campo.
+                            Información personal,
+                            actividad, ubicación y contacto.
                         </p>
+
+                        {% if current_user.is_authenticated %}
+
+                            <a href="{{ url_for('clientes') }}">
+                                Gestionar
+                                <i class="bi bi-arrow-right"></i>
+                            </a>
+
+                        {% endif %}
+
+                    </div>
+
+                </article>
+
+            </div>
+
+
+            <!-- PROVEEDORES -->
+            <div class="col-md-6 col-xl-3">
+
+                <article class="system-card">
+
+                    <div class="system-card-image">
+
+                        <img
+                            src="{{ url_for('static', filename='img/proveedores.png') }}"
+                            alt="Proveedores">
+
+                    </div>
+
+                    <div class="system-card-body">
+
+                        <h3>Proveedores</h3>
+
+                        <p>
+                            Datos y estado de los
+                            proveedores registrados.
+                        </p>
+
+                        {% if current_user.is_authenticated %}
+
+                            <a href="{{ url_for('proveedores') }}">
+                                Gestionar
+                                <i class="bi bi-arrow-right"></i>
+                            </a>
+
+                        {% endif %}
+
+                    </div>
+
+                </article>
+
+            </div>
+
+
+            <!-- FACTURACIÓN -->
+            <div class="col-md-6 col-xl-3">
+
+                <article class="system-card">
+
+                    <div class="system-card-image">
+
+                        <img
+                            src="{{ url_for('static', filename='img/facturacion .png') }}"
+                            alt="Facturación">
+
+                    </div>
+
+                    <div class="system-card-body">
+
+                        <h3>Facturación</h3>
+
+                        <p>
+                            Facturas relacionadas
+                            con clientes y productos.
+                        </p>
+
+                        {% if current_user.is_authenticated %}
+
+                            <a href="{{ url_for('facturacion') }}">
+                                Gestionar
+                                <i class="bi bi-arrow-right"></i>
+                            </a>
+
+                        {% endif %}
+
+                    </div>
+
+                </article>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     QUIÉNES SOMOS
+===================================================== -->
+
+<section id="quienes-somos" class="agro-section agro-about">
+
+    <div class="container">
+
+        <div class="row align-items-center g-5">
+
+
+            <div class="col-lg-6">
+
+                <div class="agro-about-image">
+
+                    <img
+                        src="{{ url_for('static', filename='img/sobre.png') }}"
+                        alt="Tecnología aplicada a la agricultura">
+
+                    <div class="about-brand">
+
+                        <img
+                            src="{{ url_for('static', filename='img/logo solo sin texto-agrotech.png') }}"
+                            alt="">
+
+                        <div>
+                            <strong>AgroTech</strong>
+                            <span>Agricultura + tecnología</span>
+                        </div>
 
                     </div>
 
@@ -267,97 +467,530 @@ Inicio - AgroTech
 
             </div>
 
-            <p class="text-center mt-3">
-                AgroTech busca convertirse en una herramienta de apoyo para agricultores
-                y productores que desean aprovechar los beneficios de la tecnología para
-                optimizar sus procesos y mejorar la gestión de sus actividades diarias.
-            </p>
 
-        </section>
+            <div class="col-lg-6">
 
-        <!-- REGISTRO DE CULTIVOS -->
-        <section id="registro-cultivos" class="seccion">
+                <span class="agro-label">
+                    Quiénes somos
+                </span>
 
-            <h2 class="text-center mb-4">
-                Gestión de Cultivos AgroTech
+
+                <h2 class="agro-about-title">
+                    El campo también puede
+                    gestionarse de forma digital.
+                </h2>
+
+
+                <p class="agro-large-text">
+                    AgroTech es una plataforma académica orientada
+                    a facilitar la organización de información
+                    relacionada con actividades agrícolas.
+                </p>
+
+
+                <div class="about-list">
+
+
+                    <div class="about-list-item">
+
+                        <span>
+                            <i class="bi bi-grid"></i>
+                        </span>
+
+                        <div>
+                            <h3>Gestión centralizada</h3>
+
+                            <p>
+                                Diferentes módulos disponibles
+                                desde una misma aplicación.
+                            </p>
+                        </div>
+
+                    </div>
+
+
+                    <div class="about-list-item">
+
+                        <span>
+                            <i class="bi bi-shield-check"></i>
+                        </span>
+
+                        <div>
+                            <h3>Acceso protegido</h3>
+
+                            <p>
+                                Los módulos administrativos
+                                requieren autenticación.
+                            </p>
+                        </div>
+
+                    </div>
+
+
+                    <div class="about-list-item">
+
+                        <span>
+                            <i class="bi bi-database-check"></i>
+                        </span>
+
+                        <div>
+                            <h3>Persistencia de datos</h3>
+
+                            <p>
+                                La información se mantiene
+                                almacenada en PostgreSQL.
+                            </p>
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     TECNOLOGÍA + VIDEO
+===================================================== -->
+
+<section id="tecnologia" class="agro-technology">
+
+    <div class="container">
+
+        <div class="row align-items-center g-5">
+
+
+            <div class="col-lg-5">
+
+                <span class="agro-label agro-label-light">
+                    Tecnología aplicada a la agricultura
+                </span>
+
+
+                <h2>
+                    El campo evoluciona
+                    con nuevas herramientas.
+                </h2>
+
+
+                <p class="technology-text">
+                    La agricultura moderna utiliza sensores,
+                    drones, automatización y sistemas digitales
+                    para obtener información y mejorar
+                    la planificación de las actividades.
+                </p>
+
+
+                <div class="technology-points">
+
+
+                    <div>
+
+                        <i class="bi bi-cpu"></i>
+
+                        <span>
+                            Herramientas digitales
+                        </span>
+
+                    </div>
+
+
+                    <div>
+
+                        <i class="bi bi-broadcast-pin"></i>
+
+                        <span>
+                            Monitoreo de procesos
+                        </span>
+
+                    </div>
+
+
+                    <div>
+
+                        <i class="bi bi-graph-up-arrow"></i>
+
+                        <span>
+                            Apoyo a la planificación
+                        </span>
+
+                    </div>
+
+
+                </div>
+
+            </div>
+
+
+            <!-- VIDEO ORIGINAL -->
+            <div class="col-lg-7">
+
+                <div class="agro-video-card">
+
+                    <div class="agro-video">
+
+                        <iframe
+                            src="https://www.youtube.com/embed/d4pmpjDsuXU?start=28"
+                            title="Agricultura Inteligente"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                            allowfullscreen>
+                        </iframe>
+
+                    </div>
+
+
+                    <div class="agro-video-footer">
+
+                        <span class="video-circle">
+                            <i class="bi bi-play-fill"></i>
+                        </span>
+
+                        <div>
+
+                            <strong>
+                                Agricultura inteligente
+                            </strong>
+
+                            <small>
+                                Tecnología aplicada al sector agrícola
+                            </small>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     IMPORTANCIA
+===================================================== -->
+
+<section class="agro-section importance-section">
+
+    <div class="container">
+
+        <div class="row align-items-center g-5">
+
+
+            <div class="col-lg-5">
+
+                <span class="agro-label">
+                    Importancia
+                </span>
+
+                <h2 class="agro-big-title">
+                    Tecnología como apoyo
+                    para una mejor gestión.
+                </h2>
+
+            </div>
+
+
+            <div class="col-lg-7">
+
+                <p class="agro-large-text">
+                    El uso de herramientas digitales permite centralizar
+                    información, registrar actividades importantes y disponer
+                    de datos organizados para apoyar la toma de decisiones.
+                </p>
+
+                <p class="agro-large-text mb-0">
+                    AgroTech busca demostrar cómo una aplicación web puede
+                    aportar a la modernización y organización del sector agrícola.
+                </p>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     BENEFICIOS
+===================================================== -->
+
+<section class="agro-section benefits-section">
+
+    <div class="container">
+
+        <div class="agro-section-heading text-center">
+
+            <span class="agro-label">
+                Beneficios de AgroTech
+            </span>
+
+            <h2>
+                Una plataforma pensada
+                para trabajar con mayor claridad.
             </h2>
 
+        </div>
+
+
+        <div class="row g-4 mt-4">
+
+
+            <div class="col-md-4">
+
+                <article class="benefit-card">
+
+                    <span class="benefit-icon">
+                        <i class="bi bi-folder-check"></i>
+                    </span>
+
+                    <h3>
+                        Mayor organización
+                    </h3>
+
+                    <p>
+                        Permite reunir información importante
+                        dentro de una misma plataforma.
+                    </p>
+
+                </article>
+
+            </div>
+
+
+            <div class="col-md-4">
+
+                <article class="benefit-card">
+
+                    <span class="benefit-icon">
+                        <i class="bi bi-graph-up"></i>
+                    </span>
+
+                    <h3>
+                        Mejor consulta
+                    </h3>
+
+                    <p>
+                        Facilita el acceso y revisión
+                        de los registros almacenados.
+                    </p>
+
+                </article>
+
+            </div>
+
+
+            <div class="col-md-4">
+
+                <article class="benefit-card">
+
+                    <span class="benefit-icon">
+                        <i class="bi bi-laptop"></i>
+                    </span>
+
+                    <h3>
+                        Uso de tecnología
+                    </h3>
+
+                    <p>
+                        Promueve el uso de herramientas web
+                        aplicadas a la gestión agrícola.
+                    </p>
+
+                </article>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     GESTIÓN DE CULTIVOS
+===================================================== -->
+
+<section
+    id="registro-cultivos"
+    class="agro-cultivos">
+
+    <div class="container">
+
+
+        <div class="cultivo-header">
+
+            <div>
+
+                <span class="agro-label">
+                    Demostración interactiva
+                </span>
+
+                <h2>
+                    Gestión de cultivos AgroTech.
+                </h2>
+
+            </div>
+
+
             <p>
-                Esta sección permite registrar información básica sobre los cultivos
-                administrados dentro del sistema AgroTech. El usuario puede ingresar
-                el nombre del cultivo, una descripción y su categoría. Los registros
-                se mostrarán dinámicamente en pantalla sin necesidad de recargar la página.
+                Esta sección conserva el ejercicio dinámico
+                realizado con JavaScript durante el desarrollo del proyecto.
             </p>
 
-            <div class="row">
+        </div>
 
-                <!-- FORMULARIO -->
-                <div class="col-md-5">
+
+        <div class="row g-4">
+
+
+            <!-- FORMULARIO -->
+            <div class="col-lg-5">
+
+                <div class="cultivo-form-box">
+
+                    <div class="cultivo-box-header">
+
+                        <span>
+                            <i class="bi bi-flower1"></i>
+                        </span>
+
+                        <div>
+                            <h3>Registrar cultivo</h3>
+                            <p>Ingresa la información solicitada.</p>
+                        </div>
+
+                    </div>
+
 
                     <form id="formCultivo">
-                        <label for="nombre" class="form-label">
-                            Nombre del cultivo
-                        </label>
 
-                        <input
-                            type="text"
-                            id="nombre"
-                            class="form-control mb-3"
-                            placeholder="Nombre del cultivo">
 
-                            <div id="errorNombre" class="text-danger mb-2"></div>
+                        <div class="mb-3">
 
-                        <label for="descripcion" class="form-label">
-                            Descripción del cultivo
-                        </label>
+                            <label
+                                for="nombre"
+                                class="form-label">
 
-                        <textarea
-                            id="descripcion"
-                            class="form-control mb-3"
-                            rows="4"
-                            placeholder="Descripción del cultivo"></textarea>
+                                Nombre del cultivo
 
-                            <div id="errorDescripcion" class="text-danger mb-2"></div>
+                            </label>
 
-                        <label for="categoria" class="form-label">
-                            Categoría
-                        </label>
+                            <input
+                                type="text"
+                                id="nombre"
+                                class="form-control"
+                                placeholder="Ej.: Maíz">
 
-                        <select
-                            id="categoria"
-                            class="form-control mb-3">
+                            <div
+                                id="errorNombre"
+                                class="text-danger mt-1">
+                            </div>
 
-                            <option value="">
-                                Seleccione una categoría
-                            </option>
+                        </div>
 
-                            <option value="Grano">
-                                Grano
-                            </option>
 
-                            <option value="Fruta">
-                                Fruta
-                            </option>
+                        <div class="mb-3">
 
-                            <option value="Hortaliza">
-                                Hortaliza
-                            </option>
+                            <label
+                                for="descripcion"
+                                class="form-label">
 
-                            <option value="Leguminosa">
-                                Leguminosa
-                            </option>
+                                Descripción
 
-                        </select>
+                            </label>
 
-                        <div id="errorCategoria" class="text-danger mb-3"></div>
+                            <textarea
+                                id="descripcion"
+                                class="form-control"
+                                rows="4"
+                                placeholder="Descripción del cultivo"></textarea>
+
+                            <div
+                                id="errorDescripcion"
+                                class="text-danger mt-1">
+                            </div>
+
+                        </div>
+
+
+                        <div class="mb-3">
+
+                            <label
+                                for="categoria"
+                                class="form-label">
+
+                                Categoría
+
+                            </label>
+
+                            <select
+                                id="categoria"
+                                class="form-select">
+
+                                <option value="">
+                                    Seleccione una categoría
+                                </option>
+
+                                <option value="Grano">
+                                    Grano
+                                </option>
+
+                                <option value="Fruta">
+                                    Fruta
+                                </option>
+
+                                <option value="Hortaliza">
+                                    Hortaliza
+                                </option>
+
+                                <option value="Leguminosa">
+                                    Leguminosa
+                                </option>
+
+                            </select>
+
+                            <div
+                                id="errorCategoria"
+                                class="text-danger mt-1">
+                            </div>
+
+                        </div>
+
 
                         <button
                             type="submit"
-                            class="btn btn-success w-100 shadow">
-                            Registrar Cultivo
+                            class="cultivo-submit">
+
+                            Registrar cultivo
+
+                            <i class="bi bi-arrow-right"></i>
+
                         </button>
-                        
-                        <!-- SPINNER -->
+
+
                         <div
                             id="spinner"
                             class="spinner-border text-success mt-3 d-none"
@@ -369,34 +1002,64 @@ Inicio - AgroTech
 
                         </div>
 
+
                     </form>
 
-                    <div id="mensaje" class="mt-3"></div>
 
-                    <p class="text-muted mt-3">
+                    <div
+                        id="mensaje"
+                        class="mt-3">
+                    </div>
 
-                    Los cultivos registrados se muestran dinámicamente mediante JavaScript.
 
+                    <p class="cultivo-note">
+                        Los registros se muestran dinámicamente mediante JavaScript.
                     </p>
 
                 </div>
 
-                 <!-- REGISTROS -->
-                <div class="col-md-7">
+            </div>
 
-                    <div class="alert alert-primary shadow-sm">
 
-                        <strong>Total de cultivos registrados:</strong>
+            <!-- RESULTADOS -->
+            <div class="col-lg-7">
 
-                        <span id="totalRegistros">0</span>
+                <div class="cultivo-results">
+
+                    <div class="cultivo-results-count">
+
+                        <div>
+
+                            <span>
+                                Total de cultivos registrados
+                            </span>
+
+                            <strong id="totalRegistros">
+                                0
+                            </strong>
+
+                        </div>
+
+                        <i class="bi bi-leaf"></i>
 
                     </div>
 
-                <div id="listaCultivos">
 
-                    <div class="alert alert-info">
+                    <div id="listaCultivos">
 
-                        Todavía no existen cultivos registrados.
+                        <div class="cultivo-empty">
+
+                            <i class="bi bi-inbox"></i>
+
+                            <h3>
+                                Todavía no existen cultivos registrados.
+                            </h3>
+
+                            <p>
+                                Los nuevos registros aparecerán aquí.
+                            </p>
+
+                        </div>
 
                     </div>
 
@@ -404,94 +1067,214 @@ Inicio - AgroTech
 
             </div>
 
+
         </div>
 
-        </section>
+    </div>
 
-        <!-- CONTACTO -->
-        <section id="contacto" class="seccion">
+</section>
 
-            <h2 class="text-center mb-4">Contacto</h2>
 
-            <div class="row">
 
-                <div class="col-md-6">
+<!-- =====================================================
+     CONTACTO
+===================================================== -->
 
-                    <p><strong>Correo:</strong> garciaarreagaj@gmail.com</p>
-                    <p><strong>Teléfono:</strong> 0989229387</p>
-                    <p><strong>Dirección:</strong> Santa Lucía - Guayaquil - Guayas</p>
+<section id="contacto" class="agro-contact">
 
-                    <a href="mailto:garciaarreagaj@gmail.com"
-                        class="btn btn-primary m-1">
-                        Correo
-                    </a>
+    <div class="container">
 
-                    <a href="https://www.facebook.com"
-                        target="_blank"
-                        class="btn btn-primary m-1">
-                        Facebook
-                    </a>
+        <div class="contact-shell">
 
-                    <a href="https://www.instagram.com"
-                        target="_blank"
-                        class="btn btn-danger m-1">
-                        Instagram
-                    </a>
+            <div class="row g-0">
+
+
+                <div class="col-lg-5">
+
+                    <div class="contact-info">
+
+                        <img
+                            src="{{ url_for('static', filename='img/logo solo sin texto-agrotech.png') }}"
+                            alt=""
+                            class="contact-logo">
+
+
+                        <span class="agro-label agro-label-light">
+                            Contacto
+                        </span>
+
+
+                        <h2>
+                            ¿Necesitas información
+                            sobre AgroTech?
+                        </h2>
+
+
+                        <p>
+                            Puedes comunicarte mediante
+                            los siguientes medios.
+                        </p>
+
+
+                        <div class="contact-data">
+
+                            <div>
+                                <i class="bi bi-envelope"></i>
+
+                                <span>
+                                    garciaarreagaj@gmail.com
+                                </span>
+                            </div>
+
+
+                            <div>
+                                <i class="bi bi-telephone"></i>
+
+                                <span>
+                                    0989229387
+                                </span>
+                            </div>
+
+
+                            <div>
+                                <i class="bi bi-geo-alt"></i>
+
+                                <span>
+                                    Santa Lucía · Guayaquil · Guayas
+                                </span>
+                            </div>
+
+                        </div>
+
+
+                        <div class="contact-socials">
+
+                            <a
+                                href="mailto:garciaarreagaj@gmail.com"
+                                aria-label="Correo">
+
+                                <i class="bi bi-envelope"></i>
+
+                            </a>
+
+
+                            <a
+                                href="https://www.facebook.com"
+                                target="_blank"
+                                aria-label="Facebook">
+
+                                <i class="bi bi-facebook"></i>
+
+                            </a>
+
+
+                            <a
+                                href="https://www.instagram.com"
+                                target="_blank"
+                                aria-label="Instagram">
+
+                                <i class="bi bi-instagram"></i>
+
+                            </a>
+
+                        </div>
+
+                    </div>
 
                 </div>
 
-                <div class="col-md-6">
 
-                    <form>
+                <div class="col-lg-7">
 
-                            <label class="form-label">
-                                Nombre
-                            </label>
+                    <div class="contact-form">
 
-                            <input
-                                type="text"
-                                class="form-control mb-3"
-                                placeholder="Nombre">
+                        <h3>
+                            Enviar mensaje
+                        </h3>
 
-
-                            <label class="form-label">
-                                Correo electrónico
-                            </label>
-
-                            <input
-                                type="email"
-                                class="form-control mb-3"
-                                placeholder="Correo electrónico">
+                        <p>
+                            Completa los siguientes campos.
+                        </p>
 
 
-                            <label class="form-label">
-                                Asunto
-                            </label>
-
-                            <input
-                                type="text"
-                                class="form-control mb-3"
-                                placeholder="Asunto">
+                        <form id="formContacto">
 
 
-                            <label class="form-label">
-                                Mensaje
-                            </label>
-
-                            <textarea
-                                class="form-control mb-3"
-                                rows="4"
-                                placeholder="Mensaje">
-                            </textarea>
+                            <div class="row g-3">
 
 
-                            <button
-                                type="button"
-                                class="btn btn-success">
+                                <div class="col-md-6">
 
-                                Enviar mensaje
+                                    <label class="form-label">
+                                        Nombre
+                                    </label>
 
-                            </button>
+                                    <input
+                                        type="text"
+                                        class="form-control"
+                                        placeholder="Ej.: Ana Torres">
+
+                                </div>
+
+
+                                <div class="col-md-6">
+
+                                    <label class="form-label">
+                                        Correo electrónico
+                                    </label>
+
+                                    <input
+                                        type="email"
+                                        class="form-control"
+                                        placeholder="Ej.: ana.torres@gmail.com">
+
+                                </div>
+
+
+                                <div class="col-12">
+
+                                    <label class="form-label">
+                                        Asunto
+                                    </label>
+
+                                    <input
+                                        type="text"
+                                        class="form-control"
+                                        placeholder="Ej.: Consulta sobre AgroTech">
+
+                                </div>
+
+
+                                <div class="col-12">
+
+                                    <label class="form-label">
+                                        Mensaje
+                                    </label>
+
+                                    <textarea
+                                        class="form-control"
+                                        rows="5"
+                                        placeholder="Cuéntanos brevemente en qué podemos ayudarte"></textarea>
+
+                                </div>
+
+
+                                <div class="col-12">
+
+                                    <button
+                                        type="submit"
+                                        class="contact-submit">
+
+                                        Enviar mensaje
+
+                                        <i class="bi bi-arrow-right"></i>
+
+                                    </button>
+
+                                </div>
+
+
+                            </div>
 
                         </form>
 
@@ -499,83 +1282,188 @@ Inicio - AgroTech
 
                 </div>
 
-            </section>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
 
 
-            <!-- INFORMACIÓN ADICIONAL -->
-            <aside class="container text-center p-4 my-4">
 
-                <h2>Información adicional</h2>
+<!-- =====================================================
+     INFORMACIÓN ADICIONAL
+===================================================== -->
+
+<section class="additional-section">
+
+    <div class="container">
+
+        <div class="additional-card">
+
+            <img
+                src="{{ url_for('static', filename='img/logo solo sin texto-agrotech.png') }}"
+                alt=""
+                class="additional-logo">
+
+
+            <div>
+
+                <span class="agro-label">
+                    Información adicional
+                </span>
+
+                <h2>
+                    Orientación para nuevos usuarios.
+                </h2>
 
                 <p>
-                    AgroTech ofrece capacitación gratuita para nuevos usuarios interesados
-                    en aprender sobre herramientas tecnológicas aplicadas a la agricultura.
+                    AgroTech contempla capacitación y asesoría básica
+                    para usuarios interesados en herramientas tecnológicas
+                    aplicadas a la agricultura.
                 </p>
 
-                <p>
-                    También brinda asesoría básica para productores agrícolas que desean
-                    mejorar la gestión de cultivos mediante soluciones digitales.
-                </p>
-
-                <h4>Horario de Atención</h4>
-
-                <p>
-                    Lunes a Viernes: 08:00 - 17:00
-                </p>
-
-            </aside>
+            </div>
 
 
-            <!-- MODAL -->
-            <div
-                class="modal fade"
-                id="modalInformacion"
-                tabindex="-1"
-                aria-hidden="true">
+            <div class="hours-card">
 
-                <div class="modal-dialog">
+                <i class="bi bi-clock"></i>
 
-                    <div class="modal-content">
+                <div>
 
-                        <div class="modal-header">
+                    <span>
+                        Horario de atención
+                    </span>
 
-                            <h5 class="modal-title">
-                                AgroTech
-                            </h5>
+                    <strong>
+                        Lunes a Viernes
+                    </strong>
 
-                            <button
-                                type="button"
-                                class="btn-close"
-                                data-bs-dismiss="modal">
-                            </button>
-
-                        </div>
-
-                        <div class="modal-body">
-
-                            El cultivo fue registrado correctamente
-                            en el sistema.
-
-                        </div>
-
-                        <div class="modal-footer">
-
-                            <button
-                                type="button"
-                                class="btn btn-success"
-                                data-bs-dismiss="modal">
-
-                                Aceptar
-
-                            </button>
-
-                        </div>
-
-                    </div>
+                    <small>
+                        08:00 a 17:00
+                    </small>
 
                 </div>
 
             </div>
 
-        {% endblock %}
-        
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     CIERRE
+===================================================== -->
+
+<section class="closing-section">
+
+    <div class="container">
+
+        <div class="closing-card">
+
+            <div>
+
+                <span class="agro-label agro-label-light">
+                    Gestión agrícola inteligente
+                </span>
+
+                <h2>
+                    Información organizada
+                    en un solo lugar.
+                </h2>
+
+                <p>
+                    Utiliza las herramientas disponibles
+                    para administrar la información de AgroTech.
+                </p>
+
+
+                {% if current_user.is_authenticated %}
+
+                    <a href="{{ url_for('dashboard') }}">
+                        Abrir panel
+                        <i class="bi bi-arrow-right"></i>
+                    </a>
+
+                {% else %}
+
+                    <a href="{{ url_for('registro') }}">
+                        Crear cuenta
+                        <i class="bi bi-arrow-right"></i>
+                    </a>
+
+                {% endif %}
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     MODAL
+===================================================== -->
+
+<div
+    class="modal fade"
+    id="modalInformacion"
+    tabindex="-1"
+    aria-hidden="true">
+
+    <div class="modal-dialog modal-dialog-centered">
+
+        <div class="modal-content">
+
+            <div class="modal-header">
+
+                <h5 class="modal-title">
+                    AgroTech
+                </h5>
+
+                <button
+                    type="button"
+                    class="btn-close btn-close-white"
+                    data-bs-dismiss="modal"
+                    aria-label="Cerrar">
+                </button>
+
+            </div>
+
+            <div class="modal-body">
+
+                El cultivo fue registrado correctamente en el sistema.
+
+            </div>
+
+            <div class="modal-footer">
+
+                <button
+                    type="button"
+                    class="btn btn-success"
+                    data-bs-dismiss="modal">
+
+                    Aceptar
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+{% endblock %}

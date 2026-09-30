@@ -1,145 +1,403 @@
 {% extends "base.html" %}
 
+{% set es_edicion = request.endpoint == 'editar_proveedor' %}
+
 {% block title %}
+{% if es_edicion %}
+Editar Proveedor - AgroTech
+{% else %}
 Registrar Proveedor - AgroTech
+{% endif %}
 {% endblock %}
 
 {% block content %}
 
-<section class="seccion">
+<section class="form-page">
 
-    <h2 class="text-center mb-4">
-        Registrar / Editar Proveedor
-    </h2>
+    <div class="container">
 
-    <div class="card shadow p-4">
-
-        <form method="POST">
-
-            <!-- PROTECCIÓN CSRF -->
-            {{ form.hidden_tag() }}
+        <div class="form-page-wrapper">
 
 
-            <!-- NOMBRE -->
-            <div class="mb-3">
+            <!-- ==================================================
+                 ENCABEZADO
+            =================================================== -->
 
-                {{ form.nombre.label(class="form-label") }}
-
-                {{ form.nombre(
-                    class="form-control",
-                    placeholder="Ingrese el nombre del proveedor"
-                ) }}
-
-                {% for error in form.nombre.errors %}
-
-                    <div class="text-danger mt-1">
-                        {{ error }}
-                    </div>
-
-                {% endfor %}
-
-            </div>
-
-
-            <!-- DESCRIPCIÓN -->
-            <div class="mb-3">
-
-                {{ form.descripcion.label(class="form-label") }}
-
-                {{ form.descripcion(
-                    class="form-control",
-                    placeholder="Ingrese la descripción del proveedor"
-                ) }}
-
-                {% for error in form.descripcion.errors %}
-
-                    <div class="text-danger mt-1">
-                        {{ error }}
-                    </div>
-
-                {% endfor %}
-
-            </div>
-
-
-            <!-- TELÉFONO -->
-            <div class="mb-3">
-
-                {{ form.telefono.label(class="form-label") }}
-
-                {{ form.telefono(
-                    class="form-control",
-                    placeholder="Ingrese el número de teléfono"
-                ) }}
-
-                {% for error in form.telefono.errors %}
-
-                    <div class="text-danger mt-1">
-                        {{ error }}
-                    </div>
-
-                {% endfor %}
-
-            </div>
-
-
-            <!-- CORREO -->
-            <div class="mb-3">
-
-                {{ form.correo.label(class="form-label") }}
-
-                {{ form.correo(
-                    class="form-control",
-                    placeholder="Ingrese el correo electrónico"
-                ) }}
-
-                {% for error in form.correo.errors %}
-
-                    <div class="text-danger mt-1">
-                        {{ error }}
-                    </div>
-
-                {% endfor %}
-
-            </div>
-
-
-            <!-- ESTADO -->
-            <div class="mb-3">
-
-                {{ form.estado.label(class="form-label") }}
-
-                {{ form.estado(class="form-select") }}
-
-                {% for error in form.estado.errors %}
-
-                    <div class="text-danger mt-1">
-                        {{ error }}
-                    </div>
-
-                {% endfor %}
-
-            </div>
-
-
-            <!-- BOTONES -->
-            <div class="text-center">
-
-                {{ form.enviar(
-                    class="btn btn-success px-4"
-                ) }}
+            <div class="form-page-header">
 
                 <a
                     href="{{ url_for('proveedores') }}"
-                    class="btn btn-secondary px-4">
+                    class="form-back-link">
 
-                    Cancelar
+                    <i class="bi bi-arrow-left"></i>
+                    Volver a proveedores
 
                 </a>
 
+
+                <span class="section-eyebrow form-eyebrow">
+
+                    {% if es_edicion %}
+                        Actualización de proveedor
+                    {% else %}
+                        Nuevo registro
+                    {% endif %}
+
+                </span>
+
+
+                <h1>
+
+                    {% if es_edicion %}
+                        Editar proveedor
+                    {% else %}
+                        Registrar proveedor
+                    {% endif %}
+
+                </h1>
+
+
+                <p>
+
+                    {% if es_edicion %}
+
+                        Actualiza la información necesaria y guarda
+                        los cambios del proveedor seleccionado.
+
+                    {% else %}
+
+                        Completa los datos para registrar un nuevo
+                        proveedor dentro del sistema AgroTech.
+
+                    {% endif %}
+
+                </p>
+
             </div>
 
-        </form>
+
+
+            <!-- ==================================================
+                 TARJETA
+            =================================================== -->
+
+            <div class="agro-form-card">
+
+
+                <!-- CABECERA INTERNA -->
+
+                <div class="agro-form-card-header">
+
+                    <div class="agro-form-card-icon">
+
+                        <i class="bi bi-truck"></i>
+
+                    </div>
+
+
+                    <div>
+
+                        <h2>
+                            Información del proveedor
+                        </h2>
+
+                        <p>
+                            Ingresa los datos generales y de contacto.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- ==================================================
+                     FORMULARIO
+                =================================================== -->
+
+                <form method="POST" class="agro-form">
+
+                    {{ form.hidden_tag() }}
+
+
+
+                    <!-- ==================================================
+                         NOMBRE
+                    =================================================== -->
+
+                    <div class="agro-form-group">
+
+                        {{ form.nombre.label(class="form-label") }}
+
+                        <div class="agro-input-wrapper">
+
+                            <span class="agro-input-icon">
+
+                                <i class="bi bi-building"></i>
+
+                            </span>
+
+
+                            {{ form.nombre(
+                                class="form-control agro-form-control",
+                                placeholder="Ej.: AgroInsumos del Sur"
+                            ) }}
+
+                        </div>
+
+
+                        <div class="agro-form-help">
+                            Ingresa el nombre comercial o razón social
+                            del proveedor.
+                        </div>
+
+
+                        {% for error in form.nombre.errors %}
+
+                            <div class="agro-form-error">
+
+                                <i class="bi bi-exclamation-circle"></i>
+
+                                {{ error }}
+
+                            </div>
+
+                        {% endfor %}
+
+                    </div>
+
+
+
+                    <!-- ==================================================
+                         DESCRIPCIÓN
+                    =================================================== -->
+
+                    <div class="agro-form-group">
+
+                        {{ form.descripcion.label(class="form-label") }}
+
+                        <div class="agro-input-wrapper">
+
+                            <span class="agro-input-icon">
+
+                                <i class="bi bi-card-text"></i>
+
+                            </span>
+
+
+                            {{ form.descripcion(
+                                class="form-control agro-form-control",
+                                placeholder="Ej.: Distribuidor de semillas, fertilizantes e insumos agrícolas"
+                            ) }}
+
+                        </div>
+
+
+                        <div class="agro-form-help">
+                            Describe brevemente los productos o servicios
+                            que ofrece el proveedor.
+                        </div>
+
+
+                        {% for error in form.descripcion.errors %}
+
+                            <div class="agro-form-error">
+
+                                <i class="bi bi-exclamation-circle"></i>
+
+                                {{ error }}
+
+                            </div>
+
+                        {% endfor %}
+
+                    </div>
+
+
+
+                    <!-- ==================================================
+                         TELÉFONO Y CORREO
+                    =================================================== -->
+
+                    <div class="row g-3">
+
+
+                        <!-- TELÉFONO -->
+
+                        <div class="col-md-5">
+
+                            <div class="agro-form-group">
+
+                                {{ form.telefono.label(class="form-label") }}
+
+                                <div class="agro-input-wrapper">
+
+                                    <span class="agro-input-icon">
+
+                                        <i class="bi bi-telephone"></i>
+
+                                    </span>
+
+
+                                    {{ form.telefono(
+                                        class="form-control agro-form-control",
+                                        placeholder="Ej.: 0991234567",
+                                        autocomplete="tel",
+                                        inputmode="tel"
+                                    ) }}
+
+                                </div>
+
+
+                                <div class="agro-form-help">
+                                    Número de contacto del proveedor.
+                                </div>
+
+
+                                {% for error in form.telefono.errors %}
+
+                                    <div class="agro-form-error">
+
+                                        <i class="bi bi-exclamation-circle"></i>
+
+                                        {{ error }}
+
+                                    </div>
+
+                                {% endfor %}
+
+                            </div>
+
+                        </div>
+
+
+
+                        <!-- CORREO -->
+
+                        <div class="col-md-7">
+
+                            <div class="agro-form-group">
+
+                                {{ form.correo.label(class="form-label") }}
+
+                                <div class="agro-input-wrapper">
+
+                                    <span class="agro-input-icon">
+
+                                        <i class="bi bi-envelope"></i>
+
+                                    </span>
+
+
+                                    {{ form.correo(
+                                        class="form-control agro-form-control",
+                                        placeholder="Ej.: ventas@agroinsumos.com",
+                                        autocomplete="email"
+                                    ) }}
+
+                                </div>
+
+
+                                <div class="agro-form-help">
+                                    Correo electrónico utilizado para contacto.
+                                </div>
+
+
+                                {% for error in form.correo.errors %}
+
+                                    <div class="agro-form-error">
+
+                                        <i class="bi bi-exclamation-circle"></i>
+
+                                        {{ error }}
+
+                                    </div>
+
+                                {% endfor %}
+
+                            </div>
+
+                        </div>
+
+
+                    </div>
+
+
+
+                    <!-- ==================================================
+                         ESTADO
+                    =================================================== -->
+
+                    <div class="agro-form-group">
+
+                        {{ form.estado.label(class="form-label") }}
+
+                        <div class="agro-select-wrapper">
+
+                            <span class="agro-input-icon">
+
+                                <i class="bi bi-check-circle"></i>
+
+                            </span>
+
+
+                            {{ form.estado(
+                                class="form-select agro-form-control"
+                            ) }}
+
+                        </div>
+
+
+                        <div class="agro-form-help">
+                            Define si el proveedor se encuentra actualmente
+                            activo dentro del sistema.
+                        </div>
+
+
+                        {% for error in form.estado.errors %}
+
+                            <div class="agro-form-error">
+
+                                <i class="bi bi-exclamation-circle"></i>
+
+                                {{ error }}
+
+                            </div>
+
+                        {% endfor %}
+
+                    </div>
+
+
+
+                    <!-- ==================================================
+                         BOTONES
+                    =================================================== -->
+
+                    <div class="agro-form-actions">
+
+                        <a
+                            href="{{ url_for('proveedores') }}"
+                            class="agro-button-cancel">
+
+                            Cancelar
+
+                        </a>
+
+
+                        {{ form.enviar(
+                            class="agro-button-submit"
+                        ) }}
+
+                    </div>
+
+
+                </form>
+
+            </div>
+
+
+        </div>
 
     </div>
 

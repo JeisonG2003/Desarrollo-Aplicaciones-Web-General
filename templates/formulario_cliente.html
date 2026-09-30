@@ -1,94 +1,456 @@
 {% extends "base.html" %}
 
+{% set es_edicion = request.endpoint == 'editar_cliente' %}
+
 {% block title %}
+{% if es_edicion %}
+Editar Cliente - AgroTech
+{% else %}
 Registrar Cliente - AgroTech
+{% endif %}
 {% endblock %}
 
 {% block content %}
 
-<section class="seccion">
+<section class="form-page">
 
-    <h2 class="text-center mb-4">
-        Registrar / Editar Cliente
-    </h2>
+    <div class="container">
 
-    <div class="card shadow p-4">
-
-        <form method="POST">
-
-            <!-- PROTECCIÓN CSRF -->
-            {{ form.hidden_tag() }}
+        <div class="form-page-wrapper">
 
 
-            <!-- CÉDULA -->
-            <div class="mb-3">
-                {{ form.cedula.label(class="form-label") }}
-                {{ form.cedula(class="form-control", placeholder="Ingrese la cédula del cliente") }}
-                {% for error in form.cedula.errors %}
-                    <div class="text-danger mt-1">{{ error }}</div>
-                {% endfor %}
-            </div>
+            <!-- ==================================================
+                 ENCABEZADO
+            =================================================== -->
 
+            <div class="form-page-header">
 
-            <!-- NOMBRE -->
-            <div class="mb-3">
-                {{ form.nombre.label(class="form-label") }}
-                {{ form.nombre(class="form-control", placeholder="Ingrese el nombre del cliente") }}
-                {% for error in form.nombre.errors %}
-                    <div class="text-danger mt-1">{{ error }}</div>
-                {% endfor %}
-            </div>
+                <a
+                    href="{{ url_for('clientes') }}"
+                    class="form-back-link">
 
+                    <i class="bi bi-arrow-left"></i>
+                    Volver a clientes
 
-            <!-- ACTIVIDAD -->
-            <div class="mb-3">
-                {{ form.actividad.label(class="form-label") }}
-                {{ form.actividad(class="form-control", placeholder="Ingrese la actividad del cliente") }}
-                {% for error in form.actividad.errors %}
-                    <div class="text-danger mt-1">{{ error }}</div>
-                {% endfor %}
-            </div>
-
-
-            <!-- UBICACIÓN -->
-            <div class="mb-3">
-                {{ form.ubicacion.label(class="form-label") }}
-                {{ form.ubicacion(class="form-control", placeholder="Ingrese la ubicación") }}
-                {% for error in form.ubicacion.errors %}
-                    <div class="text-danger mt-1">{{ error }}</div>
-                {% endfor %}
-            </div>
-
-
-            <!-- TELÉFONO -->
-            <div class="mb-3">
-                {{ form.telefono.label(class="form-label") }}
-                {{ form.telefono(class="form-control", placeholder="Ingrese el número de teléfono") }}
-                {% for error in form.telefono.errors %}
-                    <div class="text-danger mt-1">{{ error }}</div>
-                {% endfor %}
-            </div>
-
-
-            <!-- CORREO -->
-            <div class="mb-3">
-                {{ form.correo.label(class="form-label") }}
-                {{ form.correo(class="form-control", placeholder="Ingrese el correo electrónico") }}
-                {% for error in form.correo.errors %}
-                    <div class="text-danger mt-1">{{ error }}</div>
-                {% endfor %}
-            </div>
-
-
-            <!-- BOTONES -->
-            <div class="text-center">
-                {{ form.enviar(class="btn btn-success px-4") }}
-                <a href="{{ url_for('clientes') }}" class="btn btn-secondary px-4">
-                    Cancelar
                 </a>
+
+
+                <span class="section-eyebrow form-eyebrow">
+
+                    {% if es_edicion %}
+                        Actualización de cliente
+                    {% else %}
+                        Nuevo registro
+                    {% endif %}
+
+                </span>
+
+
+                <h1>
+
+                    {% if es_edicion %}
+                        Editar cliente
+                    {% else %}
+                        Registrar cliente
+                    {% endif %}
+
+                </h1>
+
+
+                <p>
+
+                    {% if es_edicion %}
+
+                        Actualiza la información necesaria y guarda
+                        los cambios del cliente seleccionado.
+
+                    {% else %}
+
+                        Completa los datos para registrar un nuevo
+                        cliente dentro del sistema AgroTech.
+
+                    {% endif %}
+
+                </p>
+
             </div>
 
-        </form>
+
+
+            <!-- ==================================================
+                 TARJETA
+            =================================================== -->
+
+            <div class="agro-form-card">
+
+
+                <!-- CABECERA INTERNA -->
+
+                <div class="agro-form-card-header">
+
+                    <div class="agro-form-card-icon">
+
+                        <i class="bi bi-person"></i>
+
+                    </div>
+
+
+                    <div>
+
+                        <h2>
+                            Información del cliente
+                        </h2>
+
+                        <p>
+                            Ingresa los datos de identificación y contacto.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- ==================================================
+                     FORMULARIO
+                =================================================== -->
+
+                <form method="POST" class="agro-form">
+
+                    {{ form.hidden_tag() }}
+
+
+
+                    <!-- CÉDULA Y NOMBRE -->
+
+                    <div class="row g-3">
+
+
+                        <!-- CÉDULA -->
+
+                        <div class="col-md-5">
+
+                            <div class="agro-form-group">
+
+                                {{ form.cedula.label(class="form-label") }}
+
+                                <div class="agro-input-wrapper">
+
+                                    <span class="agro-input-icon">
+
+                                        <i class="bi bi-person-vcard"></i>
+
+                                    </span>
+
+
+                                    {{ form.cedula(
+                                        class="form-control agro-form-control",
+                                        placeholder="Ej.: 0701234567",
+                                        autocomplete="off",
+                                        inputmode="numeric"
+                                    ) }}
+
+                                </div>
+
+
+                                <div class="agro-form-help">
+                                    Ingresa el número de identificación del cliente.
+                                </div>
+
+
+                                {% for error in form.cedula.errors %}
+
+                                    <div class="agro-form-error">
+
+                                        <i class="bi bi-exclamation-circle"></i>
+
+                                        {{ error }}
+
+                                    </div>
+
+                                {% endfor %}
+
+                            </div>
+
+                        </div>
+
+
+
+                        <!-- NOMBRE -->
+
+                        <div class="col-md-7">
+
+                            <div class="agro-form-group">
+
+                                {{ form.nombre.label(class="form-label") }}
+
+                                <div class="agro-input-wrapper">
+
+                                    <span class="agro-input-icon">
+
+                                        <i class="bi bi-person"></i>
+
+                                    </span>
+
+
+                                    {{ form.nombre(
+                                        class="form-control agro-form-control",
+                                        placeholder="Ej.: Ana Torres",
+                                        autocomplete="name"
+                                    ) }}
+
+                                </div>
+
+
+                                <div class="agro-form-help">
+                                    Escribe el nombre del cliente.
+                                </div>
+
+
+                                {% for error in form.nombre.errors %}
+
+                                    <div class="agro-form-error">
+
+                                        <i class="bi bi-exclamation-circle"></i>
+
+                                        {{ error }}
+
+                                    </div>
+
+                                {% endfor %}
+
+                            </div>
+
+                        </div>
+
+
+                    </div>
+
+
+
+                    <!-- ACTIVIDAD -->
+
+                    <div class="agro-form-group">
+
+                        {{ form.actividad.label(class="form-label") }}
+
+                        <div class="agro-input-wrapper">
+
+                            <span class="agro-input-icon">
+
+                                <i class="bi bi-briefcase"></i>
+
+                            </span>
+
+
+                            {{ form.actividad(
+                                class="form-control agro-form-control",
+                                placeholder="Ej.: Productor agrícola"
+                            ) }}
+
+                        </div>
+
+
+                        <div class="agro-form-help">
+                            Indica la actividad principal que realiza el cliente.
+                        </div>
+
+
+                        {% for error in form.actividad.errors %}
+
+                            <div class="agro-form-error">
+
+                                <i class="bi bi-exclamation-circle"></i>
+
+                                {{ error }}
+
+                            </div>
+
+                        {% endfor %}
+
+                    </div>
+
+
+
+                    <!-- UBICACIÓN -->
+
+                    <div class="agro-form-group">
+
+                        {{ form.ubicacion.label(class="form-label") }}
+
+                        <div class="agro-input-wrapper">
+
+                            <span class="agro-input-icon">
+
+                                <i class="bi bi-geo-alt"></i>
+
+                            </span>
+
+
+                            {{ form.ubicacion(
+                                class="form-control agro-form-control",
+                                placeholder="Ej.: Huaquillas, El Oro"
+                            ) }}
+
+                        </div>
+
+
+                        <div class="agro-form-help">
+                            Registra la ciudad o ubicación principal del cliente.
+                        </div>
+
+
+                        {% for error in form.ubicacion.errors %}
+
+                            <div class="agro-form-error">
+
+                                <i class="bi bi-exclamation-circle"></i>
+
+                                {{ error }}
+
+                            </div>
+
+                        {% endfor %}
+
+                    </div>
+
+
+
+                    <!-- TELÉFONO Y CORREO -->
+
+                    <div class="row g-3">
+
+
+                        <!-- TELÉFONO -->
+
+                        <div class="col-md-5">
+
+                            <div class="agro-form-group">
+
+                                {{ form.telefono.label(class="form-label") }}
+
+                                <div class="agro-input-wrapper">
+
+                                    <span class="agro-input-icon">
+
+                                        <i class="bi bi-telephone"></i>
+
+                                    </span>
+
+
+                                    {{ form.telefono(
+                                        class="form-control agro-form-control",
+                                        placeholder="Ej.: 0991234567",
+                                        autocomplete="tel",
+                                        inputmode="tel"
+                                    ) }}
+
+                                </div>
+
+
+                                <div class="agro-form-help">
+                                    Número de contacto del cliente.
+                                </div>
+
+
+                                {% for error in form.telefono.errors %}
+
+                                    <div class="agro-form-error">
+
+                                        <i class="bi bi-exclamation-circle"></i>
+
+                                        {{ error }}
+
+                                    </div>
+
+                                {% endfor %}
+
+                            </div>
+
+                        </div>
+
+
+
+                        <!-- CORREO -->
+
+                        <div class="col-md-7">
+
+                            <div class="agro-form-group">
+
+                                {{ form.correo.label(class="form-label") }}
+
+                                <div class="agro-input-wrapper">
+
+                                    <span class="agro-input-icon">
+
+                                        <i class="bi bi-envelope"></i>
+
+                                    </span>
+
+
+                                    {{ form.correo(
+                                        class="form-control agro-form-control",
+                                        placeholder="Ej.: ana.torres@gmail.com",
+                                        autocomplete="email"
+                                    ) }}
+
+                                </div>
+
+
+                                <div class="agro-form-help">
+                                    Correo electrónico para contacto.
+                                </div>
+
+
+                                {% for error in form.correo.errors %}
+
+                                    <div class="agro-form-error">
+
+                                        <i class="bi bi-exclamation-circle"></i>
+
+                                        {{ error }}
+
+                                    </div>
+
+                                {% endfor %}
+
+                            </div>
+
+                        </div>
+
+
+                    </div>
+
+
+
+                    <!-- ==================================================
+                         BOTONES
+                    =================================================== -->
+
+                    <div class="agro-form-actions">
+
+                        <a
+                            href="{{ url_for('clientes') }}"
+                            class="agro-button-cancel">
+
+                            Cancelar
+
+                        </a>
+
+
+                        {{ form.enviar(
+                            class="agro-button-submit"
+                        ) }}
+
+                    </div>
+
+
+                </form>
+
+            </div>
+
+
+        </div>
 
     </div>
 

@@ -1,9 +1,11 @@
-from flask import Flask, render_template, redirect, url_for, flash, request
+from flask import Flask, render_template, redirect, url_for, flash, request, make_response
 from dotenv import load_dotenv
 import os
 import json
+from io import BytesIO
 
-from psycopg2.extras import RealDictCursor
+from xhtml2pdf import pisa
+from psycopg.rows import dict_row
 
 from flask_login import LoginManager, login_user, login_required, logout_user
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -44,7 +46,7 @@ app.config["POSTGRES_PASSWORD"] = os.getenv("POSTGRES_PASSWORD")
 def load_user(user_id):
 
     conn = get_db_connection()
-    cursor = conn.cursor(cursor_factory=RealDictCursor)
+    cursor = conn.cursor()
 
     cursor.execute("""
         SELECT id, usuario, password
@@ -74,7 +76,7 @@ def registro():
     if form.validate_on_submit():
 
         conn = get_db_connection()
-        cursor = conn.cursor(cursor_factory=RealDictCursor)
+        cursor = conn.cursor()
 
         # Comprobar si el usuario ya existe
         cursor.execute("""
@@ -136,7 +138,7 @@ def login():
     if form.validate_on_submit():
 
         conn = get_db_connection()
-        cursor = conn.cursor(cursor_factory=RealDictCursor)
+        cursor = conn.cursor()
 
         # Buscar el usuario en PostgreSQL
         cursor.execute("""
@@ -219,7 +221,7 @@ def inicio():
 def productos():
 
     conn = get_db_connection()
-    cursor = conn.cursor(cursor_factory=RealDictCursor)
+    cursor = conn.cursor()
 
     cursor.execute("""
     SELECT
@@ -255,7 +257,7 @@ def nuevo_producto():
 
     # 1. Obtener los proveedores desde PostgreSQL
     conn = get_db_connection()
-    cursor = conn.cursor(cursor_factory=RealDictCursor)
+    cursor = conn.cursor()
 
     cursor.execute("""
         SELECT id_proveedor, nombre
@@ -315,7 +317,7 @@ def nuevo_producto():
 def editar_producto(id_producto):
 
     conn = get_db_connection()
-    cursor = conn.cursor(cursor_factory=RealDictCursor)
+    cursor = conn.cursor()
 
     # 1. Buscar el producto a editar
     cursor.execute("""
@@ -431,7 +433,7 @@ def eliminar_producto(id_producto):
 def clientes():
 
     conn = get_db_connection()
-    cursor = conn.cursor(cursor_factory=RealDictCursor)
+    cursor = conn.cursor()
 
     cursor.execute("""
         SELECT
@@ -505,7 +507,7 @@ def nuevo_cliente():
 def editar_cliente(id_cliente):
 
     conn = get_db_connection()
-    cursor = conn.cursor(cursor_factory=RealDictCursor)
+    cursor = conn.cursor()
 
     cursor.execute("""
         SELECT *
@@ -604,7 +606,7 @@ def eliminar_cliente(id_cliente):
 def proveedores():
 
     conn = get_db_connection()
-    cursor = conn.cursor(cursor_factory=RealDictCursor)
+    cursor = conn.cursor()
 
     cursor.execute("""
         SELECT
@@ -676,7 +678,7 @@ def nuevo_proveedor():
 def editar_proveedor(id_proveedor):
 
     conn = get_db_connection()
-    cursor = conn.cursor(cursor_factory=RealDictCursor)
+    cursor = conn.cursor()
 
     cursor.execute("""
         SELECT *
@@ -772,7 +774,7 @@ def eliminar_proveedor(id_proveedor):
 def facturacion():
 
     conn = get_db_connection()
-    cursor = conn.cursor(cursor_factory=RealDictCursor)
+    cursor = conn.cursor()
 
     cursor.execute("""
         SELECT
@@ -800,6 +802,82 @@ def facturacion():
         facturas=facturas
     )
 
+# ============================================================
+# GENERAR FACTURA EN PDF
+# ============================================================
+
+@app.route("/facturacion/<int:id_factura>/pdf")
+@login_required
+def factura_pdf(id_factura):
+
+    conn = get_db_connection()
+    cursor = conn.cursor()
+
+    cursor.execute("""
+        SELECT
+            f.id_factura,
+            f.numero,
+            f.fecha,
+            f.total,
+            c.nombre AS cliente,
+            p.nombre AS producto
+        FROM facturas f
+        LEFT JOIN clientes c
+            ON f.id_cliente = c.id_cliente
+        LEFT JOIN productos p
+            ON f.id_producto = p.id_producto
+        WHERE f.id_factura = %s
+    """, (id_factura,))
+
+    factura = cursor.fetchone()
+
+    cursor.close()
+    conn.close()
+
+    if factura is None:
+        flash("La factura no existe.", "danger")
+        return redirect(url_for("facturacion"))
+
+    # Convertir total a float para evitar conflictos con Jinja2 y Decimal
+    if factura.get("total") is not None:
+        factura["total"] = float(factura["total"])
+    else:
+        factura["total"] = 0.0
+
+    # Ruta absoluta del logo
+    logo_path = os.path.join(
+        app.root_path,
+        "static",
+        "img",
+        "logo-agrotech.png"
+    )
+
+    # Renderizar plantilla HTML
+    html = render_template(
+        "factura_pdf.html",
+        factura=factura,
+        logo_path=logo_path
+    )
+
+    # Crear PDF en memoria
+    pdf_buffer = BytesIO()
+
+    resultado = pisa.CreatePDF(
+        BytesIO(html.encode("UTF-8")),
+        dest=pdf_buffer
+    )
+
+    if resultado.err:
+        return "Error al generar el PDF de la factura.", 500
+
+    pdf = pdf_buffer.getvalue()
+    pdf_buffer.close()
+
+    response = make_response(pdf)
+    response.headers["Content-Type"] = "application/pdf"
+    response.headers["Content-Disposition"] = f'inline; filename="Factura_{factura["numero"]}.pdf"'
+
+    return response
 
 # Formulario para registrar facturas
 @app.route("/facturacion/nuevo", methods=["GET", "POST"])
@@ -809,7 +887,7 @@ def nueva_factura():
     form = FacturacionForm()
 
     conn = get_db_connection()
-    cursor = conn.cursor(cursor_factory=RealDictCursor)
+    cursor = conn.cursor()
 
     # Obtener clientes desde PostgreSQL
     cursor.execute("""
@@ -898,7 +976,7 @@ def nueva_factura():
 def editar_factura(id_factura):
 
     conn = get_db_connection()
-    cursor = conn.cursor(cursor_factory=RealDictCursor)
+    cursor = conn.cursor()
 
     # 1. Buscar la factura
     cursor.execute("""

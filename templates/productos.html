@@ -6,72 +6,401 @@ Productos - AgroTech
 
 {% block content %}
 
-<section class="seccion">
+<section class="crud-page">
 
-    <h2 class="text-center mb-4">
-        Productos Agrícolas
-    </h2>
+    <div class="container">
 
-    <p class="text-center">
-        Los siguientes productos son consultados directamente desde la base de datos PostgreSQL y renderizados mediante Jinja2.
-    </p>
 
-    <div class="text-center mb-4">
-        <a href="{{ url_for('nuevo_producto') }}" class="btn btn-success shadow">
-            Registrar Producto
-        </a>
-    </div>
+        <!-- =====================================================
+             ENCABEZADO
+        ====================================================== -->
 
-    <div class="table-responsive">
-        <table class="table table-bordered table-striped table-hover shadow-sm align-middle">
-            <thead class="table-success">
-                <tr>
-                    <th>ID</th>
-                    <th>Nombre</th>
-                    <th>Categoría</th>
-                    <th>Precio</th>
-                    <th>Stock</th>
-                    <th>Proveedor</th> <!-- Nueva Columna -->
-                    <th>Estado</th>
-                    <th>Acciones</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for producto in productos %}
-                <tr>
-                    <td>{{ producto.id_producto }}</td>
-                    <td>{{ producto.nombre }}</td>
-                    <td>{{ producto.categoria }}</td>
-                    <td>${{ "%.2f"|format(producto.precio) }}</td>
-                    <td>{{ producto.stock }}</td>
-                    <td>{{ producto.proveedor if producto.proveedor else 'Sin asignar' }}</td> <!-- Muestra el proveedor o 'Sin asignar' -->
-                    <td>
-                        {% if producto.stock > 0 %}
-                            <span class="badge bg-success">Disponible</span>
+        <div class="crud-header">
+
+            <div class="crud-header-text">
+
+                <span class="section-eyebrow crud-eyebrow">
+                    Gestión de productos
+                </span>
+
+                <h1>
+                    Productos agrícolas
+                </h1>
+
+                <p>
+                    Consulta y administra los productos registrados
+                    dentro del sistema AgroTech.
+                </p>
+
+            </div>
+
+
+            <div class="crud-header-action">
+
+                <a
+                    href="{{ url_for('nuevo_producto') }}"
+                    class="crud-primary-button">
+
+                    <i class="bi bi-plus-lg"></i>
+
+                    Registrar producto
+
+                </a>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- =====================================================
+             RESUMEN
+        ====================================================== -->
+
+        <div class="crud-summary">
+
+            <div class="crud-summary-icon">
+
+                <i class="bi bi-box-seam"></i>
+
+            </div>
+
+
+            <div>
+
+                <span>
+                    Productos registrados
+                </span>
+
+                <strong>
+                    {{ productos|length }}
+                </strong>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- =====================================================
+             TABLA
+        ====================================================== -->
+
+        <div class="crud-table-card">
+
+            <div class="crud-table-heading">
+
+                <div>
+
+                    <h2>
+                        Listado de productos
+                    </h2>
+
+                    <p>
+                        Información almacenada en PostgreSQL.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="table-responsive">
+
+                <table class="table crud-table align-middle">
+
+                    <thead>
+
+                        <tr>
+
+                            <th>
+                                ID
+                            </th>
+
+                            <th>
+                                Producto
+                            </th>
+
+                            <th>
+                                Categoría
+                            </th>
+
+                            <th>
+                                Precio
+                            </th>
+
+                            <th>
+                                Stock
+                            </th>
+
+                            <th>
+                                Proveedor
+                            </th>
+
+                            <th>
+                                Estado
+                            </th>
+
+                            <th class="text-end">
+                                Acciones
+                            </th>
+
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody>
+
+                        {% for producto in productos %}
+
+                        <tr>
+
+
+                            <!-- ID -->
+
+                            <td>
+
+                                <span class="crud-id">
+
+                                    #{{ producto.id_producto }}
+
+                                </span>
+
+                            </td>
+
+
+
+                            <!-- NOMBRE -->
+
+                            <td>
+
+                                <div class="crud-main-data">
+
+                                    <span class="crud-data-icon">
+
+                                        <i class="bi bi-box"></i>
+
+                                    </span>
+
+                                    <strong>
+
+                                        {{ producto.nombre }}
+
+                                    </strong>
+
+                                </div>
+
+                            </td>
+
+
+
+                            <!-- CATEGORÍA -->
+
+                            <td>
+
+                                <span class="crud-category">
+
+                                    {{ producto.categoria }}
+
+                                </span>
+
+                            </td>
+
+
+
+                            <!-- PRECIO -->
+
+                            <td>
+
+                                <strong class="crud-price">
+
+                                    ${{ "%.2f"|format(producto.precio) }}
+
+                                </strong>
+
+                            </td>
+
+
+
+                            <!-- STOCK -->
+
+                            <td>
+
+                                {{ producto.stock }}
+
+                            </td>
+
+
+
+                            <!-- PROVEEDOR -->
+
+                            <td>
+
+                                {% if producto.proveedor %}
+
+                                    {{ producto.proveedor }}
+
+                                {% else %}
+
+                                    <span class="crud-muted">
+
+                                        Sin asignar
+
+                                    </span>
+
+                                {% endif %}
+
+                            </td>
+
+
+
+                            <!-- ESTADO -->
+
+                            <td>
+
+                                {% if producto.stock > 0 %}
+
+                                    <span class="crud-status crud-status-success">
+
+                                        <span></span>
+
+                                        Disponible
+
+                                    </span>
+
+                                {% else %}
+
+                                    <span class="crud-status crud-status-danger">
+
+                                        <span></span>
+
+                                        Agotado
+
+                                    </span>
+
+                                {% endif %}
+
+                            </td>
+
+
+
+                            <!-- ACCIONES -->
+
+                            <td>
+
+                                <div class="crud-actions">
+
+
+                                    <a
+                                        href="{{ url_for(
+                                            'editar_producto',
+                                            id_producto=producto.id_producto
+                                        ) }}"
+                                        class="crud-action-button crud-edit"
+                                        aria-label="Editar {{ producto.nombre }}">
+
+                                        <i class="bi bi-pencil"></i>
+
+                                        Editar
+
+                                    </a>
+
+
+
+                                    <form
+                                        action="{{ url_for(
+                                            'eliminar_producto',
+                                            id_producto=producto.id_producto
+                                        ) }}"
+                                        method="POST"
+                                        class="crud-delete-form"
+                                        onsubmit="return confirm(
+                                            '¿Seguro que deseas eliminar este producto?'
+                                        );">
+
+
+                                        <button
+                                            type="submit"
+                                            class="crud-action-button crud-delete"
+                                            aria-label="Eliminar {{ producto.nombre }}">
+
+                                            <i class="bi bi-trash"></i>
+
+                                            Eliminar
+
+                                        </button>
+
+                                    </form>
+
+
+                                </div>
+
+                            </td>
+
+
+                        </tr>
+
+
                         {% else %}
-                            <span class="badge bg-danger">Agotado</span>
-                        {% endif %}
-                    </td>
-                    <td>
-                        <a href="{{ url_for('editar_producto', id_producto=producto.id_producto) }}" class="btn btn-sm btn-primary">
-                            Editar
-                        </a>
-                        <form action="{{ url_for('eliminar_producto', id_producto=producto.id_producto) }}" method="POST" class="d-inline" onsubmit="return confirm('¿Seguro que deseas eliminar este producto?');">
-                            <button type="submit" class="btn btn-sm btn-danger">
-                                Eliminar
-                            </button>
-                        </form>
-                    </td>
-                </tr>
-                {% else %}
-                <tr>
-                    <td colspan="8" class="text-center">
-                        No existen productos registrados en MySQL.
-                    </td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+
+
+                        <!-- SIN REGISTROS -->
+
+                        <tr>
+
+                            <td
+                                colspan="8"
+                                class="crud-empty-cell">
+
+                                <div class="crud-empty-state">
+
+                                    <div class="crud-empty-icon">
+
+                                        <i class="bi bi-inbox"></i>
+
+                                    </div>
+
+
+                                    <h3>
+                                        No hay productos registrados
+                                    </h3>
+
+
+                                    <p>
+                                        Cuando registres un producto,
+                                        aparecerá en este listado.
+                                    </p>
+
+
+                                    <a
+                                        href="{{ url_for('nuevo_producto') }}"
+                                        class="crud-primary-button">
+
+                                        <i class="bi bi-plus-lg"></i>
+
+                                        Registrar primer producto
+
+                                    </a>
+
+                                </div>
+
+                            </td>
+
+                        </tr>
+
+
+                        {% endfor %}
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+
     </div>
 
 </section>

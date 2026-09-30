@@ -6,119 +6,387 @@ Facturación - AgroTech
 
 {% block content %}
 
-<section class="seccion">
+<section class="crud-page">
 
-    <h2 class="text-center mb-4">
-        Facturación
-    </h2>
+    <div class="container">
 
-    <div class="text-center mb-4">
 
-        <a
-            href="{{ url_for('nueva_factura') }}"
-            class="btn btn-success">
+        <!-- =====================================================
+             ENCABEZADO
+        ====================================================== -->
 
-            Registrar Factura
+        <div class="crud-header">
 
-        </a>
+            <div class="crud-header-text">
 
-    </div>
+                <span class="section-eyebrow crud-eyebrow">
+                    Gestión de facturación
+                </span>
 
-    <p>
-        Información de las facturas registradas
-        en el sistema AgroTech.
-    </p>
+                <h1>
+                    Facturación
+                </h1>
 
-    <div class="table-responsive">
+                <p>
+                    Consulta y administra las facturas registradas
+                    dentro del sistema AgroTech.
+                </p>
 
-        <table class="table table-bordered table-striped">
+            </div>
 
-            <thead class="table-success">
 
-                <tr>
+            <div class="crud-header-action">
 
-                    <th>Factura</th>
-                    <th>Cliente</th>
-                    <th>Producto</th>
-                    <th>Fecha</th>
-                    <th>Total</th>
-                    <th>Acciones</th>
+                <a
+                    href="{{ url_for('nueva_factura') }}"
+                    class="crud-primary-button">
 
-                </tr>
+                    <i class="bi bi-receipt"></i>
 
-            </thead>
+                    Registrar factura
 
-            <tbody>
+                </a>
 
-                {% for factura in facturas %}
+            </div>
 
-                <tr>
+        </div>
 
-                    <td>
-                        {{ factura.numero }}
-                    </td>
 
-                    <td>
-                        {{ factura.cliente }}
-                    </td>
 
-                    <td>
-                        {{ factura.producto }}
-                    </td>
+        <!-- =====================================================
+             RESUMEN
+        ====================================================== -->
 
-                    <td>
-                        {{ factura.fecha }}
-                    </td>
+        <div class="crud-summary">
 
-                    <td>
-                        ${{ factura.total }}
-                    </td>
+            <div class="crud-summary-icon">
 
-                    <td>
+                <i class="bi bi-receipt-cutoff"></i>
 
-                        <a
-                            href="{{ url_for('editar_factura', id_factura=factura.id_factura) }}"
-                            class="btn btn-warning btn-sm">
+            </div>
 
-                            Editar
 
-                        </a>
+            <div>
 
-                        <form
-                            action="{{ url_for('eliminar_factura', id_factura=factura.id_factura) }}"
-                            method="POST"
-                            class="d-inline">
+                <span>
+                    Facturas registradas
+                </span>
 
-                            <button
-                                type="submit"
-                                class="btn btn-danger btn-sm"
-                                onclick="return confirm('¿Está seguro de eliminar esta factura?');">
+                <strong>
+                    {{ facturas|length }}
+                </strong>
 
-                                Eliminar
+            </div>
 
-                            </button>
+        </div>
 
-                        </form>
 
-                    </td>
 
-                </tr>
+        <!-- =====================================================
+             TABLA
+        ====================================================== -->
 
-                {% else %}
+        <div class="crud-table-card">
 
-                <tr>
+            <div class="crud-table-heading">
 
-                    <td colspan="6" class="text-center">
-                        No existen facturas registradas.
-                    </td>
+                <div>
 
-                </tr>
+                    <h2>
+                        Listado de facturas
+                    </h2>
 
-                {% endfor %}
+                    <p>
+                        Información almacenada en PostgreSQL.
+                    </p>
 
-            </tbody>
+                </div>
 
-        </table>
+            </div>
+
+
+            <div class="table-responsive">
+
+                <table class="table crud-table align-middle">
+
+                    <thead>
+
+                        <tr>
+
+                            <th>
+                                Factura
+                            </th>
+
+                            <th>
+                                Cliente
+                            </th>
+
+                            <th>
+                                Producto
+                            </th>
+
+                            <th>
+                                Fecha
+                            </th>
+
+                            <th>
+                                Total
+                            </th>
+
+                            <th class="text-end">
+                                Acciones
+                            </th>
+
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody>
+
+                        {% for factura in facturas %}
+
+                        <tr>
+
+
+                            <!-- NÚMERO FACTURA -->
+
+                            <td>
+
+                                <div class="crud-main-data">
+
+                                    <span class="crud-data-icon">
+
+                                        <i class="bi bi-receipt"></i>
+
+                                    </span>
+
+
+                                    <strong>
+
+                                        {{ factura.numero }}
+
+                                    </strong>
+
+                                </div>
+
+                            </td>
+
+
+
+                            <!-- CLIENTE -->
+
+                            <td>
+
+                                {% if factura.cliente %}
+
+                                    <i class="bi bi-person me-1"></i>
+
+                                    {{ factura.cliente }}
+
+                                {% else %}
+
+                                    <span class="crud-muted">
+                                        Sin cliente
+                                    </span>
+
+                                {% endif %}
+
+                            </td>
+
+
+
+                            <!-- PRODUCTO -->
+
+                            <td>
+
+                                {% if factura.producto %}
+
+                                    <span class="crud-category">
+
+                                        {{ factura.producto }}
+
+                                    </span>
+
+                                {% else %}
+
+                                    <span class="crud-muted">
+                                        Sin producto
+                                    </span>
+
+                                {% endif %}
+
+                            </td>
+
+
+
+                            <!-- FECHA -->
+
+                            <td>
+
+                                {% if factura.fecha %}
+
+                                    <i class="bi bi-calendar3 me-1"></i>
+
+                                    {{ factura.fecha }}
+
+                                {% else %}
+
+                                    <span class="crud-muted">
+                                        Sin fecha
+                                    </span>
+
+                                {% endif %}
+
+                            </td>
+
+
+
+                            <!-- TOTAL -->
+
+                            <td>
+
+                                <strong class="crud-price">
+
+                                    ${{ "%.2f"|format(factura.total) }}
+
+                                </strong>
+
+                            </td>
+
+
+
+                            <!-- ACCIONES -->
+
+                            <td>
+
+                                <div class="crud-actions">
+
+                                    <a
+                                    href="{{ url_for(
+                                        'factura_pdf',
+                                        id_factura=factura.id_factura
+                                    ) }}"
+                                    class="crud-action-button crud-pdf"
+                                    target="_blank"
+                                    aria-label="Generar PDF de la factura {{ factura.numero }}"
+                                >
+
+                                    <i class="bi bi-file-earmark-pdf"></i>
+
+                                    PDF
+
+                                </a>
+                                        
+                                     <!-- EDITAR -->
+                                    <a
+                                        href="{{ url_for(
+                                            'editar_factura',
+                                            id_factura=factura.id_factura
+                                        ) }}"
+                                        class="crud-action-button crud-edit"
+                                        aria-label="Editar factura {{ factura.numero }}">
+
+                                        <i class="bi bi-pencil"></i>
+
+                                        Editar
+
+                                    </a>
+
+
+
+                                    <form
+                                        action="{{ url_for(
+                                            'eliminar_factura',
+                                            id_factura=factura.id_factura
+                                        ) }}"
+                                        method="POST"
+                                        class="crud-delete-form"
+                                        onsubmit="return confirm(
+                                            '¿Está seguro de eliminar esta factura?'
+                                        );">
+
+
+                                        <button
+                                            type="submit"
+                                            class="crud-action-button crud-delete"
+                                            aria-label="Eliminar factura {{ factura.numero }}">
+
+                                            <i class="bi bi-trash"></i>
+
+                                            Eliminar
+
+                                        </button>
+
+                                    </form>
+
+
+                                </div>
+
+                            </td>
+
+
+                        </tr>
+
+
+                        {% else %}
+
+
+                        <!-- SIN REGISTROS -->
+
+                        <tr>
+
+                            <td
+                                colspan="6"
+                                class="crud-empty-cell">
+
+                                <div class="crud-empty-state">
+
+                                    <div class="crud-empty-icon">
+
+                                        <i class="bi bi-receipt"></i>
+
+                                    </div>
+
+
+                                    <h3>
+                                        No hay facturas registradas
+                                    </h3>
+
+
+                                    <p>
+                                        Cuando registres una factura,
+                                        aparecerá en este listado.
+                                    </p>
+
+
+                                    <a
+                                        href="{{ url_for('nueva_factura') }}"
+                                        class="crud-primary-button">
+
+                                        <i class="bi bi-plus-lg"></i>
+
+                                        Registrar primera factura
+
+                                    </a>
+
+                                </div>
+
+                            </td>
+
+                        </tr>
+
+
+                        {% endfor %}
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
 
     </div>
 

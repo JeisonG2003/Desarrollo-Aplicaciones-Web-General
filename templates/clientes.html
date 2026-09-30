@@ -6,72 +6,422 @@ Clientes - AgroTech
 
 {% block content %}
 
-<section class="seccion">
+<section class="crud-page">
 
-    <h2 class="text-center mb-4">
-        Clientes
-    </h2>
+    <div class="container">
 
-    <div class="text-center mb-4">
-        <a href="{{ url_for('nuevo_cliente') }}" class="btn btn-success">
-            Registrar Cliente
-        </a>
-    </div>
 
-    <p>
-        Información de los clientes registrados en el sistema AgroTech.
-    </p>
+        <!-- =====================================================
+             ENCABEZADO
+        ====================================================== -->
 
-    <div class="table-responsive shadow rounded">
-        <table class="table table-hover align-middle mb-0 bg-white">
-            <thead class="table-success">
-                <tr>
-                    <th>ID</th>
-                    <th>Cédula</th>
-                    <th>Nombre</th>
-                    <th>Actividad</th>
-                    <th>Ubicación</th>
-                    <th>Teléfono</th>
-                    <th>Correo</th>
-                    <th class="text-center">Acciones</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for cliente in clientes %}
-                <tr>
-                    <td>{{ cliente.id_cliente }}</td>
-                    <td>{{ cliente.cedula if cliente.cedula else '-' }}</td>
-                    <td>
-                        <strong>{{ cliente.nombre|upper }}</strong>
-                    </td>
-                    <td>{{ cliente.actividad }}</td>
-                    <td>{{ cliente.ubicacion }}</td>
-                    <td>{{ cliente.telefono if cliente.telefono else '-' }}</td>
-                    <td>{{ cliente.correo if cliente.correo else '-' }}</td>
+        <div class="crud-header">
 
-                    <td class="text-center">
-                        <a href="{{ url_for('editar_cliente', id_cliente=cliente.id_cliente) }}" class="btn btn-warning btn-sm">
-                            Editar
-                        </a>
+            <div class="crud-header-text">
 
-                        <form action="{{ url_for('eliminar_cliente', id_cliente=cliente.id_cliente) }}" method="POST" class="d-inline">
-                            <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('¿Está seguro de eliminar este cliente?');">
-                                Eliminar
-                            </button>
-                        </form>
-                    </td>
-                </tr>
-                {% else %}
-                <tr>
-                    <td colspan="8" class="text-center">
-                        <div class="alert alert-warning mb-0">
-                            No existen clientes registrados.
-                        </div>
-                    </td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+                <span class="section-eyebrow crud-eyebrow">
+                    Gestión de clientes
+                </span>
+
+                <h1>
+                    Clientes
+                </h1>
+
+                <p>
+                    Consulta y administra la información de los clientes
+                    registrados dentro del sistema AgroTech.
+                </p>
+
+            </div>
+
+
+            <div class="crud-header-action">
+
+                <a
+                    href="{{ url_for('nuevo_cliente') }}"
+                    class="crud-primary-button">
+
+                    <i class="bi bi-person-plus"></i>
+
+                    Registrar cliente
+
+                </a>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- =====================================================
+             RESUMEN
+        ====================================================== -->
+
+        <div class="crud-summary">
+
+            <div class="crud-summary-icon">
+
+                <i class="bi bi-people"></i>
+
+            </div>
+
+
+            <div>
+
+                <span>
+                    Clientes registrados
+                </span>
+
+                <strong>
+                    {{ clientes|length }}
+                </strong>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- =====================================================
+             TABLA
+        ====================================================== -->
+
+        <div class="crud-table-card">
+
+            <div class="crud-table-heading">
+
+                <div>
+
+                    <h2>
+                        Listado de clientes
+                    </h2>
+
+                    <p>
+                        Información almacenada en PostgreSQL.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="table-responsive">
+
+                <table class="table crud-table align-middle">
+
+                    <thead>
+
+                        <tr>
+
+                            <th>
+                                ID
+                            </th>
+
+                            <th>
+                                Cédula
+                            </th>
+
+                            <th>
+                                Cliente
+                            </th>
+
+                            <th>
+                                Actividad
+                            </th>
+
+                            <th>
+                                Ubicación
+                            </th>
+
+                            <th>
+                                Teléfono
+                            </th>
+
+                            <th>
+                                Correo
+                            </th>
+
+                            <th class="text-end">
+                                Acciones
+                            </th>
+
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody>
+
+                        {% for cliente in clientes %}
+
+                        <tr>
+
+
+                            <!-- ID -->
+
+                            <td>
+
+                                <span class="crud-id">
+
+                                    #{{ cliente.id_cliente }}
+
+                                </span>
+
+                            </td>
+
+
+
+                            <!-- CÉDULA -->
+
+                            <td>
+
+                                {% if cliente.cedula %}
+
+                                    {{ cliente.cedula }}
+
+                                {% else %}
+
+                                    <span class="crud-muted">
+                                        Sin registrar
+                                    </span>
+
+                                {% endif %}
+
+                            </td>
+
+
+
+                            <!-- NOMBRE -->
+
+                            <td>
+
+                                <div class="crud-main-data">
+
+                                    <span class="crud-data-icon">
+
+                                        <i class="bi bi-person"></i>
+
+                                    </span>
+
+
+                                    <strong>
+
+                                        {{ cliente.nombre }}
+
+                                    </strong>
+
+                                </div>
+
+                            </td>
+
+
+
+                            <!-- ACTIVIDAD -->
+
+                            <td>
+
+                                {% if cliente.actividad %}
+
+                                    <span class="crud-category">
+
+                                        {{ cliente.actividad }}
+
+                                    </span>
+
+                                {% else %}
+
+                                    <span class="crud-muted">
+                                        Sin registrar
+                                    </span>
+
+                                {% endif %}
+
+                            </td>
+
+
+
+                            <!-- UBICACIÓN -->
+
+                            <td>
+
+                                {% if cliente.ubicacion %}
+
+                                    <i class="bi bi-geo-alt me-1"></i>
+
+                                    {{ cliente.ubicacion }}
+
+                                {% else %}
+
+                                    <span class="crud-muted">
+                                        Sin registrar
+                                    </span>
+
+                                {% endif %}
+
+                            </td>
+
+
+
+                            <!-- TELÉFONO -->
+
+                            <td>
+
+                                {% if cliente.telefono %}
+
+                                    <i class="bi bi-telephone me-1"></i>
+
+                                    {{ cliente.telefono }}
+
+                                {% else %}
+
+                                    <span class="crud-muted">
+                                        Sin registrar
+                                    </span>
+
+                                {% endif %}
+
+                            </td>
+
+
+
+                            <!-- CORREO -->
+
+                            <td>
+
+                                {% if cliente.correo %}
+
+                                    <i class="bi bi-envelope me-1"></i>
+
+                                    {{ cliente.correo }}
+
+                                {% else %}
+
+                                    <span class="crud-muted">
+                                        Sin registrar
+                                    </span>
+
+                                {% endif %}
+
+                            </td>
+
+
+
+                            <!-- ACCIONES -->
+
+                            <td>
+
+                                <div class="crud-actions">
+
+
+                                    <a
+                                        href="{{ url_for(
+                                            'editar_cliente',
+                                            id_cliente=cliente.id_cliente
+                                        ) }}"
+                                        class="crud-action-button crud-edit"
+                                        aria-label="Editar {{ cliente.nombre }}">
+
+                                        <i class="bi bi-pencil"></i>
+
+                                        Editar
+
+                                    </a>
+
+
+
+                                    <form
+                                        action="{{ url_for(
+                                            'eliminar_cliente',
+                                            id_cliente=cliente.id_cliente
+                                        ) }}"
+                                        method="POST"
+                                        class="crud-delete-form"
+                                        onsubmit="return confirm(
+                                            '¿Está seguro de eliminar este cliente?'
+                                        );">
+
+
+                                        <button
+                                            type="submit"
+                                            class="crud-action-button crud-delete"
+                                            aria-label="Eliminar {{ cliente.nombre }}">
+
+                                            <i class="bi bi-trash"></i>
+
+                                            Eliminar
+
+                                        </button>
+
+                                    </form>
+
+
+                                </div>
+
+                            </td>
+
+
+                        </tr>
+
+
+                        {% else %}
+
+
+                        <!-- SIN REGISTROS -->
+
+                        <tr>
+
+                            <td
+                                colspan="8"
+                                class="crud-empty-cell">
+
+                                <div class="crud-empty-state">
+
+                                    <div class="crud-empty-icon">
+
+                                        <i class="bi bi-people"></i>
+
+                                    </div>
+
+
+                                    <h3>
+                                        No hay clientes registrados
+                                    </h3>
+
+
+                                    <p>
+                                        Cuando registres un cliente,
+                                        aparecerá en este listado.
+                                    </p>
+
+
+                                    <a
+                                        href="{{ url_for('nuevo_cliente') }}"
+                                        class="crud-primary-button">
+
+                                        <i class="bi bi-person-plus"></i>
+
+                                        Registrar primer cliente
+
+                                    </a>
+
+                                </div>
+
+                            </td>
+
+                        </tr>
+
+
+                        {% endfor %}
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+
     </div>
 
 </section>

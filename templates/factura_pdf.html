@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Factura {{ factura.numero }} - AgroTech</title>
+    <style>
+        @page {
+            size: A4;
+            margin: 15mm 15mm 20mm 15mm;
+        }
+
+        body {
+            font-family: Helvetica, Arial, sans-serif;
+            color: #2c3e50;
+            font-size: 11px;
+            margin: 0;
+            padding: 0;
+            line-height: 1.4;
+        }
+
+        /* ENCABEZADO SUPERIOR */
+        .top-banner {
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        .logo-img {
+            width: 160px;
+            height: auto;
+        }
+
+        .company-name {
+            color: #1e5e2e;
+            font-size: 20px;
+            font-weight: bold;
+            margin-top: 5px;
+            letter-spacing: 0.5px;
+        }
+
+        .company-info {
+            color: #555555;
+            font-size: 9.5px;
+            margin-top: 3px;
+        }
+
+        /* BADGE CORRELATIVO FACTURA */
+        .invoice-badge {
+            border: 2px solid #2e7d32;
+            background-color: #f2f8f3;
+            border-radius: 6px;
+            padding: 12px;
+            text-align: right;
+        }
+
+        .invoice-type {
+            color: #2e7d32;
+            font-size: 16px;
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+
+        .invoice-number {
+            color: #111111;
+            font-size: 15px;
+            font-weight: bold;
+            margin: 4px 0;
+        }
+
+        .invoice-date {
+            color: #555555;
+            font-size: 10px;
+        }
+
+        /* BLOQUE CLIENTE */
+        .info-table {
+            width: 100%;
+            margin-bottom: 20px;
+            border-collapse: collapse;
+        }
+
+        .info-box {
+            border: 1px solid #dcdcdc;
+            background-color: #fafafa;
+            padding: 10px 12px;
+            border-radius: 4px;
+        }
+
+        .info-title {
+            color: #2e7d32;
+            font-size: 10px;
+            font-weight: bold;
+            text-transform: uppercase;
+            border-bottom: 1.5px solid #2e7d32;
+            padding-bottom: 4px;
+            margin-bottom: 6px;
+        }
+
+        .info-text {
+            font-size: 11px;
+            color: #333333;
+        }
+
+        /* TABLA DE DETALLE */
+        .items-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+            margin-bottom: 20px;
+        }
+
+        .items-table th {
+            background-color: #2e7d32;
+            color: #ffffff;
+            font-size: 10px;
+            font-weight: bold;
+            text-transform: uppercase;
+            padding: 9px 10px;
+            text-align: left;
+        }
+
+        .items-table td {
+            padding: 10px;
+            border-bottom: 1px solid #e9e9e9;
+            font-size: 11px;
+        }
+
+        /* SECCIÓN TOTAL Y NOTAS */
+        .summary-table {
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        .totals-card {
+            border: 1.5px solid #2e7d32;
+            border-radius: 4px;
+            background-color: #f2f8f3;
+            padding: 12px;
+            text-align: right;
+        }
+
+        .grand-total-label {
+            font-size: 13px;
+            font-weight: bold;
+            color: #2e7d32;
+            text-transform: uppercase;
+        }
+
+        .grand-total-val {
+            font-size: 20px;
+            font-weight: bold;
+            color: #2e7d32;
+            margin-top: 4px;
+        }
+
+        /* PIE DE PÁGINA */
+        .footer-container {
+            margin-top: 40px;
+            border-top: 1px solid #e0e0e0;
+            padding-top: 12px;
+            text-align: center;
+            color: #777777;
+            font-size: 9px;
+        }
+
+        .badge-status {
+            background-color: #e8f5e9;
+            color: #2e7d32;
+            padding: 3px 8px;
+            border-radius: 10px;
+            font-weight: bold;
+            font-size: 9.5px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ENCABEZADO CON LOGO Y DATOS EMPRESA -->
+    <table class="top-banner">
+        <tr>
+            <td style="width: 58%; vertical-align: top;">
+                <img src="{{ logo_path }}" class="logo-img" alt="AgroTech">
+                <div class="company-name">AgroTech S.A.</div>
+                <div class="company-info">
+                    <strong>RUC:</strong> 1793847291001<br>
+                    <strong>Matriz:</strong> Av. Amazonas y Calle Guayaquil, Puyo - Ecuador<br>
+                    <strong>Teléfono:</strong> (03) 288-5123 | <strong>Email:</strong> facturacion@agrotech.ec
+                </div>
+            </td>
+            <td style="width: 42%; vertical-align: top;">
+                <div class="invoice-badge">
+                    <div class="invoice-type">FACTURA DE VENTA</div>
+                    <div class="invoice-number">N.º {{ factura.numero }}</div>
+                    <div class="invoice-date">
+                        <strong>Fecha de Emisión:</strong> {{ factura.fecha }}<br>
+                        <strong>Estado:</strong> <span class="badge-status">PAGADO / REGISTRADO</span>
+                    </div>
+                </div>
+            </td>
+        </tr>
+    </table>
+
+    <!-- INFORMACIÓN DEL CLIENTE -->
+    <table class="info-table">
+        <tr>
+            <td style="width: 100%; vertical-align: top;">
+                <div class="info-box">
+                    <div class="info-title">Datos del Cliente</div>
+                    <div class="info-text">
+                        <strong>Señor(es):</strong> {{ factura.cliente }}<br>
+                        <strong>Concepto:</strong> Venta de insumos y servicios agrícolas<br>
+                        <strong>Forma de Pago:</strong> Efectivo / Transferencia Bancaria
+                    </div>
+                </div>
+            </td>
+        </tr>
+    </table>
+
+    <!-- DETALLE DE LA FACTURA -->
+    <table class="items-table">
+        <thead>
+            <tr>
+                <th style="width: 20%;">FACTURA</th>
+                <th style="width: 25%;">CLIENTE</th>
+                <th style="width: 25%;">PRODUCTO</th>
+                <th style="width: 15%;">FECHA</th>
+                <th style="width: 15%; text-align: right;">TOTAL</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>{{ factura.numero }}</td>
+                <td>{{ factura.cliente }}</td>
+                <td><strong>{{ factura.producto }}</strong></td>
+                <td>{{ factura.fecha }}</td>
+                <td style="text-align: right;">${{ "%.2f"|format(factura.total|float) }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- TOTAL A PAGAR (SIN IVA) -->
+    <table class="summary-table">
+        <tr>
+            <td style="width: 55%; vertical-align: top;">
+                <div style="border: 1px dashed #cccccc; padding: 10px; border-radius: 4px; background-color: #fbfbfb;">
+                    <strong style="color: #2e7d32; font-size: 10px;">NOTAS Y CONDICIONES:</strong>
+                    <p style="font-size: 9px; color: #666; margin: 4px 0 0 0;">
+                        - Este documento representa un comprobante oficial generado desde la plataforma AgroTech.<br>
+                        - Conserve este documento para reclamos de garantía o devoluciones.
+                    </p>
+                </div>
+            </td>
+
+            <td style="width: 45%; vertical-align: top;">
+                <div class="totals-card">
+                    <div class="grand-total-label">TOTAL A PAGAR</div>
+                    <div class="grand-total-val">${{ "%.2f"|format(factura.total|float) }}</div>
+                </div>
+            </td>
+        </tr>
+    </table>
+
+    <!-- PIE DE PÁGINA -->
+    <div class="footer-container">
+        <strong>AgroTech</strong> — Plataforma digital para la gestión y control de actividades agrícolas<br>
+        <em>Proyecto Integrador | Desarrollo de Aplicaciones Web | Universidad Estatal Amazónica (2026)</em><br>
+        Desarrollado por: <strong>Cornejo Olaya Lissi Antonella</strong> & <strong>Jeison Teobaldo García Arreaga</strong>
+    </div>
+
+</body>
+
+</html>

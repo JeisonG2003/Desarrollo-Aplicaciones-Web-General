@@ -1,61 +1,308 @@
 {% extends "base.html" %}
 
+
 {% block title %}
 Panel de control - AgroTech
 {% endblock %}
 
+
 {% block content %}
 
-<section class="seccion">
 
-    <div class="text-center">
+<section class="dashboard-page">
 
-        <h2 class="mb-3">
-            Panel de control
-        </h2>
+    <div class="container">
 
-        <p class="lead">
-            Bienvenido, <strong>{{ current_user.usuario }}</strong>
-        </p>
 
-        <p>
-            Has iniciado sesión correctamente en AgroTech.
-        </p>
+        <!-- BIENVENIDA -->
 
-    </div>
+        <div class="dashboard-welcome">
 
-    <div class="row mt-4">
+            <div>
 
-        <div class="col-md-3 mb-3">
-            <a href="{{ url_for('productos') }}"
-               class="btn btn-success w-100">
-                Productos
-            </a>
+                <span class="section-eyebrow">
+                    Panel de control
+                </span>
+
+
+                <h1>
+                    Hola, {{ current_user.usuario }}
+                </h1>
+
+
+                <p>
+                    Administra la información de AgroTech
+                    desde un solo lugar.
+                </p>
+
+            </div>
+
+
+            <div class="dashboard-brand-symbol">
+
+                <img
+                    src="{{ url_for('static', filename='img/logo solo sin texto-agrotech.png') }}"
+                    alt="Símbolo AgroTech">
+
+            </div>
+
         </div>
 
-        <div class="col-md-3 mb-3">
-            <a href="{{ url_for('clientes') }}"
-               class="btn btn-primary w-100">
-                Clientes
-            </a>
+
+
+        <!-- MODULOS -->
+
+        <div class="dashboard-section-header">
+
+            <div>
+
+                <h2>
+                    Módulos principales
+                </h2>
+
+                <p>
+                    Selecciona el área que deseas gestionar.
+                </p>
+
+            </div>
+
         </div>
 
-        <div class="col-md-3 mb-3">
-            <a href="{{ url_for('proveedores') }}"
-               class="btn btn-warning w-100">
-                Proveedores
-            </a>
+
+        <div class="row g-4">
+
+
+            <!-- PRODUCTOS -->
+
+            <div class="col-sm-6 col-xl-3">
+
+                <a
+                    href="{{ url_for('productos') }}"
+                    class="dashboard-module-card">
+
+                    <div class="dashboard-module-image">
+
+                        <img
+                            src="{{ url_for('static', filename='img/productos.png') }}"
+                            alt="Productos">
+
+                    </div>
+
+                    <div class="dashboard-module-content">
+
+                        <h3>
+                            Productos
+                        </h3>
+
+                        <p>
+                            Productos, stock, precios y proveedores.
+                        </p>
+
+                        <span>
+                            Gestionar
+
+                            <i class="bi bi-arrow-right"></i>
+                        </span>
+
+                    </div>
+
+                </a>
+
+            </div>
+
+
+
+            <!-- CLIENTES -->
+
+            <div class="col-sm-6 col-xl-3">
+
+                <a
+                    href="{{ url_for('clientes') }}"
+                    class="dashboard-module-card">
+
+                    <div class="dashboard-module-image">
+
+                        <img
+                            src="{{ url_for('static', filename='img/clientes.png') }}"
+                            alt="Clientes">
+
+                    </div>
+
+                    <div class="dashboard-module-content">
+
+                        <h3>
+                            Clientes
+                        </h3>
+
+                        <p>
+                            Consulta y administra clientes.
+                        </p>
+
+                        <span>
+                            Gestionar
+
+                            <i class="bi bi-arrow-right"></i>
+                        </span>
+
+                    </div>
+
+                </a>
+
+            </div>
+
+
+
+            <!-- PROVEEDORES -->
+
+            <div class="col-sm-6 col-xl-3">
+
+                <a
+                    href="{{ url_for('proveedores') }}"
+                    class="dashboard-module-card">
+
+                    <div class="dashboard-module-image">
+
+                        <img
+                            src="{{ url_for('static', filename='img/proveedores.png') }}"
+                            alt="Proveedores">
+
+                    </div>
+
+                    <div class="dashboard-module-content">
+
+                        <h3>
+                            Proveedores
+                        </h3>
+
+                        <p>
+                            Información de proveedores agrícolas.
+                        </p>
+
+                        <span>
+                            Gestionar
+
+                            <i class="bi bi-arrow-right"></i>
+                        </span>
+
+                    </div>
+
+                </a>
+
+            </div>
+
+
+
+            <!-- FACTURACIÓN -->
+
+            <div class="col-sm-6 col-xl-3">
+
+                <a
+                    href="{{ url_for('facturacion') }}"
+                    class="dashboard-module-card">
+
+                    <div class="dashboard-module-image">
+
+                        <img
+                            src="{{ url_for('static', filename='img/facturacion .png') }}"
+                            alt="Facturación">
+
+                    </div>
+
+                    <div class="dashboard-module-content">
+
+                        <h3>
+                            Facturación
+                        </h3>
+
+                        <p>
+                            Registra y consulta tus facturas.
+                        </p>
+
+                        <span>
+                            Gestionar
+
+                            <i class="bi bi-arrow-right"></i>
+                        </span>
+
+                    </div>
+
+                </a>
+
+            </div>
+
+
         </div>
 
-        <div class="col-md-3 mb-3">
-            <a href="{{ url_for('facturacion') }}"
-               class="btn btn-dark w-100">
-                Facturación
-            </a>
+
+
+        <!-- ACCIONES RÁPIDAS -->
+
+        <div class="quick-actions-panel">
+
+            <div>
+
+                <span class="section-eyebrow">
+                    Acciones rápidas
+                </span>
+
+                <h2>
+                    ¿Qué deseas registrar?
+                </h2>
+
+            </div>
+
+
+            <div class="quick-buttons">
+
+
+                <a
+                    href="{{ url_for('nuevo_producto') }}"
+                    class="quick-button">
+
+                    <i class="bi bi-plus-lg"></i>
+                    Producto
+
+                </a>
+
+
+                <a
+                    href="{{ url_for('nuevo_cliente') }}"
+                    class="quick-button">
+
+                    <i class="bi bi-plus-lg"></i>
+                    Cliente
+
+                </a>
+
+
+                <a
+                    href="{{ url_for('nuevo_proveedor') }}"
+                    class="quick-button">
+
+                    <i class="bi bi-plus-lg"></i>
+                    Proveedor
+
+                </a>
+
+
+                <a
+                    href="{{ url_for('nueva_factura') }}"
+                    class="quick-button quick-button-main">
+
+                    <i class="bi bi-plus-lg"></i>
+                    Factura
+
+                </a>
+
+
+            </div>
+
         </div>
+
 
     </div>
 
 </section>
+
 
 {% endblock %}
