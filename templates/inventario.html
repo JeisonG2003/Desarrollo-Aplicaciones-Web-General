@@ -1,0 +1,190 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Inventario - AgroTech
+{% endblock %}
+
+{% block content %}
+
+<section class="crud-page">
+    <div class="container">
+
+        <div class="crud-header">
+
+            <div class="crud-header-text">
+                <span class="section-eyebrow crud-eyebrow">
+                    Administración
+                </span>
+
+                <h1>Movimientos de inventario</h1>
+
+                <p>
+                    Registra entradas y ajustes. Las ventas y anulaciones
+                    se registran automáticamente.
+                </p>
+            </div>
+
+        </div>
+
+        <div class="agro-form-card mb-4">
+
+            <div class="agro-form-card-header">
+
+                <div class="agro-form-card-icon">
+                    <i class="bi bi-arrow-left-right"></i>
+                </div>
+
+                <div>
+                    <h2>Nuevo movimiento</h2>
+
+                    <p>
+                        Solo disponible para administradores.
+                    </p>
+                </div>
+
+            </div>
+
+            <form method="POST" class="agro-form">
+
+                {{ form.hidden_tag() }}
+
+                <div class="row g-3">
+
+                    <div class="col-md-4">
+                        {{ form.id_producto.label(class="form-label") }}
+
+                        {{ form.id_producto(
+                            class="form-select agro-form-control"
+                        ) }}
+                    </div>
+
+                    <div class="col-md-3">
+                        {{ form.tipo.label(class="form-label") }}
+
+                        {{ form.tipo(
+                            class="form-select agro-form-control"
+                        ) }}
+                    </div>
+
+                    <div class="col-md-2">
+                        {{ form.cantidad.label(class="form-label") }}
+
+                        {{ form.cantidad(
+                            class="form-control agro-form-control"
+                        ) }}
+                    </div>
+
+                    <div class="col-md-3">
+                        {{ form.motivo.label(class="form-label") }}
+
+                        {{ form.motivo(
+                            class="form-control agro-form-control",
+                            rows="2"
+                        ) }}
+                    </div>
+
+                </div>
+
+                <div class="agro-form-actions mt-3">
+                    {{ form.enviar(class="agro-button-submit") }}
+                </div>
+
+            </form>
+
+        </div>
+
+        <div class="crud-table-card">
+
+            <div class="crud-table-heading">
+
+                <div>
+                    <h2>Historial</h2>
+
+                    <p>
+                        Trazabilidad de entradas, ventas, reversos y ajustes.
+                    </p>
+                </div>
+
+            </div>
+
+            <div class="table-responsive">
+
+                <table class="table crud-table align-middle">
+
+                    <thead>
+                        <tr>
+                            <th>Fecha</th>
+                            <th>Producto</th>
+                            <th>Tipo</th>
+                            <th>Cantidad</th>
+                            <th>Stock</th>
+                            <th>Factura</th>
+                            <th>Usuario</th>
+                            <th>Motivo</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+                        {% for m in movimientos %}
+
+                            <tr>
+
+                                <td>
+                                    {{ m.fecha }}
+                                </td>
+
+                                <td>
+                                    {{ m.producto }}
+                                </td>
+
+                                <td>
+                                    <span class="badge text-bg-secondary">
+                                        {{ m.tipo }}
+                                    </span>
+                                </td>
+
+                                <td>
+                                    {{ m.cantidad }}
+                                </td>
+
+                                <td>
+                                    {{ m.stock_anterior }} → {{ m.stock_nuevo }}
+                                </td>
+
+                                <td>
+                                    {{ m.factura_numero or '—' }}
+                                </td>
+
+                                <td>
+                                    {{ m.usuario or '—' }}
+                                </td>
+
+                                <td>
+                                    {{ m.motivo }}
+                                </td>
+
+                            </tr>
+
+                        {% else %}
+
+                            <tr>
+                                <td colspan="8" class="text-center py-4">
+                                    No hay movimientos todavía.
+                                </td>
+                            </tr>
+
+                        {% endfor %}
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+    </div>
+</section>
+
+{% endblock %}

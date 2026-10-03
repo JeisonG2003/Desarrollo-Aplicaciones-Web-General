@@ -1,0 +1,126 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Usuarios - AgroTech
+{% endblock %}
+
+{% block content %}
+
+<section class="crud-page">
+    <div class="container">
+
+        <div class="crud-header">
+
+            <div class="crud-header-text">
+                <span class="section-eyebrow crud-eyebrow">
+                    Administración
+                </span>
+
+                <h1>Usuarios y roles</h1>
+
+                <p>
+                    ADMIN administra configuración e inventario;
+                    USUARIO realiza operaciones de clientes y facturación.
+                </p>
+            </div>
+
+        </div>
+
+        <div class="crud-table-card">
+
+            <div class="table-responsive">
+
+                <table class="table crud-table align-middle">
+
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Usuario</th>
+                            <th>Rol</th>
+                            <th>Estado</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+                        {% for u in usuarios %}
+
+                            <tr>
+
+                                <td>
+                                    #{{ u.id }}
+                                </td>
+
+                                <td>
+                                    <strong>{{ u.usuario }}</strong>
+
+                                    {% if u.id|string == current_user.id|string %}
+                                        <span class="badge text-bg-info">
+                                            Tú
+                                        </span>
+                                    {% endif %}
+                                </td>
+
+                                <td>
+                                    {{ u.rol }}
+                                </td>
+
+                                <td>
+                                    {{ u.estado }}
+                                </td>
+
+                                <td>
+                                    <div class="d-flex flex-wrap gap-2">
+
+                                        <form method="POST"
+                                              action="{{ url_for('cambiar_rol_usuario', id_usuario=u.id) }}">
+
+                                            {{ accion_form.csrf_token }}
+
+                                            <input type="hidden"
+                                                   name="rol"
+                                                   value="{{ 'USUARIO' if u.rol == 'ADMIN' else 'ADMIN' }}">
+
+                                            <button class="btn btn-sm btn-outline-primary"
+                                                    type="submit">
+                                                Cambiar a {{ 'USUARIO' if u.rol == 'ADMIN' else 'ADMIN' }}
+                                            </button>
+
+                                        </form>
+
+                                        <form method="POST"
+                                              action="{{ url_for('cambiar_estado_usuario', id_usuario=u.id) }}">
+
+                                            {{ accion_form.csrf_token }}
+
+                                            <input type="hidden"
+                                                   name="estado"
+                                                   value="{{ 'INACTIVO' if u.estado == 'ACTIVO' else 'ACTIVO' }}">
+
+                                            <button class="btn btn-sm btn-outline-secondary"
+                                                    type="submit">
+                                                {{ 'Desactivar' if u.estado == 'ACTIVO' else 'Activar' }}
+                                            </button>
+
+                                        </form>
+
+                                    </div>
+                                </td>
+
+                            </tr>
+
+                        {% endfor %}
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+    </div>
+</section>
+
+{% endblock %}

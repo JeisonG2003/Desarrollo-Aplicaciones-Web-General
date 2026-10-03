@@ -3,269 +3,534 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Factura {{ factura.numero }} - AgroTech</title>
+    <title>Factura {{ factura.numero }}</title>
+
     <style>
         @page {
             size: A4;
-            margin: 15mm 15mm 20mm 15mm;
+            margin: 9mm;
         }
 
         body {
             font-family: Helvetica, Arial, sans-serif;
-            color: #2c3e50;
-            font-size: 11px;
+            font-size: 8.5px;
+            color: #151515;
             margin: 0;
-            padding: 0;
-            line-height: 1.4;
         }
 
-        /* ENCABEZADO SUPERIOR */
-        .top-banner {
+        table {
             width: 100%;
-            margin-bottom: 20px;
+            border-collapse: collapse;
         }
 
-        .logo-img {
-            width: 160px;
-            height: auto;
-        }
-
-        .company-name {
-            color: #1e5e2e;
-            font-size: 20px;
+        .academic-notice {
+            border: 1px solid #b91c1c;
+            background: #fff5f5;
+            color: #991b1b;
+            text-align: center;
             font-weight: bold;
-            margin-top: 5px;
-            letter-spacing: 0.5px;
+            padding: 5px;
+            margin-bottom: 8px;
+            font-size: 8px;
         }
 
-        .company-info {
-            color: #555555;
-            font-size: 9.5px;
-            margin-top: 3px;
+        .header-table td {
+            vertical-align: top;
         }
 
-        /* BADGE CORRELATIVO FACTURA */
-        .invoice-badge {
-            border: 2px solid #2e7d32;
-            background-color: #f2f8f3;
-            border-radius: 6px;
-            padding: 12px;
-            text-align: right;
+        .issuer-panel {
+            padding: 7px 10px 7px 3px;
         }
 
-        .invoice-type {
-            color: #2e7d32;
-            font-size: 16px;
+        .invoice-panel {
+            border: 1px solid #2d2d2d;
+            padding: 9px;
+        }
+
+        .logo {
+            width: 145px;
+            margin-bottom: 5px;
+        }
+
+        .issuer-name {
+            font-size: 12px;
             font-weight: bold;
-            letter-spacing: 1px;
+            margin: 4px 0 6px;
+        }
+
+        .invoice-ruc {
+            font-size: 11px;
+            font-weight: bold;
+        }
+
+        .invoice-title {
+            font-size: 21px;
+            font-weight: bold;
+            margin: 5px 0 3px;
         }
 
         .invoice-number {
-            color: #111111;
-            font-size: 15px;
-            font-weight: bold;
-            margin: 4px 0;
-        }
-
-        .invoice-date {
-            color: #555555;
-            font-size: 10px;
-        }
-
-        /* BLOQUE CLIENTE */
-        .info-table {
-            width: 100%;
-            margin-bottom: 20px;
-            border-collapse: collapse;
-        }
-
-        .info-box {
-            border: 1px solid #dcdcdc;
-            background-color: #fafafa;
-            padding: 10px 12px;
-            border-radius: 4px;
-        }
-
-        .info-title {
-            color: #2e7d32;
-            font-size: 10px;
-            font-weight: bold;
-            text-transform: uppercase;
-            border-bottom: 1.5px solid #2e7d32;
-            padding-bottom: 4px;
-            margin-bottom: 6px;
-        }
-
-        .info-text {
+            color: #b91c1c;
             font-size: 11px;
-            color: #333333;
-        }
-
-        /* TABLA DE DETALLE */
-        .items-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 10px;
-            margin-bottom: 20px;
-        }
-
-        .items-table th {
-            background-color: #2e7d32;
-            color: #ffffff;
-            font-size: 10px;
             font-weight: bold;
-            text-transform: uppercase;
-            padding: 9px 10px;
+            margin-bottom: 7px;
+        }
+
+        .label {
+            font-weight: bold;
+        }
+
+        .muted {
+            color: #666;
+        }
+
+        .access-box {
+            border: 1px solid #bdbdbd;
+            background: #f3f3f3;
+            text-align: center;
+            padding: 8px 5px;
+            margin-top: 5px;
+            color: #555;
+            font-size: 7.5px;
+        }
+
+        .buyer-table {
+            margin-top: 9px;
+            border-top: 1px solid #bdbdbd;
+            border-bottom: 1px solid #bdbdbd;
+        }
+
+        .buyer-table td {
+            width: 33.33%;
+            padding: 7px 8px 7px 0;
+            vertical-align: top;
+        }
+
+        .items {
+            margin-top: 10px;
+        }
+
+        .items th {
+            background: #efefef;
+            border-top: 1px solid #bdbdbd;
+            border-bottom: 1px solid #bdbdbd;
+            padding: 5px 4px;
             text-align: left;
+            font-size: 7.5px;
         }
 
-        .items-table td {
-            padding: 10px;
-            border-bottom: 1px solid #e9e9e9;
-            font-size: 11px;
+        .items td {
+            border-bottom: 1px solid #d4d4d4;
+            padding: 5px 4px;
+            vertical-align: top;
         }
 
-        /* SECCIÓN TOTAL Y NOTAS */
-        .summary-table {
-            width: 100%;
-            margin-top: 10px;
-        }
-
-        .totals-card {
-            border: 1.5px solid #2e7d32;
-            border-radius: 4px;
-            background-color: #f2f8f3;
-            padding: 12px;
+        .num {
             text-align: right;
         }
 
-        .grand-total-label {
-            font-size: 13px;
-            font-weight: bold;
-            color: #2e7d32;
-            text-transform: uppercase;
-        }
-
-        .grand-total-val {
-            font-size: 20px;
-            font-weight: bold;
-            color: #2e7d32;
-            margin-top: 4px;
-        }
-
-        /* PIE DE PÁGINA */
-        .footer-container {
-            margin-top: 40px;
-            border-top: 1px solid #e0e0e0;
-            padding-top: 12px;
+        .center {
             text-align: center;
-            color: #777777;
-            font-size: 9px;
         }
 
-        .badge-status {
-            background-color: #e8f5e9;
-            color: #2e7d32;
-            padding: 3px 8px;
-            border-radius: 10px;
+        .bottom-table {
+            margin-top: 9px;
+        }
+
+        .bottom-table > tbody > tr > td {
+            vertical-align: top;
+        }
+
+        .additional-title {
+            font-size: 9px;
             font-weight: bold;
-            font-size: 9.5px;
+            margin-bottom: 5px;
+        }
+
+        .additional-line {
+            margin-bottom: 4px;
+        }
+
+        .payment-box {
+            margin-top: 9px;
+        }
+
+        .totals {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .totals td {
+            border-bottom: 1px solid #bdbdbd;
+            padding: 4px 5px;
+        }
+
+        .totals .total-final td {
+            font-size: 10px;
+            font-weight: bold;
+            border-top: 1px solid #555;
+            border-bottom: 1px solid #555;
+        }
+
+        .status-anulada {
+            font-size: 18px;
+            color: #b91c1c;
+            text-align: center;
+            font-weight: bold;
+            border: 2px solid #b91c1c;
+            padding: 6px;
+            margin: 7px 0;
+        }
+
+        .cancel-box {
+            border: 1px solid #b91c1c;
+            padding: 6px;
+            margin-top: 8px;
+        }
+
+        .footer {
+            margin-top: 11px;
+            padding-top: 6px;
+            border-top: 1px solid #d1d1d1;
+            text-align: center;
+            color: #666;
+            font-size: 7px;
         }
     </style>
 </head>
 
 <body>
 
-    <!-- ENCABEZADO CON LOGO Y DATOS EMPRESA -->
-    <table class="top-banner">
+    <div class="academic-notice">
+        REPRESENTACIÓN ACADÉMICA TIPO RIDE — NO AUTORIZADA POR EL SRI — SIN VALIDEZ TRIBUTARIA
+    </div>
+
+    {% if factura.estado == 'ANULADA' %}
+        <div class="status-anulada">
+            FACTURA ANULADA
+        </div>
+    {% endif %}
+
+    <table class="header-table">
         <tr>
-            <td style="width: 58%; vertical-align: top;">
-                <img src="{{ logo_path }}" class="logo-img" alt="AgroTech">
-                <div class="company-name">AgroTech S.A.</div>
-                <div class="company-info">
-                    <strong>RUC:</strong> 1793847291001<br>
-                    <strong>Matriz:</strong> Av. Amazonas y Calle Guayaquil, Puyo - Ecuador<br>
-                    <strong>Teléfono:</strong> (03) 288-5123 | <strong>Email:</strong> facturacion@agrotech.ec
+
+            <td style="width:50%;" class="issuer-panel">
+
+                <img src="{{ logo_path }}" class="logo">
+
+                <div class="issuer-name">
+                    {{ emisor.razon_social }}
                 </div>
-            </td>
-            <td style="width: 42%; vertical-align: top;">
-                <div class="invoice-badge">
-                    <div class="invoice-type">FACTURA DE VENTA</div>
-                    <div class="invoice-number">N.º {{ factura.numero }}</div>
-                    <div class="invoice-date">
-                        <strong>Fecha de Emisión:</strong> {{ factura.fecha }}<br>
-                        <strong>Estado:</strong> <span class="badge-status">PAGADO / REGISTRADO</span>
-                    </div>
+
+                <div>
+                    <span class="label">Nombre comercial:</span>
+                    {{ emisor.nombre_comercial }}
                 </div>
+
+                <div>
+                    <span class="label">Dirección:</span>
+                    {{ emisor.direccion_matriz }}
+                </div>
+
+                <div>
+                    <span class="label">Establecimiento:</span>
+                    {{ emisor.direccion_establecimiento }}
+                </div>
+
+                <div>
+                    <span class="label">Obligado a llevar contabilidad:</span>
+                    {{ emisor.obligado_contabilidad }}
+                </div>
+
+                <div>
+                    <span class="label">Régimen:</span>
+                    DEMOSTRACIÓN ACADÉMICA
+                </div>
+
             </td>
+
+            <td style="width:50%;" class="invoice-panel">
+
+                <div class="invoice-ruc">
+                    RUC: {{ emisor.ruc }}
+                </div>
+
+                <div class="invoice-title">
+                    FACTURA
+                </div>
+
+                <div class="invoice-number">
+                    No. {{ factura.numero }}
+                </div>
+
+                <div>
+                    <span class="label">Número de autorización:</span><br>
+                    <span class="muted">
+                        NO APLICA — proyecto académico sin conexión al SRI
+                    </span>
+                </div>
+
+                <div style="margin-top:5px;">
+                    <span class="label">Ambiente:</span>
+                    PRUEBAS ACADÉMICAS
+                </div>
+
+                <div>
+                    <span class="label">Emisión:</span>
+                    NORMAL
+                </div>
+
+                <div style="margin-top:5px;">
+                    <span class="label">Clave de acceso:</span>
+                </div>
+
+                <div class="access-box">
+                    NO GENERADA<br>
+                    SIN FIRMA ELECTRÓNICA NI AUTORIZACIÓN DEL SRI
+                </div>
+
+            </td>
+
         </tr>
     </table>
 
-    <!-- INFORMACIÓN DEL CLIENTE -->
-    <table class="info-table">
+
+    <table class="buyer-table">
         <tr>
-            <td style="width: 100%; vertical-align: top;">
-                <div class="info-box">
-                    <div class="info-title">Datos del Cliente</div>
-                    <div class="info-text">
-                        <strong>Señor(es):</strong> {{ factura.cliente }}<br>
-                        <strong>Concepto:</strong> Venta de insumos y servicios agrícolas<br>
-                        <strong>Forma de Pago:</strong> Efectivo / Transferencia Bancaria
-                    </div>
-                </div>
+
+            <td>
+                <span class="label">Razón Social / Comprador:</span><br>
+                {{ factura.cliente or 'CONSUMIDOR FINAL' }}
+
+                <br><br>
+
+                <span class="label">RUC / CI Comprador:</span><br>
+                {{ factura.cedula or 'NO REGISTRADA' }}
             </td>
+
+            <td>
+                <span class="label">Email Comprador:</span><br>
+                {{ factura.correo or 'No registrado' }}
+
+                <br><br>
+
+                <span class="label">Teléfono Comprador:</span><br>
+                {{ factura.telefono or 'No registrado' }}
+            </td>
+
+            <td>
+                <span class="label">Dirección Comprador:</span><br>
+                {{ factura.ubicacion or 'No registrada' }}
+
+                <br><br>
+
+                <span class="label">Fecha de Emisión:</span><br>
+                {{ factura.fecha }}
+            </td>
+
         </tr>
     </table>
 
-    <!-- DETALLE DE LA FACTURA -->
-    <table class="items-table">
+
+    <table class="items">
+
         <thead>
             <tr>
-                <th style="width: 20%;">FACTURA</th>
-                <th style="width: 25%;">CLIENTE</th>
-                <th style="width: 25%;">PRODUCTO</th>
-                <th style="width: 15%;">FECHA</th>
-                <th style="width: 15%; text-align: right;">TOTAL</th>
+                <th style="width:10%;">Código</th>
+                <th style="width:34%;">Descripción</th>
+                <th style="width:10%;" class="center">Cantidad</th>
+                <th style="width:15%;" class="num">Precio</th>
+                <th style="width:14%;" class="num">Descuento</th>
+                <th style="width:17%;" class="num">Total</th>
             </tr>
         </thead>
+
         <tbody>
-            <tr>
-                <td>{{ factura.numero }}</td>
-                <td>{{ factura.cliente }}</td>
-                <td><strong>{{ factura.producto }}</strong></td>
-                <td>{{ factura.fecha }}</td>
-                <td style="text-align: right;">${{ "%.2f"|format(factura.total|float) }}</td>
-            </tr>
+
+            {% for d in detalles %}
+
+                <tr>
+
+                    <td>
+                        {{ '%06d'|format(d.id_producto) }}
+                    </td>
+
+                    <td>
+                        {{ d.producto }}
+
+                        {% if d.categoria %}
+                            <br>
+                            <span class="muted">
+                                {{ d.categoria }}
+                            </span>
+                        {% endif %}
+                    </td>
+
+                    <td class="center">
+                        {{ d.cantidad }}
+                    </td>
+
+                    <td class="num">
+                        ${{ '%.2f'|format(d.precio_unitario|float) }}
+                    </td>
+
+                    <td class="num">
+                        $0.00
+                    </td>
+
+                    <td class="num">
+                        ${{ '%.2f'|format(d.base_imponible|float) }}
+                    </td>
+
+                </tr>
+
+            {% endfor %}
+
         </tbody>
+
     </table>
 
-    <!-- TOTAL A PAGAR (SIN IVA) -->
-    <table class="summary-table">
+
+    <table class="bottom-table">
         <tr>
-            <td style="width: 55%; vertical-align: top;">
-                <div style="border: 1px dashed #cccccc; padding: 10px; border-radius: 4px; background-color: #fbfbfb;">
-                    <strong style="color: #2e7d32; font-size: 10px;">NOTAS Y CONDICIONES:</strong>
-                    <p style="font-size: 9px; color: #666; margin: 4px 0 0 0;">
-                        - Este documento representa un comprobante oficial generado desde la plataforma AgroTech.<br>
-                        - Conserve este documento para reclamos de garantía o devoluciones.
-                    </p>
+
+            <td style="width:59%; padding-right:14px;">
+
+                <div class="additional-title">
+                    Información Adicional
                 </div>
+
+                <div class="additional-line">
+                    <span class="label">Email:</span>
+                    {{ factura.correo or 'No registrado' }}
+                </div>
+
+                <div class="additional-line">
+                    <span class="label">Teléfono:</span>
+                    {{ factura.telefono or 'No registrado' }}
+                </div>
+
+                <div class="additional-line">
+                    <span class="label">Emitida por:</span>
+                    {{ factura.usuario_emisor or 'No disponible' }}
+                </div>
+
+                {% if factura.observaciones %}
+                    <div class="additional-line">
+                        <span class="label">Observaciones:</span>
+                        {{ factura.observaciones }}
+                    </div>
+                {% endif %}
+
+
+                <div class="payment-box">
+
+                    <div class="additional-title">
+                        Forma de pago
+                    </div>
+
+                    {% if factura.forma_pago == '20' %}
+                        OTROS CON UTILIZACIÓN DEL SISTEMA FINANCIERO
+                    {% else %}
+                        SIN UTILIZACIÓN DEL SISTEMA FINANCIERO / EFECTIVO
+                    {% endif %}
+
+                    <br>
+
+                    <span class="label">
+                        Valor:
+                    </span>
+                    ${{ '%.2f'|format(factura.total|float) }}
+
+                </div>
+
             </td>
 
-            <td style="width: 45%; vertical-align: top;">
-                <div class="totals-card">
-                    <div class="grand-total-label">TOTAL A PAGAR</div>
-                    <div class="grand-total-val">${{ "%.2f"|format(factura.total|float) }}</div>
-                </div>
+
+            <td style="width:41%;">
+
+                <table class="totals">
+
+                    <tr>
+                        <td class="label">
+                            Subtotal 0%
+                        </td>
+                        <td class="num">
+                            ${{ '%.2f'|format(factura.base_iva_0|float) }}
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="label">
+                            Subtotal 15%
+                        </td>
+                        <td class="num">
+                            ${{ '%.2f'|format(factura.base_iva_15|float) }}
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="label">
+                            Subtotal sin impuestos
+                        </td>
+                        <td class="num">
+                            ${{ '%.2f'|format(factura.subtotal_sin_impuestos|float) }}
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="label">
+                            Descuento
+                        </td>
+                        <td class="num">
+                            ${{ '%.2f'|format(factura.total_descuento|float) }}
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="label">
+                            IVA 15%
+                        </td>
+                        <td class="num">
+                            ${{ '%.2f'|format(factura.iva_15|float) }}
+                        </td>
+                    </tr>
+
+                    <tr class="total-final">
+                        <td>
+                            TOTAL
+                        </td>
+                        <td class="num">
+                            ${{ '%.2f'|format(factura.total|float) }}
+                        </td>
+                    </tr>
+
+                </table>
+
             </td>
+
         </tr>
     </table>
 
-    <!-- PIE DE PÁGINA -->
-    <div class="footer-container">
-        <strong>AgroTech</strong> — Plataforma digital para la gestión y control de actividades agrícolas<br>
-        <em>Proyecto Integrador | Desarrollo de Aplicaciones Web | Universidad Estatal Amazónica (2026)</em><br>
-        Desarrollado por: <strong>Cornejo Olaya Lissi Antonella</strong> & <strong>Jeison Teobaldo García Arreaga</strong>
+
+    {% if factura.estado == 'ANULADA' %}
+
+        <div class="cancel-box">
+            <span class="label">Motivo de anulación:</span>
+            {{ factura.motivo_anulacion }}
+            <br>
+
+            <span class="label">Fecha de anulación:</span>
+            {{ factura.fecha_anulacion }}
+        </div>
+
+    {% endif %}
+
+
+    <div class="footer">
+        AgroTech — Proyecto académico de Desarrollo de Aplicaciones Web.
+        Diseño inspirado en la distribución visual de un RIDE ecuatoriano.
+        Este comprobante no se firma, transmite ni autoriza ante el SRI.
     </div>
 
 </body>

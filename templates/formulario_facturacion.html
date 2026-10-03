@@ -1,506 +1,583 @@
 {% extends "base.html" %}
 
-{% set es_edicion = request.endpoint == 'editar_factura' %}
-
 {% block title %}
-{% if es_edicion %}
-Editar Factura - AgroTech
-{% else %}
-Registrar Factura - AgroTech
-{% endif %}
+    Nueva factura - AgroTech
 {% endblock %}
 
 {% block content %}
 
+<style>
+    /* Facturación: alinear Producto, Cantidad y Agregar */
+    .factura-product-row {
+        display: grid;
+        grid-template-columns: minmax(0, 2.4fr) minmax(140px, .85fr) 125px;
+        gap: 16px;
+        align-items: start;
+    }
+
+    .factura-product-field,
+    .factura-quantity-field,
+    .factura-add-field {
+        min-width: 0;
+    }
+
+    .factura-control {
+        width: 100%;
+        min-height: 50px;
+    }
+
+    .factura-action-label {
+        visibility: hidden;
+    }
+
+    .factura-add-button {
+        width: 100%;
+        min-height: 50px;
+        margin: 0;
+        padding: 11px 16px;
+    }
+
+    .factura-stock-help {
+        margin-top: 7px;
+        min-height: 18px;
+    }
+
+    @media (max-width: 767px) {
+        .factura-product-row {
+            grid-template-columns: 1fr;
+            gap: 14px;
+        }
+
+        .factura-action-label {
+            display: none;
+        }
+
+        .factura-add-button {
+            width: 100%;
+        }
+    }
+
+    /* Vista previa de los datos que aparecerán en la factura */
+    .cliente-factura-preview {
+        margin-top: 18px;
+        padding: 18px;
+        border: 1px solid #dfe7df;
+        border-radius: 12px;
+        background: #f8faf8;
+    }
+
+    .cliente-factura-title {
+        margin: 0 0 12px;
+        font-size: 0.95rem;
+        font-weight: 700;
+        color: #234b34;
+    }
+
+    .cliente-factura-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 12px 18px;
+    }
+
+    .cliente-factura-item span {
+        display: block;
+        margin-bottom: 3px;
+        font-size: 0.78rem;
+        color: #6b7280;
+    }
+
+    .cliente-factura-item strong {
+        display: block;
+        font-size: 0.94rem;
+        color: #1f2937;
+        overflow-wrap: anywhere;
+    }
+
+    @media (max-width: 767px) {
+        .cliente-factura-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+
+</style>
+
 <section class="form-page">
-
     <div class="container">
-
         <div class="form-page-wrapper">
 
-
-            <!-- ==================================================
-                 ENCABEZADO
-            =================================================== -->
-
             <div class="form-page-header">
-
-                <a
-                    href="{{ url_for('facturacion') }}"
-                    class="form-back-link">
-
+                <a href="{{ url_for('facturacion') }}" class="form-back-link">
                     <i class="bi bi-arrow-left"></i>
                     Volver a facturación
-
                 </a>
 
-
                 <span class="section-eyebrow form-eyebrow">
-
-                    {% if es_edicion %}
-                        Actualización de factura
-                    {% else %}
-                        Nueva factura
-                    {% endif %}
-
+                    Nueva venta
                 </span>
 
-
-                <h1>
-
-                    {% if es_edicion %}
-                        Editar factura
-                    {% else %}
-                        Registrar factura
-                    {% endif %}
-
-                </h1>
-
+                <h1>Registrar factura</h1>
 
                 <p>
-
-                    {% if es_edicion %}
-
-                        Modifica los datos necesarios y guarda
-                        los cambios de la factura seleccionada.
-
-                    {% else %}
-
-                        Selecciona el cliente y el producto para
-                        registrar una nueva factura en AgroTech.
-
-                    {% endif %}
-
+                    Agrega uno o varios productos. El sistema valida existencias,
+                    calcula los impuestos y descuenta el stock al confirmar.
                 </p>
-
             </div>
-
-
-
-            <!-- ==================================================
-                 TARJETA DEL FORMULARIO
-            =================================================== -->
 
             <div class="agro-form-card">
 
-
-                <!-- CABECERA INTERNA -->
-
                 <div class="agro-form-card-header">
-
                     <div class="agro-form-card-icon">
-
                         <i class="bi bi-receipt"></i>
-
                     </div>
-
 
                     <div>
-
-                        <h2>
-                            Información de facturación
-                        </h2>
+                        <h2>Datos de facturación</h2>
 
                         <p>
-                            Completa los datos necesarios para
-                            generar el registro.
+                            El número se genera automáticamente con formato
+                            001-001-000000001.
                         </p>
-
                     </div>
-
                 </div>
 
+                <form method="POST" class="agro-form" id="facturaForm">
 
-
-                <!-- ==================================================
-                     FORMULARIO
-                =================================================== -->
-
-                <form method="POST" class="agro-form">
-
-                    <!-- PROTECCIÓN CSRF -->
                     {{ form.hidden_tag() }}
+                    {{ form.detalle_json(id='detalle_json') }}
 
+                    <div class="row g-3">
 
-
-                    <!-- ==================================================
-                         NÚMERO DE FACTURA
-                    =================================================== -->
-
-                    <div class="agro-form-group">
-
-                        {{ form.numero.label(class="form-label") }}
-
-                        <div class="agro-input-wrapper">
-
-                            <span class="agro-input-icon">
-
-                                <i class="bi bi-hash"></i>
-
-                            </span>
-
+                        <div class="col-md-6 agro-form-group">
+                            {{ form.numero.label(class="form-label") }}
 
                             {{ form.numero(
                                 class="form-control agro-form-control",
-                                placeholder="Ej.: FACT-0001"
+                                readonly=true
                             ) }}
 
-                        </div>
-
-
-                        <div class="agro-form-help">
-                            El sistema genera automáticamente un número
-                            correlativo para cada nueva factura.
-                        </div>
-
-
-                        {% for error in form.numero.errors %}
-
-                            <div class="agro-form-error">
-
-                                <i class="bi bi-exclamation-circle"></i>
-
-                                {{ error }}
-
+                            <div class="agro-form-help">
+                                Secuencial asignado por PostgreSQL al guardar.
                             </div>
+                        </div>
 
-                        {% endfor %}
-
-                    </div>
-
-
-
-                    <!-- ==================================================
-                         CLIENTE
-                    =================================================== -->
-
-                    <div class="agro-form-group">
-
-                        {{ form.id_cliente.label(class="form-label") }}
-
-                        <div class="agro-select-wrapper">
-
-                            <span class="agro-input-icon">
-
-                                <i class="bi bi-person"></i>
-
-                            </span>
-
+                        <div class="col-md-6 agro-form-group">
+                            {{ form.id_cliente.label(class="form-label") }}
 
                             {{ form.id_cliente(
                                 class="form-select agro-form-control"
                             ) }}
 
+                            {% for error in form.id_cliente.errors %}
+                                <div class="agro-form-error">
+                                    {{ error }}
+                                </div>
+                            {% endfor %}
                         </div>
-
-
-                        <div class="agro-form-help">
-                            Selecciona el cliente asociado a esta factura.
-                        </div>
-
-
-                        {% for error in form.id_cliente.errors %}
-
-                            <div class="agro-form-error">
-
-                                <i class="bi bi-exclamation-circle"></i>
-
-                                {{ error }}
-
-                            </div>
-
-                        {% endfor %}
 
                     </div>
 
+                    <div class="cliente-factura-preview" id="clienteFacturaPreview">
+                        <p class="cliente-factura-title">
+                            Datos del comprador que aparecerán en la factura
+                        </p>
 
+                        <div class="cliente-factura-grid">
 
-                    <!-- ==================================================
-                         PRODUCTO
-                    =================================================== -->
+                            <div class="cliente-factura-item">
+                                <span>RUC / CI</span>
+                                <strong id="clienteCedula">—</strong>
+                            </div>
 
-                    <div class="agro-form-group">
+                            <div class="cliente-factura-item">
+                                <span>Correo</span>
+                                <strong id="clienteCorreo">—</strong>
+                            </div>
 
-                        {{ form.id_producto.label(class="form-label") }}
+                            <div class="cliente-factura-item">
+                                <span>Teléfono</span>
+                                <strong id="clienteTelefono">—</strong>
+                            </div>
 
-                        <div class="agro-select-wrapper">
+                            <div class="cliente-factura-item" style="grid-column: 1 / -1;">
+                                <span>Dirección / ubicación</span>
+                                <strong id="clienteUbicacion">—</strong>
+                            </div>
 
-                            <span class="agro-input-icon">
+                        </div>
 
-                                <i class="bi bi-box-seam"></i>
+                        <div class="agro-form-help mt-2">
+                            Estos datos se toman automáticamente del módulo Clientes.
+                            No necesitas volver a escribirlos al facturar.
+                        </div>
+                    </div>
 
-                            </span>
+                    <hr class="my-4">
 
+                    <h3 class="h5 mb-3">
+                        Detalle de productos
+                    </h3>
 
-                            {{ form.id_producto(
-                                class="form-select agro-form-control",
-                                id="select_producto"
+                    <div class="factura-product-row">
+
+                        <div class="factura-product-field">
+                            <label class="form-label" for="producto_selector">
+                                Producto
+                            </label>
+
+                            <select id="producto_selector"
+                                    class="form-select agro-form-control factura-control">
+                            </select>
+
+                            <div id="stockAyuda"
+                                 class="agro-form-help factura-stock-help"></div>
+                        </div>
+
+                        <div class="factura-quantity-field">
+                            <label class="form-label" for="cantidad_selector">
+                                Cantidad
+                            </label>
+
+                            <input id="cantidad_selector"
+                                   type="number"
+                                   min="1"
+                                   value="1"
+                                   class="form-control agro-form-control factura-control">
+                        </div>
+
+                        <div class="factura-add-field">
+                            <label class="form-label factura-action-label"
+                                   aria-hidden="true">
+                                Acción
+                            </label>
+
+                            <button type="button"
+                                    id="agregarProducto"
+                                    class="agro-button-submit factura-add-button">
+                                Agregar
+                            </button>
+                        </div>
+
+                    </div>
+
+                    <div class="table-responsive mt-4">
+
+                        <table class="table crud-table align-middle">
+
+                            <thead>
+                                <tr>
+                                    <th>Producto</th>
+                                    <th>Cant.</th>
+                                    <th>Precio</th>
+                                    <th>IVA</th>
+                                    <th>Subtotal</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+
+                            <tbody id="detalleTabla">
+
+                                <tr id="filaVacia">
+                                    <td colspan="6"
+                                        class="text-center py-4">
+                                        Aún no has agregado productos.
+                                    </td>
+                                </tr>
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+                    {% for error in form.detalle_json.errors %}
+                        <div class="agro-form-error">
+                            {{ error }}
+                        </div>
+                    {% endfor %}
+
+                    <div class="row g-3 mt-2">
+
+                        <div class="col-md-6 agro-form-group">
+                            {{ form.forma_pago.label(class="form-label") }}
+
+                            {{ form.forma_pago(
+                                class="form-select agro-form-control"
                             ) }}
-
                         </div>
 
+                        <div class="col-md-6 agro-form-group">
+                            {{ form.observaciones.label(class="form-label") }}
 
-                        <div class="agro-form-help">
-                            Selecciona el producto incluido en la factura.
-                            El precio se utiliza para calcular el total.
+                            {{ form.observaciones(
+                                class="form-control agro-form-control",
+                                rows="3",
+                                placeholder="Opcional"
+                            ) }}
                         </div>
-
-
-                        {% for error in form.id_producto.errors %}
-
-                            <div class="agro-form-error">
-
-                                <i class="bi bi-exclamation-circle"></i>
-
-                                {{ error }}
-
-                            </div>
-
-                        {% endfor %}
 
                     </div>
 
+                    <div class="p-3 rounded border bg-light mt-3">
 
-
-                    <!-- ==================================================
-                         CANTIDAD Y TOTAL
-                    =================================================== -->
-
-                    <div class="row g-3">
-
-
-                        <!-- CANTIDAD -->
-
-                        <div class="col-md-5">
-
-                            <div class="agro-form-group">
-
-                                <label
-                                    class="form-label"
-                                    for="input_cantidad">
-
-                                    Cantidad
-
-                                </label>
-
-
-                                <div class="agro-input-wrapper">
-
-                                    <span class="agro-input-icon">
-
-                                        <i class="bi bi-boxes"></i>
-
-                                    </span>
-
-
-                                    <input
-                                        type="number"
-                                        id="input_cantidad"
-                                        class="form-control agro-form-control"
-                                        value="1"
-                                        min="1"
-                                        inputmode="numeric">
-
-                                </div>
-
-
-                                <div class="agro-form-help">
-                                    Ejemplo: 1, 2, 3 unidades.
-                                </div>
-
-                            </div>
-
+                        <div class="d-flex justify-content-between">
+                            <span>Subtotal sin impuestos</span>
+                            <strong id="subtotalVista">$0.00</strong>
                         </div>
 
-
-
-                        <!-- TOTAL -->
-
-                        <div class="col-md-7">
-
-                            <div class="agro-form-group">
-
-                                {{ form.total.label(class="form-label") }}
-
-                                <div class="agro-input-wrapper">
-
-                                    <span class="agro-input-icon">
-
-                                        <i class="bi bi-currency-dollar"></i>
-
-                                    </span>
-
-
-                                    {{ form.total(
-                                        class="form-control agro-form-control",
-                                        placeholder="0.00",
-                                        id="input_total"
-                                    ) }}
-
-                                </div>
-
-
-                                <div class="agro-form-help">
-                                    El total se calcula automáticamente
-                                    según el producto y la cantidad.
-                                </div>
-
-
-                                {% for error in form.total.errors %}
-
-                                    <div class="agro-form-error">
-
-                                        <i class="bi bi-exclamation-circle"></i>
-
-                                        {{ error }}
-
-                                    </div>
-
-                                {% endfor %}
-
-                            </div>
-
+                        <div class="d-flex justify-content-between">
+                            <span>IVA</span>
+                            <strong id="ivaVista">$0.00</strong>
                         </div>
 
+                        <div class="d-flex justify-content-between fs-5 mt-2">
+                            <span>Total</span>
+                            <strong id="totalVista">$0.00</strong>
+                        </div>
 
                     </div>
 
+                    <div class="agro-form-actions mt-4">
 
-
-                    <!-- ==================================================
-                         AVISO
-                    =================================================== -->
-
-                    <div class="invoice-info-note">
-
-                        <i class="bi bi-info-circle"></i>
-
-                        <span>
-                            Verifica el cliente, producto, cantidad y total
-                            antes de guardar la factura.
-                        </span>
-
-                    </div>
-
-
-
-                    <!-- ==================================================
-                         BOTONES
-                    =================================================== -->
-
-                    <div class="agro-form-actions">
-
-                        <a
-                            href="{{ url_for('facturacion') }}"
-                            class="agro-button-cancel">
-
+                        <a href="{{ url_for('facturacion') }}"
+                           class="agro-button-cancel">
                             Cancelar
-
                         </a>
 
-
                         {{ form.enviar(
-                            class="agro-button-submit"
+                            class="agro-button-submit",
+                            id="btnEmitir"
                         ) }}
 
                     </div>
-
 
                 </form>
 
             </div>
 
-
         </div>
-
     </div>
-
 </section>
 
-
-
-<!-- =========================================================
-     CÁLCULO AUTOMÁTICO DEL TOTAL
-========================================================= -->
-
 <script>
+    const productos = {{ productos_json|safe }};
+    const clientes = {{ clientes_json|safe }};
 
-    const precios = {{ precios_json | safe }};
+    const selector = document.getElementById('producto_selector');
+    const clienteSelector = document.getElementById('id_cliente');
+    const clienteCedula = document.getElementById('clienteCedula');
+    const clienteCorreo = document.getElementById('clienteCorreo');
+    const clienteTelefono = document.getElementById('clienteTelefono');
+    const clienteUbicacion = document.getElementById('clienteUbicacion');
+    const cantidadInput = document.getElementById('cantidad_selector');
+    const tabla = document.getElementById('detalleTabla');
+    const detalleInput = document.getElementById('detalle_json');
+    const stockAyuda = document.getElementById('stockAyuda');
 
-    const selectProducto =
-        document.getElementById('select_producto');
+    let carrito = [];
 
-    const inputCantidad =
-        document.getElementById('input_cantidad');
+    function moneda(v) {
+        return '$' + Number(v).toFixed(2);
+    }
 
-    const inputTotal =
-        document.getElementById('input_total');
-
-
-    function calcularTotal() {
-
-        if (
-            !selectProducto ||
-            !inputCantidad ||
-            !inputTotal
-        ) {
+    function actualizarClienteFactura() {
+        if (!clienteSelector) {
             return;
         }
 
+        const cliente = clientes.find(
+            c => String(c.id) === String(clienteSelector.value)
+        );
 
-        const idProd =
-            selectProducto.value;
+        clienteCedula.textContent =
+            cliente && cliente.cedula ? cliente.cedula : 'No registrada';
 
-        const cantidad =
-            parseInt(inputCantidad.value) || 1;
+        clienteCorreo.textContent =
+            cliente && cliente.correo ? cliente.correo : 'No registrado';
 
+        clienteTelefono.textContent =
+            cliente && cliente.telefono ? cliente.telefono : 'No registrado';
 
-        if (
-            idProd &&
-            precios[idProd] !== undefined
-        ) {
+        clienteUbicacion.textContent =
+            cliente && cliente.ubicacion ? cliente.ubicacion : 'No registrada';
+    }
 
-            const precioUnitario =
-                Number(precios[idProd]);
+    function cargarProductos() {
+        selector.innerHTML = '<option value="">Seleccione un producto</option>';
 
-            const calculo =
-                precioUnitario * cantidad;
+        productos.forEach(p => {
+            const op = document.createElement('option');
 
+            op.value = p.id;
 
-            inputTotal.value =
-                calculo.toFixed(2);
+            op.textContent =
+                `${p.nombre} — ${moneda(p.precio)} — stock ${p.stock} — IVA ${p.iva}%`;
 
+            selector.appendChild(op);
+        });
+    }
+
+    function productoActual() {
+        return productos.find(
+            p => String(p.id) === selector.value
+        );
+    }
+
+    function actualizarAyuda() {
+        const p = productoActual();
+
+        stockAyuda.textContent = p
+            ? `Disponibles: ${p.stock} unidades. Tarifa IVA: ${p.iva}%.`
+            : '';
+    }
+
+    function render() {
+        tabla.innerHTML = '';
+
+        let baseTotal = 0;
+        let ivaTotal = 0;
+
+        if (!carrito.length) {
+            tabla.innerHTML = `
+                <tr>
+                    <td colspan="6" class="text-center py-4">
+                        Aún no has agregado productos.
+                    </td>
+                </tr>
+            `;
         }
 
+        carrito.forEach((item, i) => {
+            const p = productos.find(
+                x => x.id === item.id_producto
+            );
+
+            const base = p.precio * item.cantidad;
+            const iva = base * (p.iva / 100);
+            const subtotal = base + iva;
+
+            baseTotal += base;
+            ivaTotal += iva;
+
+            const tr = document.createElement('tr');
+
+            tr.innerHTML = `
+                <td>
+                    <strong>${p.nombre}</strong>
+                </td>
+
+                <td>
+                    ${item.cantidad}
+                </td>
+
+                <td>
+                    ${moneda(p.precio)}
+                </td>
+
+                <td>
+                    ${p.iva}%
+                </td>
+
+                <td>
+                    ${moneda(subtotal)}
+                </td>
+
+                <td>
+                    <button type="button"
+                            class="btn btn-sm btn-outline-danger"
+                            data-i="${i}">
+                        Quitar
+                    </button>
+                </td>
+            `;
+
+            tabla.appendChild(tr);
+        });
+
+        tabla.querySelectorAll('button[data-i]').forEach(btn => {
+            btn.addEventListener('click', () => {
+                carrito.splice(Number(btn.dataset.i), 1);
+                render();
+            });
+        });
+
+        detalleInput.value = carrito.length
+            ? JSON.stringify(carrito)
+            : '';
+
+        document.getElementById('subtotalVista').textContent =
+            moneda(baseTotal);
+
+        document.getElementById('ivaVista').textContent =
+            moneda(ivaTotal);
+
+        document.getElementById('totalVista').textContent =
+            moneda(baseTotal + ivaTotal);
     }
 
+    selector.addEventListener('change', actualizarAyuda);
 
-    if (
-        selectProducto &&
-        inputCantidad &&
-        inputTotal
-    ) {
+    document.getElementById('agregarProducto').addEventListener(
+        'click',
+        () => {
+            const p = productoActual();
+            const cant = Number(cantidadInput.value);
 
-        selectProducto.addEventListener(
-            'change',
-            calcularTotal
-        );
+            if (!p) {
+                alert('Selecciona un producto.');
+                return;
+            }
 
+            if (!Number.isInteger(cant) || cant < 1) {
+                alert('Ingresa una cantidad válida.');
+                return;
+            }
 
-        inputCantidad.addEventListener(
-            'input',
-            calcularTotal
-        );
+            const existente = carrito.find(
+                x => x.id_producto === p.id
+            );
 
+            const totalSolicitado =
+                cant + (existente ? existente.cantidad : 0);
 
-        {% if not es_edicion %}
+            if (totalSolicitado > p.stock) {
+                alert(
+                    `Stock insuficiente. ${p.nombre} tiene ${p.stock} unidades disponibles.`
+                );
+                return;
+            }
 
-            calcularTotal();
+            if (existente) {
+                existente.cantidad = totalSolicitado;
+            } else {
+                carrito.push({
+                    id_producto: p.id,
+                    cantidad: cant
+                });
+            }
 
-        {% endif %}
+            cantidadInput.value = 1;
+            render();
+        }
+    );
 
+    document.getElementById('facturaForm').addEventListener(
+        'submit',
+        e => {
+            if (!carrito.length) {
+                e.preventDefault();
+                alert('Agrega al menos un producto a la factura.');
+            }
+        }
+    );
+
+    if (clienteSelector) {
+        clienteSelector.addEventListener('change', actualizarClienteFactura);
     }
 
+    cargarProductos();
+    actualizarClienteFactura();
+    actualizarAyuda();
+    render();
 </script>
 
 {% endblock %}

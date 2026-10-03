@@ -1,57 +1,49 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, SelectField, FloatField, SubmitField
-from wtforms.validators import DataRequired, Length, NumberRange
+from wtforms import StringField, SelectField, HiddenField, TextAreaField, SubmitField
+from wtforms.validators import DataRequired, Optional, Length
 
 
 class FacturacionForm(FlaskForm):
-
     numero = StringField(
         "Número de factura",
-        validators=[
-            DataRequired(
-                message="El número de factura es obligatorio."
-            ),
-            Length(
-                min=3,
-                max=20,
-                message="El número de factura debe tener entre 3 y 20 caracteres."
-            )
-        ]
+        validators=[Optional()]
     )
 
     id_cliente = SelectField(
         "Cliente",
         choices=[],
         coerce=int,
-        validators=[
-            DataRequired(
-                message="Debe seleccionar un cliente."
-            )
-        ]
+        validators=[DataRequired(message="Debe seleccionar un cliente.")]
     )
 
-    id_producto = SelectField(
-        "Producto",
-        choices=[],
-        coerce=int,
-        validators=[
-            DataRequired(
-                message="Debe seleccionar un producto."
-            )
-        ]
+    forma_pago = SelectField(
+        "Forma de pago",
+        choices=[
+            ("01", "Efectivo / sin utilización del sistema financiero"),
+            ("20", "Transferencia, tarjeta u otro medio financiero")
+        ],
+        validators=[DataRequired(message="Seleccione una forma de pago.")]
     )
 
-    total = FloatField(
-        "Total",
-        validators=[
-            DataRequired(
-                message="El total es obligatorio."
-            ),
-            NumberRange(
-                min=0,
-                message="El total no puede ser negativo."
-            )
-        ]
+    detalle_json = HiddenField(
+        "Detalle",
+        validators=[DataRequired(message="Agregue al menos un producto a la factura.")]
     )
 
-    enviar = SubmitField("Registrar factura")
+    observaciones = TextAreaField(
+        "Observaciones",
+        validators=[Optional(), Length(max=300, message="Máximo 300 caracteres.")]
+    )
+
+    enviar = SubmitField("Emitir factura")
+
+
+class AnularFacturaForm(FlaskForm):
+    motivo = TextAreaField(
+        "Motivo de anulación",
+        validators=[
+            DataRequired(message="Indique el motivo de la anulación."),
+            Length(min=4, max=300, message="El motivo debe tener entre 4 y 300 caracteres.")
+        ]
+    )
+    enviar = SubmitField("Anular factura")

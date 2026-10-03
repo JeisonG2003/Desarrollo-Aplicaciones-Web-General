@@ -35,7 +35,7 @@ Productos - AgroTech
             </div>
 
 
-            <div class="crud-header-action">
+            {% if current_user.rol == 'ADMIN' %}<div class="crud-header-action">
 
                 <a
                     href="{{ url_for('nuevo_producto') }}"
@@ -47,7 +47,7 @@ Productos - AgroTech
 
                 </a>
 
-            </div>
+            </div>{% endif %}
 
         </div>
 
@@ -129,6 +129,8 @@ Productos - AgroTech
                                 Precio
                             </th>
 
+                            <th>IVA</th>
+
                             <th>
                                 Stock
                             </th>
@@ -190,7 +192,6 @@ Productos - AgroTech
                                     </strong>
 
                                 </div>
-
                             </td>
 
 
@@ -223,13 +224,11 @@ Productos - AgroTech
 
 
 
+                            <!-- IVA -->
+                            <td>{{ producto.iva_porcentaje|int }}%</td>
+
                             <!-- STOCK -->
-
-                            <td>
-
-                                {{ producto.stock }}
-
-                            </td>
+                            <td>{{ producto.stock }}</td>
 
 
 
@@ -259,7 +258,9 @@ Productos - AgroTech
 
                             <td>
 
-                                {% if producto.stock > 0 %}
+                                {% if not producto.activo %}
+                                    <span class="crud-status crud-status-danger"><span></span> Inactivo</span>
+                                {% elif producto.stock > 0 %}
 
                                     <span class="crud-status crud-status-success">
 
@@ -288,7 +289,7 @@ Productos - AgroTech
                             <!-- ACCIONES -->
 
                             <td>
-
+                                {% if current_user.rol == 'ADMIN' %}
                                 <div class="crud-actions">
 
 
@@ -316,18 +317,18 @@ Productos - AgroTech
                                         method="POST"
                                         class="crud-delete-form"
                                         onsubmit="return confirm(
-                                            '¿Seguro que deseas eliminar este producto?'
+                                            '¿Deseas cambiar el estado de este producto? El historial se conservará.'
                                         );">
 
 
                                         <button
                                             type="submit"
                                             class="crud-action-button crud-delete"
-                                            aria-label="Eliminar {{ producto.nombre }}">
+                                            aria-label="Cambiar estado de {{ producto.nombre }}">
 
-                                            <i class="bi bi-trash"></i>
+                                            <i class="bi bi-arrow-repeat"></i>
 
-                                            Eliminar
+                                            {{ 'Desactivar' if producto.activo else 'Activar' }}
 
                                         </button>
 
@@ -335,7 +336,7 @@ Productos - AgroTech
 
 
                                 </div>
-
+                                {% else %}<span class="crud-muted">Consulta</span>{% endif %}
                             </td>
 
 
@@ -350,7 +351,7 @@ Productos - AgroTech
                         <tr>
 
                             <td
-                                colspan="8"
+                                colspan="9"
                                 class="crud-empty-cell">
 
                                 <div class="crud-empty-state">
@@ -373,15 +374,9 @@ Productos - AgroTech
                                     </p>
 
 
-                                    <a
-                                        href="{{ url_for('nuevo_producto') }}"
-                                        class="crud-primary-button">
-
-                                        <i class="bi bi-plus-lg"></i>
-
-                                        Registrar primer producto
-
-                                    </a>
+                                    {% if current_user.rol == 'ADMIN' %}
+                                    <a href="{{ url_for('nuevo_producto') }}" class="crud-primary-button"><i class="bi bi-plus-lg"></i> Registrar primer producto</a>
+                                    {% endif %}
 
                                 </div>
 

@@ -1121,18 +1121,20 @@ Inicio - AgroTech
                             <div>
                                 <i class="bi bi-envelope"></i>
 
-                                <span>
+                                <a href="mailto:garciaarreagaj@gmail.com"
+                                   class="contact-data-link">
                                     garciaarreagaj@gmail.com
-                                </span>
+                                </a>
                             </div>
 
 
                             <div>
                                 <i class="bi bi-telephone"></i>
 
-                                <span>
-                                    0989229387
-                                </span>
+                                <a href="tel:+593989229387"
+                                   class="contact-data-link">
+                                    098 922 9387
+                                </a>
                             </div>
 
 
@@ -1149,32 +1151,37 @@ Inicio - AgroTech
 
                         <div class="contact-socials">
 
-                            <a
-                                href="mailto:garciaarreagaj@gmail.com"
-                                aria-label="Correo">
-
+                            <a href="mailto:garciaarreagaj@gmail.com"
+                               aria-label="Enviar correo a AgroTech"
+                               title="Correo">
                                 <i class="bi bi-envelope"></i>
-
                             </a>
 
 
-                            <a
-                                href="https://www.facebook.com"
-                                target="_blank"
-                                aria-label="Facebook">
-
+                            <a href="https://www.facebook.com/"
+                               target="_blank"
+                               rel="noopener noreferrer"
+                               aria-label="Abrir Facebook"
+                               title="Facebook">
                                 <i class="bi bi-facebook"></i>
-
                             </a>
 
 
-                            <a
-                                href="https://www.instagram.com"
-                                target="_blank"
-                                aria-label="Instagram">
-
+                            <a href="https://www.instagram.com/"
+                               target="_blank"
+                               rel="noopener noreferrer"
+                               aria-label="Abrir Instagram"
+                               title="Instagram">
                                 <i class="bi bi-instagram"></i>
+                            </a>
 
+
+                            <a href="https://www.linkedin.com/"
+                               target="_blank"
+                               rel="noopener noreferrer"
+                               aria-label="Abrir LinkedIn"
+                               title="LinkedIn">
+                                <i class="bi bi-linkedin"></i>
                             </a>
 
                         </div>
@@ -1212,7 +1219,8 @@ Inicio - AgroTech
                                     <input
                                         type="text"
                                         class="form-control"
-                                        placeholder="Ej.: Ana Torres">
+                                        placeholder="Ej.: Ana Torres"
+                                        required>
 
                                 </div>
 
@@ -1226,7 +1234,8 @@ Inicio - AgroTech
                                     <input
                                         type="email"
                                         class="form-control"
-                                        placeholder="Ej.: ana.torres@gmail.com">
+                                        placeholder="Ej.: ana.torres@gmail.com"
+                                        required>
 
                                 </div>
 
@@ -1240,7 +1249,8 @@ Inicio - AgroTech
                                     <input
                                         type="text"
                                         class="form-control"
-                                        placeholder="Ej.: Consulta sobre AgroTech">
+                                        placeholder="Ej.: Consulta sobre AgroTech"
+                                        required>
 
                                 </div>
 
@@ -1254,7 +1264,8 @@ Inicio - AgroTech
                                     <textarea
                                         class="form-control"
                                         rows="5"
-                                        placeholder="Cuéntanos brevemente en qué podemos ayudarte"></textarea>
+                                        placeholder="Cuéntanos brevemente en qué podemos ayudarte"
+                                        required></textarea>
 
                                 </div>
 
@@ -1263,11 +1274,19 @@ Inicio - AgroTech
 
                                     <button
                                         type="submit"
-                                        class="contact-submit">
+                                        class="contact-submit"
+                                        id="btnContacto">
 
-                                        Enviar mensaje
+                                        <span id="textoBtnContacto">
+                                            Enviar mensaje
+                                        </span>
 
-                                        <i class="bi bi-arrow-right"></i>
+                                        <span id="spinnerContacto"
+                                              class="spinner-border spinner-border-sm d-none"
+                                              aria-hidden="true"></span>
+
+                                        <i id="flechaContacto"
+                                           class="bi bi-arrow-right"></i>
 
                                     </button>
 
@@ -1277,6 +1296,14 @@ Inicio - AgroTech
                             </div>
 
                         </form>
+
+                        <div id="mensajeContactoExito"
+                             class="alert alert-success mt-3 d-none"
+                             role="status">
+                            <i class="bi bi-check-circle-fill me-2"></i>
+                            <strong>Mensaje enviado correctamente.</strong>
+                            Gracias por contactarnos.
+                        </div>
 
                     </div>
 
@@ -1465,5 +1492,58 @@ Inicio - AgroTech
 
 </div>
 
+
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+    const formulario = document.getElementById("formContacto");
+    const boton = document.getElementById("btnContacto");
+    const textoBoton = document.getElementById("textoBtnContacto");
+    const spinner = document.getElementById("spinnerContacto");
+    const flecha = document.getElementById("flechaContacto");
+    const mensajeExito = document.getElementById("mensajeContactoExito");
+
+    if (!formulario || !boton || !mensajeExito) {
+        return;
+    }
+
+    formulario.addEventListener("submit", function (event) {
+
+        event.preventDefault();
+
+        if (!formulario.checkValidity()) {
+            formulario.reportValidity();
+            return;
+        }
+
+        mensajeExito.classList.add("d-none");
+
+        boton.disabled = true;
+        textoBoton.textContent = "Enviando...";
+        spinner.classList.remove("d-none");
+        flecha.classList.add("d-none");
+
+        setTimeout(function () {
+
+            formulario.reset();
+
+            spinner.classList.add("d-none");
+            flecha.classList.remove("d-none");
+            textoBoton.textContent = "Enviar mensaje";
+            boton.disabled = false;
+
+            mensajeExito.classList.remove("d-none");
+
+            setTimeout(function () {
+                mensajeExito.classList.add("d-none");
+            }, 5000);
+
+        }, 700);
+
+    });
+
+});
+</script>
 
 {% endblock %}

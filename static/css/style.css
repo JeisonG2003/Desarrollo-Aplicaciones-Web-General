@@ -4094,3 +4094,88 @@ textarea.form-control{
     background-color: #2e7d32;
     color: white;
 }
+/* =========================================================
+   FACTURACION - ALINEACION PRODUCTO / CANTIDAD / AGREGAR
+========================================================= */
+
+.factura-product-row{
+    display:grid;
+
+    grid-template-columns:
+        minmax(0, 2.4fr)
+        minmax(140px, .85fr)
+        125px;
+
+    gap:16px;
+
+    align-items:start;
+}
+
+
+/* Los campos deben ocupar todo el espacio disponible */
+.factura-product-field,
+.factura-quantity-field,
+.factura-add-field{
+    min-width:0;
+}
+
+
+/* Corrige el espacio interno que tenía el estilo general */
+.factura-control{
+    width:100%;
+
+    min-height:50px;
+
+    padding-left:16px;
+}
+
+
+/* Label invisible para que el botón quede
+   exactamente a la altura de los inputs */
+.factura-action-label{
+    visibility:hidden;
+}
+
+
+/* Botón con la misma altura de los campos */
+.factura-add-button{
+    width:100%;
+
+    min-height:50px;
+
+    padding:11px 16px;
+
+    margin:0;
+}
+
+
+/* Texto de stock debajo del producto */
+.factura-stock-help{
+    margin-top:7px;
+    min-height:18px;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media(max-width:767px){
+
+    .factura-product-row{
+        grid-template-columns:1fr;
+
+        gap:14px;
+    }
+
+
+    .factura-action-label{
+        display:none;
+    }
+
+
+    .factura-add-button{
+        width:100%;
+    }
+
+}

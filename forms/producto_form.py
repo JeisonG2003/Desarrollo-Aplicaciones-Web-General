@@ -47,6 +47,16 @@ class ProductoForm(FlaskForm):
         ]
     )
 
+    iva_porcentaje = SelectField(
+        "Tarifa de IVA",
+        choices=[
+            (0, "0%"),
+            (15, "15%")
+        ],
+        coerce=int,
+        validators=[InputRequired(message="Seleccione la tarifa de IVA.")]
+    )
+
     stock = IntegerField(
         "Stock",
         validators=[

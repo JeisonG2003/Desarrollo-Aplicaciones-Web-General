@@ -209,7 +209,7 @@ Registrar Producto - AgroTech
 
                         <!-- PRECIO -->
 
-                        <div class="col-md-6">
+                        <div class="col-md-4">
 
                             <div class="agro-form-group">
 
@@ -253,9 +253,23 @@ Registrar Producto - AgroTech
 
 
 
+                        <!-- IVA -->
+
+                        <div class="col-md-4">
+                            <div class="agro-form-group">
+                                {{ form.iva_porcentaje.label(class="form-label") }}
+                                <div class="agro-select-wrapper">
+                                    <span class="agro-input-icon"><i class="bi bi-percent"></i></span>
+                                    {{ form.iva_porcentaje(class="form-select agro-form-control") }}
+                                </div>
+                                <div class="agro-form-help">Tarifa aplicable para el cálculo de la factura.</div>
+                                {% for error in form.iva_porcentaje.errors %}<div class="agro-form-error">{{ error }}</div>{% endfor %}
+                            </div>
+                        </div>
+
                         <!-- STOCK -->
 
-                        <div class="col-md-6">
+                        <div class="col-md-4">
 
                             <div class="agro-form-group">
 
