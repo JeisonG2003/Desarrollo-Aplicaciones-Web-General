@@ -45,8 +45,7 @@ app.config["POSTGRES_DB"] = os.getenv("POSTGRES_DB")
 app.config["POSTGRES_USER"] = os.getenv("POSTGRES_USER")
 app.config["POSTGRES_PASSWORD"] = os.getenv("POSTGRES_PASSWORD")
 
-# Datos del emisor para la representación impresa académica tipo RIDE.
-# Este proyecto NO se conecta al SRI ni genera autorizaciones tributarias reales.
+
 app.config["EMISOR_RAZON_SOCIAL"] = os.getenv(
     "EMISOR_RAZON_SOCIAL",
     "AgroTech - Proyecto Académico"
@@ -1272,8 +1271,6 @@ def nueva_factura():
         for p in productos
     ]
 
-    # Datos del cliente para mostrarlos automáticamente al seleccionarlo.
-    # No se vuelven a escribir en el formulario: se toman de la tabla clientes.
     clientes_front = [
         {
             "id": c["id_cliente"],

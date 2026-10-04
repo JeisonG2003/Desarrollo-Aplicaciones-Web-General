@@ -280,10 +280,10 @@ En esta etapa PostgreSQL se establece como el sistema de gestión de base de dat
 - Gestionar proyectos mediante Git y GitHub.
 - Desarrollar progresivamente una aplicación web relacionada con el sector agrícola.
 
-### Autor
+### Autores
 
-**Jeison Teobaldo García Arreaga**
-**Cornejo Olaya Lissi Antonella**
+- **Jeison Teobaldo García Arreaga**
+- **Cornejo Olaya Lissi Antonella**
 
 Estudiantes de Ingeniería en Tecnologías de la Información  
 Universidad Estatal Amazónica

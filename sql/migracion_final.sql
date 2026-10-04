@@ -1,7 +1,5 @@
 -- ============================================================
--- AGROTECH - MIGRACIÓN A VERSIÓN FINAL FUNCIONAL
--- Ejecutar UNA VEZ sobre la base PostgreSQL existente.
--- Conserva los datos actuales.
+-- AGROTECH - MEJORAS DE ESQUEMA POSTGRESQL
 -- ============================================================
 
 BEGIN;
@@ -20,7 +18,6 @@ ALTER TABLE usuarios ADD CONSTRAINT chk_usuario_rol CHECK (rol IN ('ADMIN','USUA
 ALTER TABLE usuarios DROP CONSTRAINT IF EXISTS chk_usuario_estado;
 ALTER TABLE usuarios ADD CONSTRAINT chk_usuario_estado CHECK (estado IN ('ACTIVO','INACTIVO'));
 
--- Si todavía no existe ADMIN, convertir la cuenta más antigua.
 UPDATE usuarios SET rol = 'ADMIN'
 WHERE id = (SELECT MIN(id) FROM usuarios)
   AND NOT EXISTS (SELECT 1 FROM usuarios WHERE rol = 'ADMIN');
@@ -54,7 +51,6 @@ ALTER TABLE facturas ADD CONSTRAINT chk_factura_estado CHECK (estado IN ('ACTIVA
 ALTER TABLE facturas DROP CONSTRAINT IF EXISTS fk_factura_usuario;
 ALTER TABLE facturas ADD CONSTRAINT fk_factura_usuario FOREIGN KEY (id_usuario) REFERENCES usuarios(id);
 
--- Los comprobantes anteriores no registraban impuesto por separado; se conservan sin inventarlo.
 UPDATE facturas
 SET subtotal_sin_impuestos = total,
     base_iva_0 = total,
@@ -75,8 +71,6 @@ CREATE TABLE IF NOT EXISTS detalle_factura (
     subtotal DECIMAL(12,2) NOT NULL CHECK (subtotal >= 0)
 );
 
--- Migrar facturas antiguas, que solo podían guardar un producto y no tenían cantidad.
--- Se conserva como cantidad 1 porque es lo único demostrable en el esquema anterior.
 INSERT INTO detalle_factura (
     id_factura, id_producto, cantidad, precio_unitario,
     iva_porcentaje, base_imponible, valor_iva, subtotal
@@ -121,6 +115,5 @@ SELECT setval(
 );
 
 -- Se conserva facturas.id_producto por compatibilidad con datos antiguos.
--- La aplicación nueva ya NO lo utiliza.
 
 COMMIT;

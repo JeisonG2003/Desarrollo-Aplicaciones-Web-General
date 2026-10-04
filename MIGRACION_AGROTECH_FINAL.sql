@@ -152,12 +152,6 @@ CREATE TABLE IF NOT EXISTS detalle_factura (
     subtotal DECIMAL(12,2) NOT NULL CHECK (subtotal >= 0)
 );
 
--- Migrar facturas antiguas, que solo podían guardar un producto
--- y no tenían cantidad.
-
--- Se conserva como cantidad 1 porque es lo único demostrable
--- en el esquema anterior.
-
 INSERT INTO detalle_factura (
     id_factura,
     id_producto,
@@ -241,8 +235,5 @@ SELECT setval(
 );
 
 -- Se conserva facturas.id_producto por compatibilidad
--- con datos antiguos.
-
--- La aplicación nueva ya NO lo utiliza.
 
 COMMIT;

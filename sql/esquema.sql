@@ -1,6 +1,5 @@
 -- ============================================================
--- AGROTECH - ESQUEMA POSTGRESQL VERSION FINAL
--- Para una base NUEVA. Si ya tienes datos usa migracion_final.sql.
+-- AGROTECH - ESQUEMA POSTGRESQL
 -- ============================================================
 
 CREATE TABLE IF NOT EXISTS usuarios (
